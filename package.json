@@ -18,7 +18,10 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "preview": "vite preview --host",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "auto-commit": "node auto-commit.cjs",
+    "deploy": "npm run auto-commit && echo '🚀 Desplegando en https://hubbax.vercel.app/'",
+    "commit": "powershell -ExecutionPolicy Bypass -File auto-commit.bat"
   },
   "dependencies": {
     "react": "^19.0.0",

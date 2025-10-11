@@ -1,0 +1,15 @@
+{
+  "name": "hubbax-auto-commit",
+  "version": "1.0.0",
+  "description": "Auto-commit system for HubbaX development",
+  "scripts": {
+    "auto-commit": "node auto-commit.js",
+    "dev-watch": "concurrently \"npm run dev\" \"npm run watch-and-commit\"",
+    "watch-and-commit": "chokidar \"src/**/*\" -c \"npm run auto-commit\"",
+    "deploy": "npm run auto-commit && echo '🚀 Desplegando en https://hubbax.vercel.app/'"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^8.2.2"
+  }
+}
