@@ -1,18 +1,26 @@
-/* HubbaX Login Page Styles - Versión Moderna con React 19 */
+/* HubbaX Login Page Styles - Red Social del Futuro */
+
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+}
 
 .login-container {
   display: flex;
-  min-height: 100vh;
+  min-height: 90vh;
   max-width: 1200px;
   margin: 0 auto;
   align-items: center;
   padding: 20px;
-  gap: 40px;
+  gap: 60px;
 }
 
 .login-left {
   flex: 1;
   max-width: 580px;
+  color: white;
 }
 
 .login-content {
@@ -20,34 +28,81 @@
 }
 
 .logo {
-  font-size: clamp(40px, 5vw, 60px);
-  font-weight: bold;
-  color: #1877f2;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 800;
+  color: white;
   margin-bottom: 20px;
   line-height: 1;
   letter-spacing: -0.02em;
+  text-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .tagline {
-  font-size: clamp(18px, 3vw, 28px);
+  font-size: clamp(20px, 3vw, 32px);
   line-height: 1.2;
-  color: #1c1e21;
-  font-weight: normal;
+  color: rgba(255,255,255,0.95);
+  font-weight: 500;
+  margin-bottom: 40px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Características modernas */
+.features-preview {
+  display: grid;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  color: rgba(255,255,255,0.9);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.feature-icon {
+  font-size: 24px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
 .login-right {
   flex: 1;
   display: flex;
   justify-content: center;
-  max-width: 396px;
+  max-width: 400px;
 }
 
 .login-form-container {
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
-  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 32px;
   width: 100%;
+  max-width: 400px;
+  backdrop-filter: blur(10px);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.form-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1c1e21;
+  margin-bottom: 8px;
+}
+
+.form-header p {
+  color: #65676b;
+  font-size: 16px;
+}
+
+.login-form-container {
   max-width: 396px;
 }
 
@@ -297,5 +352,195 @@
   .login-button:focus,
   .create-account-button:focus {
     outline-width: 3px;
+  }
+}
+
+/* Footer moderno para nueva red social */
+.modern-footer {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 40px 20px 20px;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  color: white;
+}
+
+.value-props {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.value-prop {
+  text-align: center;
+}
+
+.value-prop h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.value-prop p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.4;
+}
+
+.demo-access {
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.demo-access h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.demo-access p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.9);
+  margin: 4px 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+}
+
+/* Estilos específicos para el registro */
+.register-form {
+  animation: slideInFromRight 0.3s ease-out;
+}
+
+.name-inputs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.name-input {
+  flex: 1;
+}
+
+.register-button {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  font-weight: 600;
+}
+
+.register-button:hover {
+  background: linear-gradient(135deg, #218838 0%, #1ba085 100%);
+  transform: translateY(-1px);
+}
+
+.register-button:disabled {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  transform: none;
+}
+
+.back-to-login-button {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.back-to-login-button:hover {
+  background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+  transform: translateY(-1px);
+}
+
+.back-to-login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.terms-text {
+  font-size: 13px;
+  color: #65676b;
+  line-height: 1.4;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #1877f2;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: inherit;
+  padding: 0;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+/* Animaciones para transiciones */
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.login-form:not(.register-form) {
+  animation: slideInFromLeft 0.3s ease-out;
+}
+
+/* Responsive para formularios de registro */
+@media (max-width: 768px) {
+  .name-inputs {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .name-input {
+    flex: none;
+  }
+  
+  .terms-text {
+    font-size: 12px;
+    padding: 0 10px;
   }
 }
