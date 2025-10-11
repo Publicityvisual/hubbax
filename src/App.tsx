@@ -1,14 +1,40 @@
-import { useState } from 'react'
+import { useActionState } from 'react'
 import './App.css'
 
 function App() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  // Usando las nuevas APIs de React 19
+  const [loginState, loginAction, isPending] = useActionState(
+    async (_previousState: any, formData: FormData) => {
+      const email = formData.get('email') as string
+      const password = formData.get('password') as string
+      
+      console.log('Login con React 19 Actions:', { email, password })
+      
+      // Simular API call
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Simular validación
+      if (!email || !password) {
+        return { error: 'Email y contraseña son requeridos' }
+      }
+      
+      if (email === 'test@hubbax.com' && password === 'demo') {
+        return { success: true, message: '¡Bienvenido a HubbaX!' }
+      }
+      
+      return { error: 'Credenciales incorrectas' }
+    },
+    null
+  )
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log('Login attempt:', { email, password })
-    // Aquí iría la lógica de autenticación
+  const handleCreateAccount = async () => {
+    console.log('Crear cuenta nueva en HubbaX')
+    // Aquí iría la navegación a registro
+  }
+
+  const handleForgotPassword = async () => {
+    console.log('Recuperar contraseña')
+    // Aquí iría la lógica para recuperar contraseña
   }
 
   return (
@@ -17,43 +43,75 @@ function App() {
         <div className="login-content">
           <h1 className="logo">HubbaX</h1>
           <p className="tagline">
-            HubbaX te ayuda a conectar y compartir con las personas en tu vida.
+            Conecta con amigos y el mundo que te rodea en HubbaX.
           </p>
         </div>
       </div>
       
       <div className="login-right">
         <div className="login-form-container">
-          <form className="login-form" onSubmit={handleLogin}>
+          {/* Usando React 19 form actions */}
+          <form className="login-form" action={loginAction} aria-label="Formulario de inicio de sesión">
             <input
               type="email"
-              placeholder="Correo electrónico"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              placeholder="Correo electrónico o número de celular"
               className="login-input"
+              aria-label="Correo electrónico o número de celular"
               required
+              disabled={isPending}
             />
             <input
               type="password"
+              name="password"
               placeholder="Contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               className="login-input"
+              aria-label="Contraseña"
               required
+              disabled={isPending}
             />
-            <button type="submit" className="login-button">
-              Iniciar sesión
+            <button type="submit" className="login-button" disabled={isPending}>
+              {isPending ? 'Iniciando sesión...' : 'Iniciar sesión'}
             </button>
-            <a href="#" className="forgot-password">
-              ¿Olvidaste tu contraseña?
-            </a>
-            <div className="divider"></div>
-            <button type="button" className="create-account-button">
+            
+            {/* Mostrar estado del login */}
+            {loginState?.error && (
+              <div className="error-message" role="alert">
+                {loginState.error}
+              </div>
+            )}
+            {loginState?.success && (
+              <div className="success-message" role="alert">
+                {loginState.message}
+              </div>
+            )}
+            
+            <button 
+              type="button" 
+              className="forgot-password"
+              onClick={handleForgotPassword}
+              disabled={isPending}
+            >
+              ¿Olvidaste la contraseña?
+            </button>
+            <div className="divider" role="separator"></div>
+            <button 
+              type="button" 
+              className="create-account-button"
+              onClick={handleCreateAccount}
+              disabled={isPending}
+            >
               Crear cuenta nueva
             </button>
           </form>
           <p className="create-page">
-            <a href="#"><strong>Crea una página</strong></a> para una celebridad, una marca o un negocio.
+            <button 
+              type="button"
+              className="create-page-link"
+              onClick={() => console.log('Crear página para empresa')}
+            >
+              <strong>Crear una página</strong>
+            </button> para una celebridad, marca o empresa.
           </p>
         </div>
       </div>

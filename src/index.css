@@ -1,4 +1,41 @@
-/* HubbaX Global Styles */
+/* HubbaX Global Styles - Versión Moderna */
+
+:root {
+  /* Colores principales HubbaX */
+  --color-primary: #1877f2;
+  --color-primary-hover: #166fe5;
+  --color-secondary: #42b883;
+  --color-secondary-hover: #369870;
+  --color-background: #f0f2f5;
+  --color-surface: #ffffff;
+  --color-text-primary: #1c1e21;
+  --color-text-secondary: #65676b;
+  --color-border: #dddfe2;
+  --color-border-focus: rgba(24, 119, 242, 0.2);
+  
+  /* Tipografía */
+  --font-family-primary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-size-base: 17px;
+  --font-size-large: 20px;
+  --font-size-small: 14px;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  
+  /* Espaciado */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 20px;
+  --spacing-lg: 28px;
+  --spacing-xl: 40px;
+  
+  /* Bordes y sombras */
+  --border-radius: 6px;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+  
+  /* Transiciones */
+  --transition-fast: 0.2s;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,19 +43,51 @@
 }
 
 html {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-primary);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  background-color: #f0f2f5;
-  color: #1c1e21;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0s;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Soporte para modo oscuro futuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #18191a;
+    --color-surface: #242526;
+    --color-text-primary: #e4e6ea;
+    --color-text-secondary: #b0b3b8;
+    --color-border: #3a3b3c;
+  }
 }

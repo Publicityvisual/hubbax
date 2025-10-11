@@ -1,4 +1,4 @@
-/* HubbaX Login Page Styles */
+/* HubbaX Login Page Styles - Versión Moderna con React 19 */
 
 .login-container {
   display: flex;
@@ -7,11 +7,12 @@
   margin: 0 auto;
   align-items: center;
   padding: 20px;
+  gap: 40px;
 }
 
 .login-left {
   flex: 1;
-  padding-right: 60px;
+  max-width: 580px;
 }
 
 .login-content {
@@ -19,16 +20,17 @@
 }
 
 .logo {
-  font-size: 60px;
+  font-size: clamp(40px, 5vw, 60px);
   font-weight: bold;
   color: #1877f2;
   margin-bottom: 20px;
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .tagline {
-  font-size: 28px;
-  line-height: 32px;
+  font-size: clamp(18px, 3vw, 28px);
+  line-height: 1.2;
   color: #1c1e21;
   font-weight: normal;
 }
@@ -37,6 +39,7 @@
   flex: 1;
   display: flex;
   justify-content: center;
+  max-width: 396px;
 }
 
 .login-form-container {
@@ -61,12 +64,17 @@
   font-size: 17px;
   line-height: 1.5;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
 }
 
 .login-input:focus {
   border-color: #1877f2;
   box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+}
+
+.login-input::placeholder {
+  color: #65676b;
 }
 
 .login-button {
@@ -79,21 +87,33 @@
   padding: 12px 16px;
   cursor: pointer;
   transition: background-color 0.2s;
+  font-family: inherit;
 }
 
 .login-button:hover {
   background: #166fe5;
 }
 
+.login-button:focus {
+  outline: 2px solid #1877f2;
+  outline-offset: 2px;
+}
+
 .forgot-password {
+  background: none;
+  border: none;
   color: #1877f2;
   text-decoration: none;
   text-align: center;
   font-size: 14px;
   margin-top: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: text-decoration 0.2s;
 }
 
-.forgot-password:hover {
+.forgot-password:hover,
+.forgot-password:focus {
   text-decoration: underline;
 }
 
@@ -113,10 +133,16 @@
   cursor: pointer;
   align-self: center;
   transition: background-color 0.2s;
+  font-family: inherit;
 }
 
 .create-account-button:hover {
   background: #369870;
+}
+
+.create-account-button:focus {
+  outline: 2px solid #42b883;
+  outline-offset: 2px;
 }
 
 .create-page {
@@ -124,38 +150,93 @@
   margin-top: 28px;
   font-size: 14px;
   color: #1c1e21;
+  line-height: 1.4;
 }
 
-.create-page a {
+.create-page-link {
+  background: none;
+  border: none;
   color: #1c1e21;
   text-decoration: none;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+  transition: text-decoration 0.2s;
 }
 
-.create-page a:hover {
+.create-page-link:hover,
+.create-page-link:focus {
   text-decoration: underline;
 }
 
-/* Responsive Design */
+/* Mensajes de estado - React 19 */
+.error-message,
+.success-message {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin: 16px 0;
+  text-align: center;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef5350;
+}
+
+.success-message {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #4caf50;
+}
+
+/* Estados de carga mejorados - React 19 */
+.login-button:disabled,
+.create-account-button:disabled,
+.forgot-password:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.login-input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  color: #666;
+}
+
+/* Animación para mensajes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design Mejorado */
 @media (max-width: 768px) {
   .login-container {
     flex-direction: column;
     padding: 20px;
     justify-content: center;
+    gap: 40px;
   }
   
   .login-left {
     text-align: center;
-    padding-right: 0;
-    margin-bottom: 40px;
+    max-width: 100%;
   }
   
-  .logo {
-    font-size: 48px;
-  }
-  
-  .tagline {
-    font-size: 22px;
-    line-height: 28px;
+  .login-right {
+    max-width: 100%;
   }
   
   .login-form-container {
@@ -166,29 +247,55 @@
 
 @media (max-width: 480px) {
   .login-container {
-    padding: 10px;
-  }
-  
-  .logo {
-    font-size: 40px;
-  }
-  
-  .tagline {
-    font-size: 18px;
-    line-height: 24px;
+    padding: 16px;
   }
   
   .login-form-container {
     padding: 16px;
+    box-shadow: none;
+    border: 1px solid #dddfe2;
   }
   
   .login-input {
-    font-size: 16px;
+    font-size: 16px; /* Evita zoom en iOS */
     padding: 12px 14px;
   }
   
   .login-button {
     font-size: 18px;
     padding: 10px 14px;
+  }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .login-input,
+  .login-button,
+  .create-account-button,
+  .forgot-password,
+  .create-page-link {
+    transition: none;
+  }
+  
+  .error-message,
+  .success-message {
+    animation: none;
+  }
+}
+
+/* Estados de alto contraste */
+@media (prefers-contrast: high) {
+  .login-input {
+    border-width: 2px;
+  }
+  
+  .login-button,
+  .create-account-button {
+    border: 2px solid transparent;
+  }
+  
+  .login-button:focus,
+  .create-account-button:focus {
+    outline-width: 3px;
   }
 }
