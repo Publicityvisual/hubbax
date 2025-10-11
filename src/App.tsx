@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './App.css'
+import './App-new.css'
 
 function App() {
   // Estado para controlar si estamos en login o register
