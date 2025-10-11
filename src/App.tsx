@@ -90,26 +90,40 @@ function App() {
             <h1 className="logo">HubbaX</h1>
             <p className="tagline">
               {currentView === 'login' 
-                ? 'La red social auténtica para México.' 
-                : 'Únete a la revolución social mexicana.'}
+                ? 'Conecta con amigos y comunidades auténticas de México.' 
+                : 'Únete a la revolución social mexicana y conecta de verdad.'}
             </p>
             <div className="features-preview">
               <div className="feature-item">
                 <span className="feature-icon">🔒</span>
-                <span>100% Privacidad Real</span>
+                <span>100% Privacidad Real - Sin vender tus datos</span>
               </div>
               <div className="feature-item">
                 <span className="feature-icon">🇲🇽</span>
-                <span>Comunidades Locales</span>
+                <span>Comunidades Locales - Contenido mexicano</span>
               </div>
               <div className="feature-item">
                 <span className="feature-icon">✨</span>
-                <span>Sin Algoritmos Tóxicos</span>
+                <span>Sin Algoritmos Tóxicos - Tu timeline real</span>
               </div>
               <div className="feature-item">
                 <span className="feature-icon">🎯</span>
-                <span>Contenido Auténtico</span>
+                <span>Contenido Auténtico - Sin fake news</span>
               </div>
+              <div className="feature-item">
+                <span className="feature-icon">🚀</span>
+                <span>Nueva Generación - Hecho para Gen Z y Millennials</span>
+              </div>
+            </div>
+            
+            {/* Selector de idioma como Facebook */}
+            <div className="language-selector">
+              <button className="lang-btn active">Español</button>
+              <button className="lang-btn">English</button>
+              <button className="lang-btn">Français</button>
+              <button className="lang-btn">Português</button>
+              <button className="lang-btn">Italiano</button>
+              <button className="lang-btn">العربية</button>
             </div>
           </div>
         </div>
@@ -121,40 +135,43 @@ function App() {
               <form className="login-form" action={loginAction} aria-label="Formulario de inicio de sesión">
                 <div className="form-header">
                   <h2>Inicia sesión en HubbaX</h2>
-                  <p>Es rápido y fácil.</p>
+                  <p>Es rápido y fácil. ¡Y siempre será gratis!</p>
                 </div>
                 
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Correo electrónico o número de celular"
-                  className="login-input"
-                  aria-label="Correo electrónico o número de celular"
-                  required
-                  disabled={isPending}
-                />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Contraseña"
-                  className="login-input"
-                  aria-label="Contraseña"
-                  required
-                  disabled={isPending}
-                />
-                <button type="submit" className="login-button" disabled={isPending}>
-                  {isPending ? 'Iniciando sesión...' : 'Iniciar sesión'}
+                <div className="input-group">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Correo electrónico o número de celular"
+                    className="login-input"
+                    aria-label="Correo electrónico o número de celular"
+                    required
+                    disabled={isPending}
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    className="login-input"
+                    aria-label="Contraseña"
+                    required
+                    disabled={isPending}
+                  />
+                </div>
+                
+                <button type="submit" className="login-button primary-action" disabled={isPending}>
+                  {isPending ? '🔄 Iniciando sesión...' : 'Iniciar sesión'}
                 </button>
                 
                 {/* Mostrar estado del login */}
                 {loginState?.error && (
                   <div className="error-message" role="alert">
-                    {loginState.error}
+                    ❌ {loginState.error}
                   </div>
                 )}
                 {loginState?.success && (
                   <div className="success-message" role="alert">
-                    {loginState.message}
+                    ✅ {loginState.message}
                   </div>
                 )}
                 
@@ -164,27 +181,39 @@ function App() {
                   onClick={handleForgotPassword}
                   disabled={isPending}
                 >
-                  ¿Olvidaste la contraseña?
+                  ¿Olvidaste tu contraseña?
                 </button>
-                <div className="divider" role="separator"></div>
+                
+                <div className="divider">
+                  <span>o</span>
+                </div>
+                
                 <button 
                   type="button" 
-                  className="create-account-button"
+                  className="create-account-button highlight-action"
                   onClick={handleCreateAccount}
                   disabled={isPending}
                 >
                   Crear cuenta nueva
                 </button>
               </form>
-              <p className="create-page">
-                <button 
-                  type="button"
-                  className="create-page-link"
-                  onClick={() => console.log('Crear página para empresa')}
-                >
-                  <strong>Crear una página</strong>
-                </button> para una celebridad, marca o empresa.
-              </p>
+              
+              <div className="additional-options">
+                <p className="create-page">
+                  <button 
+                    type="button"
+                    className="create-page-link"
+                    onClick={() => console.log('Crear página para empresa')}
+                  >
+                    <strong>Crear una página</strong>
+                  </button> para una celebridad, marca o empresa.
+                </p>
+                
+                <div className="social-proof">
+                  <p>📈 <strong>+50,000</strong> mexicanos ya se unieron</p>
+                  <p>🌟 <strong>4.8/5</strong> estrellas en satisfacción</p>
+                </div>
+              </div>
             </div>
           </div>
         ) : (
@@ -283,30 +312,70 @@ function App() {
         )}
       </div>
       
-      {/* Footer moderno con propuesta de valor */}
-      <footer className="modern-footer">
+      {/* Footer estilo Facebook pero para HubbaX */}
+      <footer className="modern-footer facebook-style">
         <div className="footer-content">
-          <div className="value-props">
-            <div className="value-prop">
-              <h3>🚀 Nueva Generación</h3>
-              <p>Sin algoritmos manipuladores. Tu timeline, tu control.</p>
+          {/* Enlaces principales */}
+          <div className="footer-links">
+            <div className="links-row">
+              <button className="footer-link">Español</button>
+              <button className="footer-link">English</button>
+              <button className="footer-link">Português (Brasil)</button>
+              <button className="footer-link">Français (France)</button>
+              <button className="footer-link">Italiano</button>
+              <button className="footer-link">Deutsch</button>
+              <button className="footer-link">العربية</button>
+              <button className="footer-link">हिन्दी</button>
+              <button className="footer-link">中文(简体)</button>
+              <button className="footer-link more-languages">+ Más</button>
             </div>
-            <div className="value-prop">
-              <h3>🇲🇽 Hecho para México</h3>
-              <p>Comunidades locales, cultura mexicana, contenido relevante.</p>
+            
+            <div className="divider-thin"></div>
+            
+            <div className="links-row">
+              <button className="footer-link">Registrarse</button>
+              <button className="footer-link">Iniciar sesión</button>
+              <button className="footer-link">HubbaX Messenger</button>
+              <button className="footer-link">HubbaX Lite</button>
+              <button className="footer-link">Video</button>
+              <button className="footer-link">Lugares</button>
+              <button className="footer-link">Juegos</button>
+              <button className="footer-link">Marketplace</button>
+              <button className="footer-link">Meta Pay</button>
+              <button className="footer-link">HubbaX Shop</button>
+              <button className="footer-link">HubbaX Pro</button>
             </div>
-            <div className="value-prop">
-              <h3>🔒 Privacidad Real</h3>
-              <p>Tus datos son tuyos. No los vendemos, no los compartimos.</p>
+            
+            <div className="links-row">
+              <button className="footer-link">Crear anuncio</button>
+              <button className="footer-link">Crear página</button>
+              <button className="footer-link">Desarrolladores</button>
+              <button className="footer-link">Empleos</button>
+              <button className="footer-link">Privacidad</button>
+              <button className="footer-link">Cookies</button>
+              <button className="footer-link">Opciones de anuncios</button>
+              <button className="footer-link">Condiciones</button>
+              <button className="footer-link">Ayuda</button>
+              <button className="footer-link">Configuración</button>
+              <button className="footer-link">Registro de actividad</button>
             </div>
           </div>
-          <div className="demo-access">
-            <h4>🎯 Acceso Demo</h4>
-            <p><strong>Email:</strong> test@hubbax.com</p>
-            <p><strong>Password:</strong> demo</p>
+          
+          {/* Información de la empresa */}
+          <div className="company-info">
+            <p>HubbaX México © 2025</p>
           </div>
-          <div className="footer-bottom">
-            <p>&copy; 2025 HubbaX México. El futuro de las redes sociales.</p>
+          
+          {/* Demo info destacada */}
+          <div className="demo-access-highlight">
+            <div className="demo-box">
+              <h4>🎯 Prueba HubbaX ahora</h4>
+              <div className="demo-credentials">
+                <p><strong>Email:</strong> test@hubbax.com</p>
+                <p><strong>Password:</strong> demo</p>
+              </div>
+              <p className="demo-note">¡100% funcional! Explora todas las características.</p>
+            </div>
           </div>
         </div>
       </footer>
