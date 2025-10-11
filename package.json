@@ -4,7 +4,13 @@
   "version": "1.0.0",
   "type": "module",
   "description": "HubbaX - Red social para conectar con amigos en México",
-  "keywords": ["react", "typescript", "vite", "social-network", "mexico"],
+  "keywords": [
+    "react",
+    "typescript",
+    "vite",
+    "social-network",
+    "mexico"
+  ],
   "author": "HubbaX México",
   "license": "MIT",
   "homepage": "https://hubbax.vercel.app",
@@ -28,10 +34,12 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@esbuild/win32-x64": "^0.25.10",
     "@eslint/js": "^9.15.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
+    "esbuild": "^0.25.10",
     "eslint": "^9.15.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",

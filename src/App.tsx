@@ -1,71 +1,95 @@
-import { useActionState, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 
 function App() {
   // Estado para controlar si estamos en login o register
   const [currentView, setCurrentView] = useState<'login' | 'register'>('login')
   
-  // Usando las nuevas APIs de React 19 para Login
-  const [loginState, loginAction, isLoginPending] = useActionState(
-    async (_previousState: any, formData: FormData) => {
-      const email = formData.get('email') as string
-      const password = formData.get('password') as string
-      
-      console.log('Login con React 19 Actions:', { email, password })
-      
+  // Estados para el formulario de login
+  const [loginState, setLoginState] = useState<any>(null)
+  const [isLoginPending, setIsLoginPending] = useState(false)
+  
+  // Estados para el formulario de registro
+  const [registerState, setRegisterState] = useState<any>(null)
+  const [isRegisterPending, setIsRegisterPending] = useState(false)
+  
+  // Función para manejar login
+  const handleLogin = async (formData: FormData) => {
+    setIsLoginPending(true)
+    setLoginState(null)
+    
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    
+    console.log('Login:', { email, password })
+    
+    try {
       // Simular API call
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       // Simular validación
       if (!email || !password) {
-        return { error: 'Email y contraseña son requeridos' }
+        setLoginState({ error: 'Email y contraseña son requeridos' })
+        return
       }
       
       if (email === 'test@hubbax.com' && password === 'demo') {
-        return { success: true, message: '¡Bienvenido a HubbaX! 🚀' }
+        setLoginState({ success: true, message: '¡Bienvenido a HubbaX! 🚀' })
+      } else {
+        setLoginState({ error: 'Credenciales incorrectas' })
       }
-      
-      return { error: 'Credenciales incorrectas' }
-    },
-    null
-  )
-
-  // Usando las nuevas APIs de React 19 para Register
-  const [registerState, registerAction, isRegisterPending] = useActionState(
-    async (_previousState: any, formData: FormData) => {
-      const firstName = formData.get('firstName') as string
-      const lastName = formData.get('lastName') as string
-      const email = formData.get('email') as string
-      const password = formData.get('password') as string
-      const confirmPassword = formData.get('confirmPassword') as string
-      
-      console.log('Registro con React 19 Actions:', { firstName, lastName, email })
-      
+    } catch (error) {
+      setLoginState({ error: 'Error de conexión' })
+    } finally {
+      setIsLoginPending(false)
+    }
+  }
+  
+  // Función para manejar registro
+  const handleRegister = async (formData: FormData) => {
+    setIsRegisterPending(true)
+    setRegisterState(null)
+    
+    const firstName = formData.get('firstName') as string
+    const lastName = formData.get('lastName') as string
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const confirmPassword = formData.get('confirmPassword') as string
+    
+    console.log('Registro:', { firstName, lastName, email })
+    
+    try {
       // Simular API call
       await new Promise(resolve => setTimeout(resolve, 1500))
       
       // Validación básica
       if (!firstName || !lastName || !email || !password) {
-        return { error: 'Todos los campos son requeridos' }
+        setRegisterState({ error: 'Todos los campos son requeridos' })
+        return
       }
       
       if (password !== confirmPassword) {
-        return { error: 'Las contraseñas no coinciden' }
+        setRegisterState({ error: 'Las contraseñas no coinciden' })
+        return
       }
       
       if (password.length < 6) {
-        return { error: 'La contraseña debe tener al menos 6 caracteres' }
+        setRegisterState({ error: 'La contraseña debe tener al menos 6 caracteres' })
+        return
       }
       
       // Simular registro exitoso
-      return { 
+      setRegisterState({ 
         success: true, 
         message: `¡Bienvenido ${firstName}! Tu cuenta ha sido creada exitosamente 🎉`,
         user: { firstName, lastName, email }
-      }
-    },
-    null
-  )
+      })
+    } catch (error) {
+      setRegisterState({ error: 'Error de conexión' })
+    } finally {
+      setIsRegisterPending(false)
+    }
+  }
 
   const handleCreateAccount = async () => {
     setCurrentView('register')
@@ -132,7 +156,11 @@ function App() {
           // PÁGINA DE LOGIN
           <div className="login-right">
             <div className="login-form-container">
-              <form className="login-form" action={loginAction} aria-label="Formulario de inicio de sesión">
+              <form className="login-form" onSubmit={(e) => {
+                e.preventDefault()
+                const formData = new FormData(e.currentTarget)
+                handleLogin(formData)
+              }} aria-label="Formulario de inicio de sesión">
                 <div className="form-header">
                   <h2>Inicia sesión en HubbaX</h2>
                   <p>Es rápido y fácil. ¡Y siempre será gratis!</p>
@@ -220,7 +248,11 @@ function App() {
           // PÁGINA DE REGISTRO
           <div className="login-right">
             <div className="login-form-container">
-              <form className="login-form register-form" action={registerAction} aria-label="Formulario de registro">
+              <form className="login-form register-form" onSubmit={(e) => {
+                e.preventDefault()
+                const formData = new FormData(e.currentTarget)
+                handleRegister(formData)
+              }} aria-label="Formulario de registro">
                 <div className="form-header">
                   <h2>Crear cuenta nueva</h2>
                   <p>Es gratis y siempre lo será.</p>
