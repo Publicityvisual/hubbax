@@ -1,34 +1,63 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log('Login attempt:', { email, password })
+    // Aquí iría la lógica de autenticación
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="login-container">
+      <div className="login-left">
+        <div className="login-content">
+          <h1 className="logo">HubbaX</h1>
+          <p className="tagline">
+            HubbaX te ayuda a conectar y compartir con las personas en tu vida.
+          </p>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      
+      <div className="login-right">
+        <div className="login-form-container">
+          <form className="login-form" onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="login-input"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="login-input"
+              required
+            />
+            <button type="submit" className="login-button">
+              Iniciar sesión
+            </button>
+            <a href="#" className="forgot-password">
+              ¿Olvidaste tu contraseña?
+            </a>
+            <div className="divider"></div>
+            <button type="button" className="create-account-button">
+              Crear cuenta nueva
+            </button>
+          </form>
+          <p className="create-page">
+            <a href="#"><strong>Crea una página</strong></a> para una celebridad, una marca o un negocio.
+          </p>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
