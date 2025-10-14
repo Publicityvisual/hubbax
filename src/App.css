@@ -823,49 +823,174 @@ body {
   }
 }
 
-/* Responsive Design Mejorado */
+/* Utility classes para responsive */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* Responsive Design Mejorado - Mobile First como Facebook */
 @media (max-width: 768px) {
   .login-container {
     flex-direction: column;
-    padding: 20px;
-    justify-content: center;
-    gap: 40px;
+    gap: 20px;
+    padding: 16px;
+    min-height: 100vh;
+    justify-content: flex-start;
   }
-  
+
+  /* Logo centrado arriba como Facebook mobile */
   .login-left {
+    order: 1;
     text-align: center;
     max-width: 100%;
+    padding: 20px 0;
   }
-  
+
+  .login-content {
+    max-width: 100%;
+  }
+
+  .logo {
+    font-size: 56px;
+    margin-bottom: 16px;
+  }
+
+  .tagline {
+    font-size: 18px;
+    margin-bottom: 24px;
+    padding: 0 20px;
+  }
+
+  /* Ocultar elementos complejos en móvil para simplicidad como Facebook */
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  /* Formulario full-width como Facebook mobile */
   .login-right {
+    order: 2;
+    flex: none;
+    width: 100%;
     max-width: 100%;
+    margin: 0;
   }
-  
+
   .login-form-container {
+    width: 100%;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0;
+    padding: 24px 20px;
+    background: white;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+  }
+
+  /* Inputs más grandes para touch */
+  .login-input {
+    padding: 20px 16px;
+    font-size: 18px;
+    border-radius: 12px;
+    border: 1px solid #dddfe2;
+  }
+
+  /* Botones más grandes estilo Facebook mobile */
+  .login-button, .create-account-button, .highlight-action {
+    padding: 18px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 12px;
+    margin: 8px 0;
+  }
+
+  .login-button {
+    background: #1877f2;
+    color: white;
+  }
+
+  .create-account-button, .highlight-action {
+    background: #42b883;
+    color: white;
+  }
+
+  /* Header del formulario más pequeño */
+  .form-header {
+    margin-bottom: 24px;
+  }
+
+  .form-header h2 {
+    font-size: 24px;
+    color: #1c1e21;
+  }
+
+  .form-header p {
+    font-size: 16px;
+    color: #606770;
+  }
+
+  /* Registro optimizado para móvil */
+  .name-inputs {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .name-input {
+    flex: none;
+  }
+
+  /* Footer simplificado como Facebook mobile */
+  .language-selector {
+    justify-content: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    gap: 8px;
+  }
+
+  .lang-btn {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }
 
 @media (max-width: 480px) {
   .login-container {
-    padding: 16px;
+    padding: 12px;
+    gap: 16px;
   }
   
   .login-form-container {
-    padding: 16px;
-    box-shadow: none;
-    border: 1px solid #dddfe2;
+    padding: 20px 16px;
   }
   
   .login-input {
     font-size: 16px; /* Evita zoom en iOS */
-    padding: 12px 14px;
+    padding: 16px 12px;
   }
   
-  .login-button {
-    font-size: 18px;
-    padding: 10px 14px;
+  .login-button, .create-account-button, .highlight-action {
+    font-size: 16px;
+    padding: 16px 18px;
+  }
+
+  .logo {
+    font-size: 48px;
+  }
+
+  .tagline {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .form-header h2 {
+    font-size: 22px;
   }
 }
 

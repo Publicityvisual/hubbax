@@ -117,7 +117,9 @@ function App() {
                 ? 'Conecta con amigos y comunidades auténticas de México.' 
                 : 'Únete a la revolución social mexicana y conecta de verdad.'}
             </p>
-            <div className="features-preview">
+            
+            {/* Features solo en desktop */}
+            <div className="features-preview desktop-only">
               <div className="feature-item">
                 <span className="feature-icon">🔒</span>
                 <span>100% Privacidad Real - Sin vender tus datos</span>
@@ -141,7 +143,7 @@ function App() {
             </div>
             
             {/* Selector de idioma como Facebook */}
-            <div className="language-selector">
+            <div className="language-selector desktop-only">
               <button className="lang-btn active">Español</button>
               <button className="lang-btn">English</button>
               <button className="lang-btn">Français</button>
