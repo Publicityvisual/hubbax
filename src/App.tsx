@@ -101,7 +101,8 @@ function App() {
     }
   }
 
-  const handleCreateAccount = async () => {
+  const handleCreateAccount = () => {
+    console.log('Cambiando a registro...')
     setCurrentView('register')
   }
 
@@ -121,6 +122,9 @@ function App() {
   }
 
   const isPending = currentView === 'login' ? isLoginPending : isRegisterPending
+
+  // Debug: ver qué vista está activa
+  console.log('Vista actual:', currentView)
 
   return (
     <div className="page-container">
