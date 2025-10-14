@@ -357,56 +357,90 @@ function App() {
                 </div>
                 
                 <div className="name-inputs">
+                  <div className="input-wrapper">
+                    <input
+                      type="text"
+                      name="firstName"
+                      placeholder="Nombre"
+                      className="login-input name-input"
+                      aria-label="Nombre"
+                      required
+                      disabled={isPending}
+                    />
+                  </div>
+                  <div className="input-wrapper">
+                    <input
+                      type="text"
+                      name="lastName"
+                      placeholder="Apellidos"
+                      className="login-input name-input"
+                      aria-label="Apellidos"
+                      required
+                      disabled={isPending}
+                    />
+                  </div>
+                </div>
+                
+                <div className="input-wrapper">
                   <input
-                    type="text"
-                    name="firstName"
-                    placeholder="Nombre"
-                    className="login-input name-input"
-                    aria-label="Nombre"
-                    required
-                    disabled={isPending}
-                  />
-                  <input
-                    type="text"
-                    name="lastName"
-                    placeholder="Apellidos"
-                    className="login-input name-input"
-                    aria-label="Apellidos"
+                    type="email"
+                    name="email"
+                    placeholder="Correo electrónico"
+                    className="login-input"
+                    aria-label="Correo electrónico"
                     required
                     disabled={isPending}
                   />
                 </div>
                 
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Correo electrónico"
-                  className="login-input"
-                  aria-label="Correo electrónico"
-                  required
-                  disabled={isPending}
-                />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Contraseña nueva"
-                  className="login-input"
-                  aria-label="Contraseña nueva"
-                  required
-                  disabled={isPending}
-                />
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirmar contraseña"
-                  className="login-input"
-                  aria-label="Confirmar contraseña"
-                  required
-                  disabled={isPending}
-                />
+                <div className="input-wrapper">
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña nueva"
+                    className="login-input"
+                    aria-label="Contraseña nueva"
+                    required
+                    disabled={isPending}
+                  />
+                </div>
+                
+                <div className="input-wrapper">
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirmar contraseña"
+                    className="login-input"
+                    aria-label="Confirmar contraseña"
+                    required
+                    disabled={isPending}
+                  />
+                </div>
+                
+                {/* Tips de registro */}
+                {!registerState?.success && (
+                  <div className="login-help">
+                    <div className="quick-tips">
+                      <h4>🛡️ Tips de seguridad:</h4>
+                      <ul>
+                        <li>🔐 Usa una contraseña fuerte (mínimo 6 caracteres)</li>
+                        <li>📧 Verifica que tu email sea correcto</li>
+                        <li>✅ Las contraseñas deben coincidir</li>
+                        <li>🔒 Tu información está 100% protegida</li>
+                      </ul>
+                    </div>
+                  </div>
+                )}
                 
                 <button type="submit" className="login-button register-button" disabled={isPending}>
-                  {isPending ? 'Creando cuenta...' : 'Registrarse'}
+                  {isPending ? (
+                    <span className="loading-content">
+                      <span className="spinner"></span>
+                      Creando cuenta...
+                    </span>
+                  ) : (
+                    '🚀 Registrarse'
+                  )}
                 </button>
                 
                 {/* Mostrar estado del registro */}
