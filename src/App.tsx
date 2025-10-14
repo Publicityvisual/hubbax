@@ -13,6 +13,16 @@ function App() {
   const [registerState, setRegisterState] = useState<any>(null)
   const [isRegisterPending, setIsRegisterPending] = useState(false)
   
+  // Estados para mejorar UX
+  const [showPassword, setShowPassword] = useState(false)
+  const [emailValue, setEmailValue] = useState('')
+  const [passwordValue, setPasswordValue] = useState('')
+  const [rememberMe, setRememberMe] = useState(false)
+  
+  // Validación en tiempo real
+  const isEmailValid = emailValue ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue) : true
+  const isPasswordValid = passwordValue ? passwordValue.length >= 6 : true
+  
   // Función para manejar login
   const handleLogin = async (formData: FormData) => {
     setIsLoginPending(true)
@@ -104,6 +114,12 @@ function App() {
     // Aquí iría la lógica para recuperar contraseña
   }
 
+  // Función para login demo rápido
+  const handleDemoLogin = () => {
+    setEmailValue('test@hubbax.com')
+    setPasswordValue('demo')
+  }
+
   const isPending = currentView === 'login' ? isLoginPending : isRegisterPending
 
   return (
@@ -169,50 +185,128 @@ function App() {
                 </div>
                 
                 <div className="input-group">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Correo electrónico o número de celular"
-                    className="login-input"
-                    aria-label="Correo electrónico o número de celular"
-                    required
-                    disabled={isPending}
-                  />
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Contraseña"
-                    className="login-input"
-                    aria-label="Contraseña"
-                    required
-                    disabled={isPending}
-                  />
+                  <div className="input-wrapper">
+                    <input
+                      type="email"
+                      name="email"
+                      value={emailValue}
+                      onChange={(e) => setEmailValue(e.target.value)}
+                      placeholder="Correo electrónico o número de celular"
+                      className={`login-input ${!isEmailValid ? 'error' : ''}`}
+                      aria-label="Correo electrónico o número de celular"
+                      required
+                      disabled={isPending}
+                    />
+                    {emailValue && !isEmailValid && (
+                      <span className="input-error">Ingresa un email válido</span>
+                    )}
+                  </div>
+                  
+                  <div className="input-wrapper">
+                    <div className="password-input-container">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        value={passwordValue}
+                        onChange={(e) => setPasswordValue(e.target.value)}
+                        placeholder="Contraseña"
+                        className={`login-input ${!isPasswordValid ? 'error' : ''}`}
+                        aria-label="Contraseña"
+                        required
+                        disabled={isPending}
+                      />
+                      <button
+                        type="button"
+                        className="password-toggle"
+                        onClick={() => setShowPassword(!showPassword)}
+                        disabled={isPending}
+                        aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                      >
+                        {showPassword ? "🙈" : "👁️"}
+                      </button>
+                    </div>
+                    {passwordValue && !isPasswordValid && (
+                      <span className="input-error">La contraseña debe tener al menos 6 caracteres</span>
+                    )}
+                  </div>
                 </div>
                 
-                <button type="submit" className="login-button primary-action" disabled={isPending}>
-                  {isPending ? '🔄 Iniciando sesión...' : 'Iniciar sesión'}
+                {/* Checkbox Remember Me */}
+                <div className="remember-me-container">
+                  <label className="remember-me-label">
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                      className="remember-me-checkbox"
+                    />
+                    <span className="checkmark"></span>
+                    Recordarme
+                  </label>
+                </div>
+                
+                <button type="submit" className="login-button primary-action" disabled={isPending || !emailValue || !passwordValue}>
+                  {isPending ? (
+                    <span className="loading-content">
+                      <span className="spinner"></span>
+                      Iniciando sesión...
+                    </span>
+                  ) : (
+                    '🚀 Iniciar sesión'
+                  )}
                 </button>
                 
-                {/* Mostrar estado del login */}
+                {/* Mostrar estado del login con mejores mensajes para usuarios */}
                 {loginState?.error && (
                   <div className="error-message" role="alert">
-                    ❌ {loginState.error}
+                    <span className="error-indicator">❌</span>
+                    {loginState.error === 'Credenciales incorrectas' 
+                      ? '¡Ups! Revisa tu email y contraseña. ¿Olvidaste algún dato?' 
+                      : loginState.error}
                   </div>
                 )}
                 {loginState?.success && (
                   <div className="success-message" role="alert">
-                    ✅ {loginState.message}
+                    <span className="success-indicator">🎉</span>
+                    {loginState.message}
                   </div>
                 )}
                 
-                <button 
-                  type="button" 
-                  className="forgot-password"
-                  onClick={handleForgotPassword}
-                  disabled={isPending}
-                >
-                  ¿Olvidaste tu contraseña?
-                </button>
+                {/* Ayuda rápida para usuarios */}
+                <div className="login-help">
+                  <div className="quick-tips">
+                    <h4>💡 Tips rápidos:</h4>
+                    <ul>
+                      <li>✅ Usa tu email completo (ejemplo@gmail.com)</li>
+                      <li>🔒 Tu contraseña debe tener mínimo 6 caracteres</li>
+                      <li>📱 ¿Problemas? Revisa tu conexión a internet</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="login-options">
+                  <button 
+                    type="button" 
+                    className="forgot-password"
+                    onClick={handleForgotPassword}
+                    disabled={isPending}
+                  >
+                    🔓 ¿Olvidaste tu contraseña?
+                  </button>
+                  
+                  {/* Acceso rápido para pruebas */}
+                  <div className="quick-access">
+                    <p className="quick-access-title">🚀 Acceso rápido de prueba:</p>
+                    <button 
+                      type="button" 
+                      className="demo-login-btn"
+                      onClick={handleDemoLogin}
+                      disabled={isPending}
+                    >
+                      📧 Usar datos de demo
+                    </button>
+                  </div>
+                </div>
                 
                 <div className="divider">
                   <span>o</span>
