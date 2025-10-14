@@ -435,10 +435,11 @@ body {
 /* Mejoras centradas en el usuario */
 .login-help {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 16px;
+  padding: 20px;
   border-radius: 12px;
-  margin: 16px 0;
+  margin: 20px 0;
   border-left: 4px solid #667eea;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .quick-tips {

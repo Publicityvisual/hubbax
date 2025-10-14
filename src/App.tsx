@@ -273,16 +273,18 @@ function App() {
                 )}
                 
                 {/* Ayuda rápida para usuarios */}
-                <div className="login-help">
-                  <div className="quick-tips">
-                    <h4>💡 Tips rápidos:</h4>
-                    <ul>
-                      <li>✅ Usa tu email completo (ejemplo@gmail.com)</li>
-                      <li>🔒 Tu contraseña debe tener mínimo 6 caracteres</li>
-                      <li>📱 ¿Problemas? Revisa tu conexión a internet</li>
-                    </ul>
+                {!loginState?.success && (
+                  <div className="login-help">
+                    <div className="quick-tips">
+                      <h4>💡 Tips rápidos:</h4>
+                      <ul>
+                        <li>✅ Usa tu email completo (ejemplo@gmail.com)</li>
+                        <li>🔒 Tu contraseña debe tener mínimo 6 caracteres</li>
+                        <li>📱 ¿Problemas? Revisa tu conexión a internet</li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
+                )}
                 
                 <div className="login-options">
                   <button 
