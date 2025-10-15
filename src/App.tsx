@@ -1,16 +1,75 @@
 import { useState } from 'react'
 import './App.css'
 
+type AuthView = 'login' | 'register'
+
+type LoginState = {
+  success?: boolean
+  message?: string
+  error?: string
+}
+
+type RegisterState = {
+  success?: boolean
+  message?: string
+  error?: string
+  user?: {
+    firstName: string
+    lastName: string
+    email: string
+  }
+}
+
+const featureHighlights = [
+  { icon: '🔒', label: '100% Privacidad Real - Sin vender tus datos' },
+  { icon: '🇲🇽', label: 'Comunidades Locales - Contenido mexicano auténtico' },
+  { icon: '✨', label: 'Sin Algoritmos Tóxicos - Tu timeline real y transparente' },
+  { icon: '🎯', label: 'Contenido Auténtico - Moderación humana en tiempo real' },
+  { icon: '🚀', label: 'Nueva Generación - Hecho para Gen Z y Millennials' }
+]
+
+const languageOptions = ['Español', 'English', 'Français', 'Português', 'Italiano', 'العربية', 'Deutsch', 'हिन्दी', '中文(简体)']
+
+const communityStats = [
+  { value: '+50K', label: 'Usuarios en lista de espera' },
+  { value: '94%', label: 'Satisfacción de comunidad' },
+  { value: '<2s', label: 'Tiempo promedio de carga' }
+]
+
+const badgeHighlights = [
+  { title: 'Privacidad blindada', description: 'Cifrado de extremo a extremo y control granular de tus datos.' },
+  { title: 'Social feed auténtico', description: 'Prioriza amigos y comunidades reales, no anuncios invasivos.' },
+  { title: 'Moderación activa', description: 'IA + expertos mexicanos cuidando tus conversaciones.' }
+]
+
+const socialProviders = [
+  { label: 'Continuar con Google', emoji: '🟢' },
+  { label: 'Continuar con Apple', emoji: '⚪' },
+  { label: 'Continuar con TikTok', emoji: '🎵' }
+]
+
+const onboardingSteps = [
+  { step: '01', title: 'Personaliza tu perfil', detail: 'Elige intereses, suma a tus amigos y crea tu identidad HubbaX.' },
+  { step: '02', title: 'Explora comunidades', detail: 'Descubre eventos, hubs locales y contenido curado para ti.' },
+  { step: '03', title: 'Conecta en tiempo real', detail: 'Chat seguro, salas en vivo y experiencias inmersivas.' }
+]
+
+const trustSignals = [
+  { badge: 'ISO 27001', caption: 'Infraestructura certificada y segura.' },
+  { badge: 'SOC 2', caption: 'Procesos auditados para proteger tus datos.' },
+  { badge: 'Hecho en México', caption: 'Equipo local comprometido con nuestra comunidad.' }
+]
+
 function App() {
   // Estado para controlar si estamos en login o register
-  const [currentView, setCurrentView] = useState<'login' | 'register'>('login')
+  const [currentView, setCurrentView] = useState<AuthView>('login')
   
   // Estados para el formulario de login
-  const [loginState, setLoginState] = useState<any>(null)
+  const [loginState, setLoginState] = useState<LoginState | null>(null)
   const [isLoginPending, setIsLoginPending] = useState(false)
   
   // Estados para el formulario de registro
-  const [registerState, setRegisterState] = useState<any>(null)
+  const [registerState, setRegisterState] = useState<RegisterState | null>(null)
   const [isRegisterPending, setIsRegisterPending] = useState(false)
   
   // Estados para mejorar UX
@@ -48,7 +107,8 @@ function App() {
       } else {
         setLoginState({ error: 'Credenciales incorrectas' })
       }
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error(error)
       setLoginState({ error: 'Error de conexión' })
     } finally {
       setIsLoginPending(false)
@@ -94,7 +154,8 @@ function App() {
         message: `¡Bienvenido ${firstName}! Tu cuenta ha sido creada exitosamente 🎉`,
         user: { firstName, lastName, email }
       })
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error(error)
       setRegisterState({ error: 'Error de conexión' })
     } finally {
       setIsRegisterPending(false)
@@ -140,36 +201,37 @@ function App() {
             
             {/* Features solo en desktop */}
             <div className="features-preview desktop-only">
-              <div className="feature-item">
-                <span className="feature-icon">🔒</span>
-                <span>100% Privacidad Real - Sin vender tus datos</span>
-              </div>
-              <div className="feature-item">
-                <span className="feature-icon">🇲🇽</span>
-                <span>Comunidades Locales - Contenido mexicano</span>
-              </div>
-              <div className="feature-item">
-                <span className="feature-icon">✨</span>
-                <span>Sin Algoritmos Tóxicos - Tu timeline real</span>
-              </div>
-              <div className="feature-item">
-                <span className="feature-icon">🎯</span>
-                <span>Contenido Auténtico - Sin fake news</span>
-              </div>
-              <div className="feature-item">
-                <span className="feature-icon">🚀</span>
-                <span>Nueva Generación - Hecho para Gen Z y Millennials</span>
-              </div>
+              {featureHighlights.map((feature) => (
+                <div className="feature-item" key={feature.label}>
+                  <span className="feature-icon">{feature.icon}</span>
+                  <span>{feature.label}</span>
+                </div>
+              ))}
             </div>
             
             {/* Selector de idioma como Facebook */}
             <div className="language-selector desktop-only">
-              <button className="lang-btn active">Español</button>
-              <button className="lang-btn">English</button>
-              <button className="lang-btn">Français</button>
-              <button className="lang-btn">Português</button>
-              <button className="lang-btn">Italiano</button>
-              <button className="lang-btn">العربية</button>
+              {languageOptions.map((language, index) => (
+                <button className={`lang-btn ${index === 0 ? 'active' : ''}`} key={language}>
+                  {language}
+                </button>
+              ))}
+            </div>
+            <div className="community-stats desktop-only">
+              {communityStats.map((stat) => (
+                <div className="community-stat-card" key={stat.label}>
+                  <span className="stat-value">{stat.value}</span>
+                  <span className="stat-label">{stat.label}</span>
+                </div>
+              ))}
+            </div>
+            <div className="badge-grid desktop-only">
+              {badgeHighlights.map((badge) => (
+                <div className="badge-item" key={badge.title}>
+                  <h3>{badge.title}</h3>
+                  <p>{badge.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -186,6 +248,19 @@ function App() {
                 <div className="form-header">
                   <h2>Inicia sesión en HubbaX</h2>
                   <p>Es rápido y fácil. ¡Y siempre será gratis!</p>
+                </div>
+                <div className="social-auth-options">
+                  {socialProviders.map((provider) => (
+                    <button
+                      type="button"
+                      className="social-auth-button"
+                      key={provider.label}
+                      disabled={isPending}
+                    >
+                      <span className="provider-icon">{provider.emoji}</span>
+                      {provider.label}
+                    </button>
+                  ))}
                 </div>
                 
                 <div className="input-group">
@@ -343,6 +418,14 @@ function App() {
                   <p>📈 <strong>+50,000</strong> mexicanos ya se unieron</p>
                   <p>🌟 <strong>4.8/5</strong> estrellas en satisfacción</p>
                 </div>
+                <div className="trust-badges">
+                  {trustSignals.map((signal) => (
+                    <div className="trust-badge" key={signal.badge}>
+                      <span className="badge-title">{signal.badge}</span>
+                      <span className="badge-caption">{signal.caption}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -358,6 +441,17 @@ function App() {
                 <div className="form-header">
                   <h2>Crear cuenta nueva</h2>
                   <p>Es gratis y siempre lo será.</p>
+                </div>
+                <div className="onboarding-steps">
+                  {onboardingSteps.map((step) => (
+                    <div className="step-item" key={step.step}>
+                      <span className="step-indicator">{step.step}</span>
+                      <div className="step-details">
+                        <h3>{step.title}</h3>
+                        <p>{step.detail}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
                 
                 <div className="name-inputs">
@@ -458,6 +552,16 @@ function App() {
                     {registerState.message}
                   </div>
                 )}
+                <div className="future-features">
+                  <div className="future-feature-card">
+                    <h3>Cuenta verificada en minutos</h3>
+                    <p>No más procesos eternos. Usa tu INE digital o pasaporte y activa beneficios premium.</p>
+                  </div>
+                  <div className="future-feature-card">
+                    <h3>Feed hiperpersonalizado</h3>
+                    <p>Recomendaciones con IA ética hecha en México para inspirarte cada día.</p>
+                  </div>
+                </div>
                 
                 <div className="divider" role="separator"></div>
                 <button 
@@ -486,15 +590,11 @@ function App() {
           {/* Enlaces principales */}
           <div className="footer-links">
             <div className="links-row">
-              <button className="footer-link">Español</button>
-              <button className="footer-link">English</button>
-              <button className="footer-link">Português (Brasil)</button>
-              <button className="footer-link">Français (France)</button>
-              <button className="footer-link">Italiano</button>
-              <button className="footer-link">Deutsch</button>
-              <button className="footer-link">العربية</button>
-              <button className="footer-link">हिन्दी</button>
-              <button className="footer-link">中文(简体)</button>
+              {languageOptions.map((language) => (
+                <button className="footer-link" key={`footer-${language}`}>
+                  {language}
+                </button>
+              ))}
               <button className="footer-link more-languages">+ Más</button>
             </div>
             

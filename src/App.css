@@ -843,7 +843,7 @@ body {
 .social-proof {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   padding: 20px;
-  border-radius: 16px;
+  border-radius: 12px;
   margin-top: 20px;
   text-align: center;
   border: 1px solid #dee2e6;
@@ -887,7 +887,7 @@ body {
   padding: 16px 24px;
   border-radius: 16px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
