@@ -49,11 +49,11 @@ function App() {
         return
       }
 
-      // Simular login exitoso
-      setLoginState({ success: true, message: '¡Inicio de sesión exitoso!' })
+      // Simular login exitoso (reemplazar con API real)
+      setLoginState({ success: true, message: 'Inicio de sesión exitoso. ¡Bienvenido!' })
     } catch (error: unknown) {
       console.error(error)
-      setLoginState({ error: 'Error al iniciar sesión. Inténtalo de nuevo.' })
+      setLoginState({ error: 'Error al iniciar sesión. Verifica tu conexión e intenta de nuevo.' })
     } finally {
       setIsLoginPending(false)
     }
@@ -89,7 +89,7 @@ function App() {
 
       setRegisterState({
         success: true,
-        message: `¡Bienvenido ${firstName}! Tu cuenta ha sido creada.`,
+        message: `¡Cuenta creada exitosamente! Bienvenido ${firstName}.`,
         user: { firstName, lastName, email }
       })
     } catch (error: unknown) {
