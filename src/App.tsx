@@ -250,6 +250,66 @@ function App() {
               <p className="create-page">
                 <strong>Crear una página</strong> para una celebridad, marca o empresa.
               </p>
+
+              {/* Business Page Creation Section */}
+              <div className="business-section desktop-only">
+                <h3>¿Quieres crear una página para tu negocio?</h3>
+                <p>Conecta con más clientes y haz crecer tu marca con herramientas profesionales.</p>
+                <button className="business-btn">Crear página empresarial</button>
+              </div>
+
+              {/* Mobile Apps Section */}
+              <div className="mobile-apps desktop-only">
+                <h3>Descarga la app de HubbaX</h3>
+                <p>Lleva HubbaX contigo a todas partes</p>
+                <div className="app-buttons">
+                  <a href="#" className="app-btn">
+                    📱 iOS App
+                  </a>
+                  <a href="#" className="app-btn">
+                    🤖 Android App
+                  </a>
+                </div>
+              </div>
+
+              {/* Additional Links Section */}
+              <div className="more-links desktop-only">
+                <h3>Más de HubbaX</h3>
+                <div className="more-links-grid">
+                  <div className="more-links-section">
+                    <h4>Productos</h4>
+                    <a href="#">HubbaX Dating</a>
+                    <a href="#">HubbaX Marketplace</a>
+                    <a href="#">HubbaX Groups</a>
+                    <a href="#">HubbaX Watch</a>
+                    <a href="#">HubbaX Events</a>
+                  </div>
+                  <div className="more-links-section">
+                    <h4>Empresa</h4>
+                    <a href="#">Empleos</a>
+                    <a href="#">Desarrolladores</a>
+                    <a href="#">Publicidad</a>
+                    <a href="#">Inversionistas</a>
+                    <a href="#">Sostenibilidad</a>
+                  </div>
+                  <div className="more-links-section">
+                    <h4>Soporte</h4>
+                    <a href="#">Centro de ayuda</a>
+                    <a href="#">Seguridad</a>
+                    <a href="#">Reportar abuso</a>
+                    <a href="#">Legal</a>
+                    <a href="#">Contacto</a>
+                  </div>
+                  <div className="more-links-section">
+                    <h4>Legal</h4>
+                    <a href="#">Privacidad</a>
+                    <a href="#">Términos</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Publicidad</a>
+                    <a href="#">Opciones de anuncios</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         ) : (
