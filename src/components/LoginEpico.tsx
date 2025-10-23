@@ -649,6 +649,106 @@ export function LoginEpico() {
           <span>datos protegidos</span>
         </div>
       </div>
+
+      {/* FOOTER COMPLETO ESTILO FACEBOOK */}
+      <footer className="facebook-style-footer">
+        {/* Idiomas */}
+        <div className="languages-section">
+          <div className="languages-grid">
+            <a href="#" className="lang-link active">Español</a>
+            <a href="#" className="lang-link">English (US)</a>
+            <a href="#" className="lang-link">Português (Brasil)</a>
+            <a href="#" className="lang-link">Français (France)</a>
+            <a href="#" className="lang-link">Deutsch</a>
+            <a href="#" className="lang-link">العربية</a>
+            <a href="#" className="lang-link">हिन्दी</a>
+            <a href="#" className="lang-link">中文(简体)</a>
+            <a href="#" className="lang-link">日本語</a>
+            <a href="#" className="lang-link">한국어</a>
+            <a href="#" className="lang-link">Italiano</a>
+            <button className="lang-plus">+</button>
+          </div>
+        </div>
+
+        <div className="footer-divider"></div>
+
+        {/* Enlaces principales */}
+        <div className="main-links-section">
+          <div className="main-links-grid">
+            <a href="#" className="footer-link">Registrarte</a>
+            <a href="#" className="footer-link">Iniciar sesión</a>
+            <a href="#" className="footer-link">Messenger</a>
+            <a href="#" className="footer-link">Facebook Lite</a>
+            <a href="#" className="footer-link">Watch</a>
+            <a href="#" className="footer-link">Lugares</a>
+            <a href="#" className="footer-link">Juegos</a>
+            <a href="#" className="footer-link">Marketplace</a>
+            <a href="#" className="footer-link">Meta Pay</a>
+            <a href="#" className="footer-link">Oculus</a>
+            <a href="#" className="footer-link">Portal</a>
+            <a href="#" className="footer-link">Instagram</a>
+            <a href="#" className="footer-link">Threads</a>
+            <a href="#" className="footer-link">Recaudación de fondos</a>
+            <a href="#" className="footer-link">Servicios</a>
+            <a href="#" className="footer-link">Centro de información de votación</a>
+            <a href="#" className="footer-link">Política de privacidad</a>
+            <a href="#" className="footer-link">Centro de privacidad</a>
+            <a href="#" className="footer-link">Grupos</a>
+            <a href="#" className="footer-link">Información</a>
+          </div>
+        </div>
+
+        <div className="footer-divider"></div>
+
+        {/* Enlaces secundarios */}
+        <div className="secondary-links-section">
+          <div className="secondary-links-grid">
+            <a href="#" className="footer-link">Crear anuncio</a>
+            <a href="#" className="footer-link">Crear página</a>
+            <a href="#" className="footer-link">Desarrolladores</a>
+            <a href="#" className="footer-link">Empleos</a>
+            <a href="#" className="footer-link">Cookies</a>
+            <a href="#" className="footer-link">Opciones de publicidad</a>
+            <a href="#" className="footer-link">Términos</a>
+            <a href="#" className="footer-link">Ayuda</a>
+            <a href="#" className="footer-link">Cargar contactos y no usuarios</a>
+            <a href="#" className="footer-link">Configuración</a>
+            <a href="#" className="footer-link">Registro de actividad</a>
+          </div>
+        </div>
+
+        {/* Meta info */}
+        <div className="meta-info">
+          <span className="copyright">Meta © 2025</span>
+        </div>
+
+        {/* Sección adicional de productos Meta */}
+        <div className="meta-products">
+          <h4>Productos de Meta</h4>
+          <div className="products-grid">
+            <div className="product-item">
+              <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/TgYg_qNpfOj.png" alt="Facebook" width="16" height="16" />
+              <span>Facebook</span>
+            </div>
+            <div className="product-item">
+              <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yI/r/WcCzeboYevF.png" alt="Messenger" width="16" height="16" />
+              <span>Messenger</span>
+            </div>
+            <div className="product-item">
+              <img src="https://static.xx.fbcdn.net/rsrc.php/v3/ys/r/9BDqQflVfXI.png" alt="Instagram" width="16" height="16" />
+              <span>Instagram</span>
+            </div>
+            <div className="product-item">
+              <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yR/r/tInzwsw2pVX.png" alt="WhatsApp" width="16" height="16" />
+              <span>WhatsApp</span>
+            </div>
+            <div className="product-item">
+              <img src="https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/OpSJzjOL5Sa.png" alt="Threads" width="16" height="16" />
+              <span>Threads</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
