@@ -25,7 +25,6 @@ export function LoginEpico() {
   
   // Estados para login
   const [showPassword, setShowPassword] = useState(false)
-  const [emailValue, setEmailValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
   
@@ -150,10 +149,10 @@ export function LoginEpico() {
           '🤔 Algo no cuadra. ¿Seguro que esa es tu contraseña?'
         ]
         setLoginState({ 
-          error: mexicanErrors[attemptCount % mexicanErrors.length]
+          error: mexicanErrors[attemptCount % mexicanErrors.length] || '❌ Error de login'
         })
       }
-    } catch (error) {
+    } catch {
       setLoginState({ error: '📡 ¡Ups! Problemas de conexión. Revisa tu internet.' })
     } finally {
       setIsLoginPending(false)
@@ -206,7 +205,7 @@ export function LoginEpico() {
         message: `🎉 ¡Órale, ${firstName}! Tu cuenta está lista. ¡Bienvenido a la revolución social mexicana!`,
         user: { firstName, lastName, email: registerEmail }
       })
-    } catch (error) {
+    } catch {
       setRegisterState({ error: '📡 Error de conexión. Inténtalo de nuevo, compa.' })
     } finally {
       setIsRegisterPending(false)
@@ -240,7 +239,7 @@ export function LoginEpico() {
         setForgotEmail('')
       }, 3000)
       
-    } catch (error) {
+    } catch {
       setForgotPasswordState({ error: '📡 Error de conexión. Inténtalo de nuevo.' })
     } finally {
       setIsForgotPasswordPending(false)
@@ -277,7 +276,7 @@ export function LoginEpico() {
           setEmailOrPhone(data.email)
           setRememberMe(true)
         }
-      } catch (e) {
+      } catch {
         localStorage.removeItem('hubbax_remember')
       }
     }
