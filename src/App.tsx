@@ -3,6 +3,7 @@ import './App.css'
 import './components/LoginEpico.css'
 
 function App() {
+  // Forzar actualización - Login épico mejorado
   return <LoginEpico />
 }
 
