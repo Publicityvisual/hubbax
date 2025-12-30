@@ -17,34 +17,34 @@ export default function RegisterPage() {
 
   return (
     <SplitAuthLayout 
-      title="Create Account" 
-      subtitle="Join the exclusive network today."
+      title="Crear Cuenta" 
+      subtitle="Únete a la red exclusiva hoy."
     >
       <form onSubmit={handleSubmit} className="space-y-4 w-full">
          <div className="space-y-4">
              <Button type="button" variant="outline" className="w-full relative py-6" size="lg">
                 <Github className="w-5 h-5 absolute left-4" />
-                Sign up with Github
+                Registrarse con Github
              </Button>
              <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                     <span className="w-full border-t border-white/10" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-[#050505] px-2 text-white/30">Or sign up with email</span>
+                    <span className="bg-[#050505] px-2 text-white/30">O regístrate con tu email</span>
                 </div>
              </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
             <Input 
-                label="First Name" 
+                label="Nombre" 
                 type="text" 
                 icon={<User className="w-4 h-4" />}
                 required
             />
             <Input 
-                label="Last Name" 
+                label="Apellido" 
                 type="text" 
                 icon={<User className="w-4 h-4" />}
                 required
@@ -52,7 +52,7 @@ export default function RegisterPage() {
         </div>
 
         <Input 
-          label="Email Address" 
+          label="Dirección de Correo" 
           type="email" 
           icon={<Mail className="w-4 h-4" />}
           required
@@ -60,49 +60,49 @@ export default function RegisterPage() {
         
         <div className="grid grid-cols-2 gap-4">
              <Input 
-                label="Date of Birth" 
+                label="Fecha de Nacimiento" 
                 type="date" 
                 icon={<Calendar className="w-4 h-4" />}
                 required
                 className="[&::-webkit-calendar-picker-indicator]:invert"
             />
              <div className="relative w-full group">
-                 <select className="w-full h-[52px] rounded-xl border border-white/10 bg-black/40 backdrop-blur-sm text-sm text-white px-4 pl-10 focus:border-primary focus:ring-1 focus:ring-primary/20 outline-none appearance-none transition-all cursor-pointer">
-                    <option value="" disabled selected>Gender</option>
-                    <option value="male" className="bg-black">Male</option>
-                    <option value="female" className="bg-black">Female</option>
-                    <option value="other" className="bg-black">Other</option>
+                 <select className="w-full h-[52px] rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-sm text-white px-5 pl-12 focus:border-violet-500 focus:ring-1 focus:ring-violet-500/20 outline-none appearance-none transition-all cursor-pointer">
+                    <option value="" disabled selected>Género</option>
+                    <option value="male" className="bg-black">Masculino</option>
+                    <option value="female" className="bg-black">Femenino</option>
+                    <option value="other" className="bg-black">Otro</option>
                  </select>
-                 <Users className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
+                 <Users className="w-4 h-4 absolute left-5 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
              </div>
         </div>
 
         <Input 
-          label="Password" 
+          label="Contraseña" 
           type="password" 
           icon={<Lock className="w-4 h-4" />}
           required
         />
         <Input 
-          label="Confirm Password" 
+          label="Confirmar Contraseña" 
           type="password" 
           icon={<Lock className="w-4 h-4" />}
           required
         />
         
         <div className="text-xs text-center text-white/40 leading-relaxed px-4">
-            By clicking "Create Account", you agree to our <span className="text-primary cursor-pointer hover:underline">Terms of Service</span> and <span className="text-primary cursor-pointer hover:underline">Privacy Policy</span>.
+            Al hacer clic en "Crear Cuenta", aceptas nuestros <span className="text-primary cursor-pointer hover:underline">Términos de Servicio</span> y <span className="text-primary cursor-pointer hover:underline">Política de Privacidad</span>.
         </div>
 
         <Button type="submit" className="w-full py-6 text-lg" size="lg" isLoading={isLoading} variant="gradient">
-          Create Account
+          Crear Cuenta
           {!isLoading && <ArrowRight className="w-5 h-5 ml-2" />}
         </Button>
 
         <p className="text-center text-sm text-white/40 mt-6">
-          Already have an account?{' '}
+          ¿Ya tienes una cuenta?{' '}
           <Link to="/login" className="text-primary hover:text-primary/80 font-medium transition-colors">
-            Sign in
+            Inicia Sesión
           </Link>
         </p>
       </form>

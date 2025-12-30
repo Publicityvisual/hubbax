@@ -29,7 +29,7 @@ export function AvatarStack({ images, count = 100, className }: AvatarStackProps
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-sm font-bold text-white tracking-tight">+{count.toLocaleString()}</span>
             </div>
-            <span className="text-xs text-white/50 font-medium">Active users joined</span>
+            <span className="text-xs text-white/50 font-medium">Usuarios activos se unieron</span>
          </div>
       )}
     </div>

@@ -11,7 +11,7 @@ interface SplitAuthLayoutProps {
 export function SplitAuthLayout({ 
   children, 
   title = "Hubbax.", 
-  subtitle = "Connect efficiently." 
+  subtitle = "Conecta eficientemente.", 
 }: SplitAuthLayoutProps) {
   
   const avatars = [
@@ -56,8 +56,8 @@ export function SplitAuthLayout({
                     transition={{ delay: 0.4 }}
                     className="text-6xl font-bold leading-tight tracking-tight"
                 >
-                    Connect with <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-primary to-orange-400 animate-shimmer bg-[length:200%_auto]">Global Energy.</span>
+                    Conecta con <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-primary to-orange-400 animate-shimmer bg-[length:200%_auto]">Energía Global.</span>
                 </motion.h1>
                 <motion.p 
                     initial={{ opacity: 0, y: 20 }}
@@ -65,7 +65,7 @@ export function SplitAuthLayout({
                     transition={{ delay: 0.5 }}
                     className="text-xl text-white/50 leading-relaxed max-w-sm"
                 >
-                    The next generation of social networking is here. Faster, sleeker, and designed for the creators of tomorrow.
+                    La próxima generación de redes sociales está aquí. Más rápida, más elegante y diseñada para los creadores del mañana.
                 </motion.p>
 
                 <motion.div
@@ -84,9 +84,9 @@ export function SplitAuthLayout({
                  className="flex items-center gap-6 text-xs text-white/20 font-medium tracking-wide uppercase"
             >
                 <p>&copy; 2025 Hubbax Inc.</p>
-                <p className="hover:text-white transition-colors cursor-pointer">Privacy</p>
-                <p className="hover:text-white transition-colors cursor-pointer">Terms</p>
-                <p className="hover:text-white transition-colors cursor-pointer">Support</p>
+                <p className="hover:text-white transition-colors cursor-pointer">Privacidad</p>
+                <p className="hover:text-white transition-colors cursor-pointer">Términos</p>
+                <p className="hover:text-white transition-colors cursor-pointer">Soporte</p>
             </motion.div>
         </div>
       </div>
