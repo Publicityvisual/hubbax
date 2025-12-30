@@ -19,7 +19,6 @@ export default function LoginPage() {
     <SplitAuthLayout 
       title="Welcome Back" 
       subtitle="Enter your credentials to access your account."
-      image="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
     >
       <form onSubmit={handleSubmit} className="space-y-4 w-full">
         <div className="space-y-4">
@@ -63,7 +62,7 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        <Button type="submit" className="w-full py-6 text-lg" size="lg" isLoading={isLoading}>
+        <Button type="submit" className="w-full py-6 text-lg" size="lg" isLoading={isLoading} variant="gradient">
           Sign In
           {!isLoading && <ArrowRight className="w-5 h-5 ml-2" />}
         </Button>

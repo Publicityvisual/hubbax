@@ -19,7 +19,6 @@ export default function RegisterPage() {
     <SplitAuthLayout 
       title="Create Account" 
       subtitle="Join the exclusive network today."
-      image="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2664&auto=format&fit=crop"
     >
       <form onSubmit={handleSubmit} className="space-y-4 w-full">
          <div className="space-y-4">
@@ -95,7 +94,7 @@ export default function RegisterPage() {
             By clicking "Create Account", you agree to our <span className="text-primary cursor-pointer hover:underline">Terms of Service</span> and <span className="text-primary cursor-pointer hover:underline">Privacy Policy</span>.
         </div>
 
-        <Button type="submit" className="w-full py-6 text-lg" size="lg" isLoading={isLoading}>
+        <Button type="submit" className="w-full py-6 text-lg" size="lg" isLoading={isLoading} variant="gradient">
           Create Account
           {!isLoading && <ArrowRight className="w-5 h-5 ml-2" />}
         </Button>

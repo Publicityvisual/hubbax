@@ -38,15 +38,17 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="relative w-full group">
         <div className={cn(
-            "relative flex items-center w-full rounded-xl border bg-black/40 backdrop-blur-sm transition-all duration-300",
-            error ? "border-red-500" : isFocused ? "border-primary ring-1 ring-primary/20" : "border-white/10 hover:border-white/20",
+            "relative flex items-center w-full rounded-full border bg-white/5 backdrop-blur-xl transition-all duration-300 overflow-hidden",
+            error ? "border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]" : 
+            isFocused ? "border-violet-500 shadow-[0_0_15px_rgba(139,92,246,0.3)] bg-white/10" : 
+            "border-white/10 hover:border-white/20 hover:bg-white/10",
             className
           )}
         >
           {icon && (
             <div className={cn(
-              "pl-4 transition-colors duration-300",
-              isFocused ? "text-primary" : "text-white/40"
+              "pl-5 transition-colors duration-300",
+              isFocused ? "text-violet-400" : "text-white/40"
             )}>
               {icon}
             </div>
@@ -56,8 +58,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             type={inputType}
             className={cn(
-              "flex w-full bg-transparent px-4 py-3 pt-5 pb-2 text-sm text-white placeholder-transparent focus:outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50",
-              icon ? "pl-2" : ""
+              "flex w-full bg-transparent px-5 py-4 pt-6 pb-2 text-sm text-white placeholder-transparent focus:outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50",
+              icon ? "pl-3" : ""
             )}
             placeholder={label}
             onFocus={handleFocus}
@@ -68,16 +70,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           
           <label
             className={cn(
-              "absolute left-4 top-1/2 -translate-y-1/2 text-sm transition-all duration-300 pointer-events-none",
-              (isFocused || hasValue || props.value) ? "top-3 text-[10px] text-white/50" : "text-white/40",
-              icon ? (isFocused || hasValue || props.value ? "left-4 translate-x-0" : "left-10") : ""
+              "absolute left-5 top-1/2 -translate-y-1/2 text-sm transition-all duration-300 pointer-events-none",
+              (isFocused || hasValue || props.value) ? "top-3.5 text-[10px] text-violet-300 font-medium tracking-wide" : "text-white/40",
+              icon ? (isFocused || hasValue || props.value ? "left-5 translate-x-0" : "left-12") : ""
             )}
           >
             {label}
           </label>
 
           {(isPassword || endIcon) && (
-            <div className="pr-4 text-white/40 hover:text-white transition-colors cursor-pointer">
+            <div className="pr-5 text-white/40 hover:text-white transition-colors cursor-pointer">
                {isPassword ? (
                  <button 
                   type="button" 
@@ -90,16 +92,19 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
+        
+        {/* Error Message with float in animation */}
         <AnimatePresence>
           {error && (
-            <motion.p
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="mt-1 text-xs text-red-500 font-medium ml-1"
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -10 }}
+              className="flex items-center mt-1.5 ml-2"
             >
-              {error}
-            </motion.p>
+                <div className="w-1 h-1 rounded-full bg-red-500 mr-2" />
+                <span className="text-xs text-red-400 font-medium">{error}</span>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
