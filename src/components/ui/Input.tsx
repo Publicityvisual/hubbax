@@ -1,17 +1,23 @@
 import { InputHTMLAttributes, forwardRef, useState } from 'react';
 import { cn } from '../../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Eye, EyeOff } from 'lucide-react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
   icon?: React.ReactNode;
+  endIcon?: React.ReactNode;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, label, error, icon, onFocus, onBlur, ...props }, ref) => {
+  ({ className, type, label, error, icon, endIcon, onFocus, onBlur, ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
     const [hasValue, setHasValue] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const isPassword = type === 'password';
+    const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
@@ -48,7 +54,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           
           <input
             ref={ref}
-            type={type}
+            type={inputType}
             className={cn(
               "flex w-full bg-transparent px-4 py-3 pt-5 pb-2 text-sm text-white placeholder-transparent focus:outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50",
               icon ? "pl-2" : ""
@@ -69,6 +75,20 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           >
             {label}
           </label>
+
+          {(isPassword || endIcon) && (
+            <div className="pr-4 text-white/40 hover:text-white transition-colors cursor-pointer">
+               {isPassword ? (
+                 <button 
+                  type="button" 
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="focus:outline-none"
+                 >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                 </button>
+               ) : endIcon}
+            </div>
+          )}
         </div>
         <AnimatePresence>
           {error && (
