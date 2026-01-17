@@ -20,6 +20,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -155,6 +156,34 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                     </label>
                 </div>
                 {errors.gender && <span className="text-xs text-red-500 ml-1">{errors.gender.message}</span>}
+                
+                {/* Custom Gender Fields (Conditional) */}
+                {watch('gender') === 'other' && (
+                  <motion.div 
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    className="space-y-3 pt-1 overflow-hidden"
+                  >
+                     <select 
+                       className="w-full h-10 rounded-lg bg-[#1A1A1A] text-sm text-white px-3 focus:outline-none appearance-none cursor-pointer border-transparent focus:bg-[#202020]"
+                     >
+                        <option value="" disabled selected className="bg-[#1A1A1A]">Selecciona tu pronombre</option>
+                        <option value="she" className="bg-[#1A1A1A]">Ella: "Deséale un feliz cumpleaños a ella"</option>
+                        <option value="he" className="bg-[#1A1A1A]">Él: "Deséale un feliz cumpleaños a él"</option>
+                        <option value="they" className="bg-[#1A1A1A]">Neutro: "Deséale un feliz cumpleaños"</option>
+                     </select>
+                     
+                     <div className="space-y-1">
+                        <label className="text-[10px] text-neutral-500 ml-1">Tu género (opcional)</label>
+                        <Input 
+                            type="text" 
+                            placeholder="Género (opcional)"
+                            className="bg-[#1A1A1A] border-transparent text-white placeholder:text-neutral-600 focus:bg-[#202020] focus:ring-1 focus:ring-white/10 h-10 rounded-lg text-sm"
+                            hideLabel
+                        />
+                     </div>
+                  </motion.div>
+                )}
             </div>
 
             <div className="text-[10px] text-neutral-600 leading-relaxed px-1">
