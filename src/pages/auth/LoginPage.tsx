@@ -12,7 +12,6 @@ import { motion } from 'framer-motion';
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [hoveredReaction, setHoveredReaction] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const {
@@ -31,16 +30,6 @@ export default function LoginPage() {
       navigate('/feed');
     }, 2000);
   };
-
-  // Facebook-style reactions
-  const reactions = [
-    { name: 'Me gusta', emoji: '👍', bg: 'bg-blue-500' },
-    { name: 'Me encanta', emoji: '❤️', bg: 'bg-red-500' },
-    { name: 'Me divierte', emoji: '😆', bg: 'bg-yellow-500' },
-    { name: 'Me asombra', emoji: '😮', bg: 'bg-yellow-500' },
-    { name: 'Me entristece', emoji: '😢', bg: 'bg-yellow-500' },
-    { name: 'Me enoja', emoji: '😠', bg: 'bg-orange-500' },
-  ];
 
   return (
     <div className="h-screen bg-[#0a0a0a] flex font-sans overflow-hidden">
@@ -134,122 +123,79 @@ export default function LoginPage() {
             </motion.div>
           </motion.div>
 
-          {/* Reactions Bar - Facebook Style with Unique Animations */}
+          {/* Reactions Bar - Facebook Style with Continuous Animations */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             className="mt-8"
           >
-            <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-3 flex items-center gap-2">
-              {/* Like - Bounce up animation */}
-              <motion.button 
-                onHoverStart={() => setHoveredReaction(0)}
-                onHoverEnd={() => setHoveredReaction(null)}
-                animate={hoveredReaction === 0 ? { 
-                  scale: [1, 1.5, 1.4],
-                  y: [0, -20, -15],
-                  rotate: [0, -10, 0]
-                } : { scale: 1, y: 0, rotate: 0 }}
-                transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+            <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-3 flex items-center gap-3">
+              {/* Like - Continuous bounce */}
+              <motion.div 
+                animate={{ y: [0, -6, 0], scale: [1, 1.15, 1], rotate: [0, -5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                whileHover={{ scale: 1.5, y: -15 }}
+                className="w-11 h-11 bg-blue-500 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
                 title="Me gusta"
               >
                 👍
-              </motion.button>
+              </motion.div>
 
-              {/* Love - Heartbeat animation */}
-              <motion.button 
-                onHoverStart={() => setHoveredReaction(1)}
-                onHoverEnd={() => setHoveredReaction(null)}
-                animate={hoveredReaction === 1 ? { 
-                  scale: [1, 1.6, 1.3, 1.5, 1.4],
-                  y: [0, -18, -15, -18, -15]
-                } : { scale: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+              {/* Love - Heartbeat */}
+              <motion.div 
+                animate={{ scale: [1, 1.2, 1, 1.15, 1] }}
+                transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                whileHover={{ scale: 1.5, y: -15 }}
+                className="w-11 h-11 bg-red-500 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
                 title="Me encanta"
               >
                 ❤️
-              </motion.button>
+              </motion.div>
 
-              {/* Haha - Shake/laugh animation */}
-              <motion.button 
-                onHoverStart={() => setHoveredReaction(2)}
-                onHoverEnd={() => setHoveredReaction(null)}
-                animate={hoveredReaction === 2 ? { 
-                  scale: 1.5,
-                  y: -15,
-                  rotate: [0, -10, 10, -10, 10, 0],
-                  x: [0, -3, 3, -3, 3, 0]
-                } : { scale: 1, y: 0, rotate: 0, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+              {/* Haha - Shake/laugh */}
+              <motion.div 
+                animate={{ rotate: [0, -8, 8, -8, 0], x: [0, -2, 2, -2, 0] }}
+                transition={{ duration: 0.6, repeat: Infinity, repeatDelay: 0.8 }}
+                whileHover={{ scale: 1.5, y: -15 }}
+                className="w-11 h-11 bg-yellow-400 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
                 title="Me divierte"
               >
                 😆
-              </motion.button>
+              </motion.div>
 
-              {/* Wow - Pop/surprise animation */}
-              <motion.button 
-                onHoverStart={() => setHoveredReaction(3)}
-                onHoverEnd={() => setHoveredReaction(null)}
-                animate={hoveredReaction === 3 ? { 
-                  scale: [1, 1.8, 1.3, 1.5],
-                  y: [0, -25, -12, -15]
-                } : { scale: 1, y: 0 }}
-                transition={{ type: "spring", stiffness: 500, damping: 15 }}
-                className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+              {/* Wow - Pop */}
+              <motion.div 
+                animate={{ scale: [1, 1.25, 0.95, 1.1, 1], y: [0, -5, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                whileHover={{ scale: 1.5, y: -15 }}
+                className="w-11 h-11 bg-yellow-400 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
                 title="Me asombra"
               >
                 😮
-              </motion.button>
+              </motion.div>
 
-              {/* Sad - Droop/tear animation */}
-              <motion.button 
-                onHoverStart={() => setHoveredReaction(4)}
-                onHoverEnd={() => setHoveredReaction(null)}
-                animate={hoveredReaction === 4 ? { 
-                  scale: 1.5,
-                  y: [-15, -10, -15, -12],
-                  rotate: [0, -5, 5, 0]
-                } : { scale: 1, y: 0, rotate: 0 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+              {/* Sad - Gentle sway */}
+              <motion.div 
+                animate={{ y: [0, 3, 0], rotate: [0, -3, 3, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                whileHover={{ scale: 1.5, y: -15 }}
+                className="w-11 h-11 bg-yellow-400 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
                 title="Me entristece"
               >
                 😢
-              </motion.button>
+              </motion.div>
 
-              {/* Angry - Vibrate/shake animation */}
-              <motion.button 
-                onHoverStart={() => setHoveredReaction(5)}
-                onHoverEnd={() => setHoveredReaction(null)}
-                animate={hoveredReaction === 5 ? { 
-                  scale: 1.5,
-                  y: -15,
-                  x: [0, -2, 2, -2, 2, -2, 2, 0],
-                  rotate: [0, -3, 3, -3, 3, 0]
-                } : { scale: 1, y: 0, x: 0, rotate: 0 }}
-                transition={{ duration: 0.4 }}
-                className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+              {/* Angry - Vibrate */}
+              <motion.div 
+                animate={{ x: [0, -2, 2, -2, 2, 0], rotate: [0, -2, 2, -2, 0] }}
+                transition={{ duration: 0.3, repeat: Infinity, repeatDelay: 0.7 }}
+                whileHover={{ scale: 1.5, y: -15 }}
+                className="w-11 h-11 bg-orange-500 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
                 title="Me enoja"
               >
                 😠
-              </motion.button>
-            </div>
-            
-            {/* Tooltip */}
-            <div className="h-6 mt-2 text-center">
-              {hoveredReaction !== null && (
-                <motion.span 
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-white text-sm font-medium bg-black/80 px-3 py-1 rounded-full"
-                >
-                  {reactions[hoveredReaction].name}
-                </motion.span>
-              )}
+              </motion.div>
             </div>
           </motion.div>
         </div>
