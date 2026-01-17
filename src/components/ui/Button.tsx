@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils';
 import { Loader2 } from 'lucide-react';
 
 interface ButtonProps extends HTMLMotionProps<"button"> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link' | 'gradient';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link' | 'gradient' | 'success';
   size?: 'sm' | 'md' | 'lg' | 'icon';
   isLoading?: boolean;
   children: React.ReactNode;
@@ -21,6 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ghost: 'bg-transparent text-white hover:bg-white/10 border-transparent',
       link: 'text-primary underline-offset-4 hover:underline bg-transparent border-transparent px-0 h-auto',
       gradient: 'bg-gradient-to-r from-violet-600 to-primary text-white shadow-lg shadow-violet-500/25 border-transparent relative overflow-hidden group',
+      success: 'bg-[#42b72a] hover:bg-[#36a420] text-white shadow-[0_4px_12px_rgba(66,183,42,0.4)] border-transparent font-bold tracking-wide text-md',
     };
 
     const sizes = {
@@ -44,9 +45,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isLoading || props.disabled}
         {...props}
       >
-        {/* Shimmer effect for gradient variant */}
-        {variant === 'gradient' && (
-          <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/25 to-transparent z-0" />
+        {/* Shimmer effect for gradient and success variant */}
+        {(variant === 'gradient' || variant === 'success') && (
+          <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-0" />
         )}
         
         <div className="relative z-10 flex items-center justify-center">
