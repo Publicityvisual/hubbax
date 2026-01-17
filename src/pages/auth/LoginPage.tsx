@@ -34,14 +34,14 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex font-sans selection:bg-[#d93025] selection:text-white">
       {/* Left Panel - Hero/Branding (Hidden on mobile) */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center">
         {/* Animated Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#d93025]/20 via-[#0a0a0a] to-purple-900/20" />
         <div className="absolute top-20 left-10 w-96 h-96 bg-[#d93025]/30 rounded-full blur-[150px] animate-pulse" />
         <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-600/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
         
-        {/* Content */}
-        <div className="relative z-10 flex flex-col justify-center px-12 py-12 w-full">
+        {/* Content - Centered */}
+        <div className="relative z-10 flex flex-col items-center text-center px-12 py-12 max-w-lg">
           {/* Logo Image */}
           <motion.div
             initial={{ opacity: 0, y: -30 }}
@@ -51,23 +51,23 @@ export default function LoginPage() {
           >
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-[#d93025] to-purple-600 opacity-20 blur-xl group-hover:opacity-30 transition-opacity duration-500 rounded-full" />
-              <img src="/assets/logo.png" alt="Hubbax" className="relative h-24 lg:h-32 object-contain drop-shadow-2xl" />
+              <img src="/assets/logo.png" alt="Hubbax" className="relative h-20 lg:h-28 object-contain drop-shadow-2xl" />
             </div>
           </motion.div>
 
           {/* Tagline */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-8"
+            className="mb-10"
           >
-            <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
-              Donde las<br />
-              conexiones<br />
+            <h1 className="text-3xl lg:text-4xl font-bold text-white leading-tight mb-4">
+              Donde las conexiones
+              <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d93025] to-purple-500">cobran vida</span>
             </h1>
-            <p className="text-neutral-400 text-lg max-w-md leading-relaxed">
+            <p className="text-neutral-400 text-base leading-relaxed">
               Únete a millones de personas que ya comparten momentos, historias y experiencias únicas.
             </p>
           </motion.div>
@@ -79,14 +79,14 @@ export default function LoginPage() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative group mb-8"
           >
-            <div className="absolute -inset-1 bg-gradient-to-tr from-[#d93025] to-purple-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-1000" />
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+            <div className="absolute -inset-2 bg-gradient-to-tr from-[#d93025] to-purple-600 rounded-3xl blur-lg opacity-40 group-hover:opacity-60 transition duration-500" />
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/20">
               <img 
                 src="/assets/hero_people.png" 
                 alt="Social Connection" 
-                className="w-full max-w-[400px] h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                className="w-80 lg:w-96 h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
             </div>
           </motion.div>
 
@@ -95,7 +95,7 @@ export default function LoginPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-wrap gap-3"
+            className="flex flex-wrap justify-center gap-2"
           >
             {['🔒 Privacidad', '⚡ Rápido', '🌍 Global', '💎 Premium'].map((feature, i) => (
               <span key={i} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-neutral-300 text-xs font-medium backdrop-blur-sm">
@@ -107,25 +107,29 @@ export default function LoginPage() {
       </div>
 
       {/* Right Panel - Login Form */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 lg:px-16 relative">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 lg:px-12 relative">
+        {/* Subtle Background Pattern */}
+        <div className="absolute inset-0 bg-[url('/assets/noise.svg')] opacity-[0.02] pointer-events-none" />
+        
         {/* Mobile Logo (visible only on mobile) */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="lg:hidden flex items-center gap-3 mb-10"
+          className="lg:hidden flex flex-col items-center gap-4 mb-12"
         >
-          <div className="w-11 h-11 bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] rounded-xl flex items-center justify-center">
-            <div className="w-3 h-3 bg-white rounded-full" />
+          <div className="relative group">
+            <div className="absolute -inset-3 bg-gradient-to-r from-[#d93025] to-purple-600 opacity-20 blur-lg rounded-full" />
+            <img src="/assets/logo.png" alt="Hubbax" className="relative h-16 object-contain" />
           </div>
-          <span className="text-white text-2xl font-bold">Hubbax</span>
+          <p className="text-neutral-400 text-sm text-center">Donde las conexiones cobran vida</p>
         </motion.div>
 
-        {/* Login Card */}
+        {/* Login Card with Glass Effect */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-full max-w-md"
+          className="w-full max-w-[420px] bg-white/[0.02] backdrop-blur-sm border border-white/10 rounded-3xl p-8 lg:p-10 shadow-2xl"
         >
           {/* Card Header */}
           <div className="text-center mb-8">
