@@ -49,20 +49,27 @@ export default function LoginPage() {
              >
                 {/* Floating Glow Effect */}
                 <div className="absolute -inset-10 bg-[#d93025] blur-[100px] opacity-20 rounded-full pointer-events-none" />
-                <img 
-                    src="/assets/social_connect.png" 
-                    alt="Social Connection" 
-                    className="w-[380px] lg:w-[480px] h-auto object-contain relative z-10 drop-shadow-2xl hover:scale-105 transition-transform duration-700 ease-in-out"
-                />
+                <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-white/10 ring-1 ring-white/5 rotate-1 hover:rotate-0 transition-transform duration-700 ease-out">
+                    <img 
+                        src="/assets/hero_people.png" 
+                        alt="Social Connection" 
+                        className="w-[380px] lg:w-[480px] h-auto object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
+                    />
+                </div>
              </motion.div>
-             <motion.h2 
+             
+             {/* Custom Logo Brand */}
+             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-2xl lg:text-3xl font-light text-neutral-300 leading-snug max-w-md"
+                className="flex flex-col items-center lg:items-start"
              >
-                 Conéctate con amigos y el mundo que te rodea en <span className="font-bold text-white">Hubbax</span>.
-             </motion.h2>
+                 <img src="/assets/logo.png" alt="Caramelo Brand" className="h-24 lg:h-32 object-contain mb-4 drop-shadow-[0_0_15px_rgba(217,48,37,0.5)]" />
+                 <h2 className="text-2xl lg:text-3xl font-light text-neutral-300 leading-snug max-w-md">
+                     Conéctate con amigos y el mundo que te rodea.
+                 </h2>
+             </motion.div>
         </div>
 
         {/* Right Col: Login Card & Recent Users */}
