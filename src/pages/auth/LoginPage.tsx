@@ -263,13 +263,52 @@ export default function LoginPage() {
             <img src="/assets/logo.png" alt="Hubbax" className="h-14 mx-auto mb-2" />
             <p className="text-neutral-500 text-sm">La red social del futuro</p>
             
-            {/* Mobile Reactions */}
-            <div className="flex justify-center gap-2 mt-4">
-              {reactions.slice(0, 4).map((reaction, i) => (
-                <div key={i} className={`w-9 h-9 ${reaction.bg} rounded-full flex items-center justify-center text-lg shadow-md`}>
-                  {reaction.emoji}
-                </div>
-              ))}
+            {/* Mobile Animated Reactions */}
+            <div className="flex justify-center gap-3 mt-4">
+              {/* Like - Continuous bounce */}
+              <motion.div 
+                animate={{ y: [0, -5, 0], scale: [1, 1.1, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-xl shadow-lg"
+              >
+                👍
+              </motion.div>
+              
+              {/* Love - Heartbeat */}
+              <motion.div 
+                animate={{ scale: [1, 1.2, 1, 1.15, 1] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-xl shadow-lg"
+              >
+                ❤️
+              </motion.div>
+              
+              {/* Haha - Shake */}
+              <motion.div 
+                animate={{ rotate: [0, -8, 8, -8, 0], x: [0, -2, 2, -2, 0] }}
+                transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 0.5 }}
+                className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-xl shadow-lg"
+              >
+                😆
+              </motion.div>
+              
+              {/* Wow - Pop */}
+              <motion.div 
+                animate={{ scale: [1, 1.3, 0.9, 1.1, 1], y: [0, -8, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-xl shadow-lg"
+              >
+                😮
+              </motion.div>
+              
+              {/* Angry - Vibrate */}
+              <motion.div 
+                animate={{ x: [0, -1, 1, -1, 1, 0], rotate: [0, -2, 2, -2, 0] }}
+                transition={{ duration: 0.3, repeat: Infinity, repeatDelay: 1 }}
+                className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-xl shadow-lg"
+              >
+                😠
+              </motion.div>
             </div>
           </div>
 
