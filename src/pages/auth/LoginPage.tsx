@@ -8,10 +8,12 @@ import { Loader2 } from 'lucide-react';
 import { loginSchema, LoginFormData } from '../../lib/schemas';
 import { RegisterModal } from '../../components/auth/RegisterModal';
 import { motion } from 'framer-motion';
+import { LikeReaction, LoveReaction, HahaReaction, WowReaction, SadReaction, AngryReaction } from '../../components/ui/Reactions';
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [hoveredReaction, setHoveredReaction] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const {
@@ -30,6 +32,15 @@ export default function LoginPage() {
       navigate('/feed');
     }, 2000);
   };
+
+  const reactions = [
+    { name: 'Me gusta', Component: LikeReaction },
+    { name: 'Me encanta', Component: LoveReaction },
+    { name: 'Me divierte', Component: HahaReaction },
+    { name: 'Me asombra', Component: WowReaction },
+    { name: 'Me entristece', Component: SadReaction },
+    { name: 'Me enoja', Component: AngryReaction },
+  ];
 
   return (
     <div className="h-screen bg-[#0a0a0a] flex font-sans overflow-hidden">
@@ -92,110 +103,68 @@ export default function LoginPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             </div>
 
-            {/* Floating Reactions with CSS Animation */}
+            {/* Floating Reactions with Advanced SVG Animation */}
             <motion.div
-              animate={{ y: [0, -8, 0] }}
+              animate={{ y: [0, -8, 0], rotate: [0, 5, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-3 -right-3 w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-2xl shadow-lg border-2 border-white"
+              className="absolute -top-6 -right-6 w-20 h-20 drop-shadow-2xl"
             >
-              ❤️
+              <LoveReaction />
             </motion.div>
             <motion.div
-              animate={{ y: [0, 10, 0] }}
+              animate={{ y: [0, 10, 0], rotate: [0, -5, 0] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-10 -left-4 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-xl shadow-lg border-2 border-white"
+              className="absolute top-16 -left-8 w-16 h-16 drop-shadow-2xl"
             >
-              👍
+              <LikeReaction />
             </motion.div>
             <motion.div
-              animate={{ y: [0, -6, 0], rotate: [0, 10, 0] }}
+              animate={{ y: [0, -6, 0], rotate: [0, 8, 0] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-14 -right-4 w-9 h-9 bg-yellow-400 rounded-full flex items-center justify-center text-lg shadow-lg border-2 border-white"
+              className="absolute bottom-20 -right-8 w-14 h-14 drop-shadow-2xl"
             >
-              😆
+              <HahaReaction />
             </motion.div>
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-1 left-8 w-9 h-9 bg-yellow-400 rounded-full flex items-center justify-center text-lg shadow-lg border-2 border-white"
+              className="absolute -bottom-4 left-12 w-16 h-16 drop-shadow-2xl"
             >
-              😮
+              <WowReaction />
             </motion.div>
           </motion.div>
 
-          {/* Reactions Bar - Facebook Style with Continuous Animations */}
+          {/* Reactions Bar - Advanced SVG Animations */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-8"
+            className="mt-10"
           >
-            <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-3 flex items-center gap-3">
-              {/* Like - Continuous bounce */}
-              <motion.div 
-                animate={{ y: [0, -6, 0], scale: [1, 1.15, 1], rotate: [0, -5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                whileHover={{ scale: 1.5, y: -15 }}
-                className="w-11 h-11 bg-blue-500 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
-                title="Me gusta"
-              >
-                👍
-              </motion.div>
-
-              {/* Love - Heartbeat */}
-              <motion.div 
-                animate={{ scale: [1, 1.2, 1, 1.15, 1] }}
-                transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-                whileHover={{ scale: 1.5, y: -15 }}
-                className="w-11 h-11 bg-red-500 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
-                title="Me encanta"
-              >
-                ❤️
-              </motion.div>
-
-              {/* Haha - Shake/laugh */}
-              <motion.div 
-                animate={{ rotate: [0, -8, 8, -8, 0], x: [0, -2, 2, -2, 0] }}
-                transition={{ duration: 0.6, repeat: Infinity, repeatDelay: 0.8 }}
-                whileHover={{ scale: 1.5, y: -15 }}
-                className="w-11 h-11 bg-yellow-400 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
-                title="Me divierte"
-              >
-                😆
-              </motion.div>
-
-              {/* Wow - Pop */}
-              <motion.div 
-                animate={{ scale: [1, 1.25, 0.95, 1.1, 1], y: [0, -5, 0] }}
-                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-                whileHover={{ scale: 1.5, y: -15 }}
-                className="w-11 h-11 bg-yellow-400 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
-                title="Me asombra"
-              >
-                😮
-              </motion.div>
-
-              {/* Sad - Gentle sway */}
-              <motion.div 
-                animate={{ y: [0, 3, 0], rotate: [0, -3, 3, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                whileHover={{ scale: 1.5, y: -15 }}
-                className="w-11 h-11 bg-yellow-400 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
-                title="Me entristece"
-              >
-                😢
-              </motion.div>
-
-              {/* Angry - Vibrate */}
-              <motion.div 
-                animate={{ x: [0, -2, 2, -2, 2, 0], rotate: [0, -2, 2, -2, 0] }}
-                transition={{ duration: 0.3, repeat: Infinity, repeatDelay: 0.7 }}
-                whileHover={{ scale: 1.5, y: -15 }}
-                className="w-11 h-11 bg-orange-500 rounded-full flex items-center justify-center text-2xl cursor-pointer shadow-lg border-2 border-white/20"
-                title="Me enoja"
-              >
-                😠
-              </motion.div>
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-6 py-4 flex items-center gap-4 shadow-2xl">
+              {reactions.map((reaction, i) => (
+                <div key={i} className="relative group">
+                  <motion.div
+                    onHoverStart={() => setHoveredReaction(i)}
+                    onHoverEnd={() => setHoveredReaction(null)}
+                    animate={hoveredReaction === i ? { scale: 1.5, y: -20, zIndex: 10 } : { scale: 1, y: 0, zIndex: 0 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                    className="w-12 h-12 cursor-pointer relative"
+                  >
+                    <reaction.Component />
+                  </motion.div>
+                  {/* Tooltip */}
+                  {hoveredReaction === i && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                      animate={{ opacity: 1, y: -45, scale: 1 }}
+                      className="absolute left-1/2 -translate-x-1/2 top-0 whitespace-nowrap bg-black/90 text-white text-xs font-bold px-3 py-1.5 rounded-full pointer-events-none"
+                    >
+                      {reaction.name}
+                    </motion.div>
+                  )}
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -210,51 +179,12 @@ export default function LoginPage() {
             <p className="text-neutral-500 text-sm">La red social del futuro</p>
             
             {/* Mobile Animated Reactions */}
-            <div className="flex justify-center gap-3 mt-4">
-              {/* Like - Continuous bounce */}
-              <motion.div 
-                animate={{ y: [0, -5, 0], scale: [1, 1.1, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-xl shadow-lg"
-              >
-                👍
-              </motion.div>
-              
-              {/* Love - Heartbeat */}
-              <motion.div 
-                animate={{ scale: [1, 1.2, 1, 1.15, 1] }}
-                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-                className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-xl shadow-lg"
-              >
-                ❤️
-              </motion.div>
-              
-              {/* Haha - Shake */}
-              <motion.div 
-                animate={{ rotate: [0, -8, 8, -8, 0], x: [0, -2, 2, -2, 0] }}
-                transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 0.5 }}
-                className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-xl shadow-lg"
-              >
-                😆
-              </motion.div>
-              
-              {/* Wow - Pop */}
-              <motion.div 
-                animate={{ scale: [1, 1.3, 0.9, 1.1, 1], y: [0, -8, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-xl shadow-lg"
-              >
-                😮
-              </motion.div>
-              
-              {/* Angry - Vibrate */}
-              <motion.div 
-                animate={{ x: [0, -1, 1, -1, 1, 0], rotate: [0, -2, 2, -2, 0] }}
-                transition={{ duration: 0.3, repeat: Infinity, repeatDelay: 1 }}
-                className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-xl shadow-lg"
-              >
-                😠
-              </motion.div>
+            <div className="flex justify-center gap-4 mt-6">
+              {reactions.slice(0, 5).map((reaction, i) => (
+                <div key={i} className="w-10 h-10 drop-shadow-lg">
+                  <reaction.Component />
+                </div>
+              ))}
             </div>
           </div>
 
