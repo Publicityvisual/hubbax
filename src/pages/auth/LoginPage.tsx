@@ -39,7 +39,8 @@ export default function LoginPage() {
       <div className="absolute inset-0 bg-[url('/assets/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay" />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-32 px-6 lg:px-12 relative z-10 w-full max-w-[1400px] mx-auto pt-10 lg:pt-0">
+      <div className="flex-1 flex items-center justify-center px-6 lg:px-12 relative z-10 w-full py-12 lg:py-0">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 w-full max-w-6xl">
         
         {/* Left Col: Branding & Visuals */}
         <div className="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-8">
@@ -154,27 +155,79 @@ export default function LoginPage() {
              </p>
            </div>
         </div>
+        </div>
       </div>
 
       <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
       
-      {/* Wave Separator & Footer */}
-      <div className="relative z-10 w-full mt-auto">
-         {/* SVG Wave */}
-         <div className="w-full relative -bottom-1 opacity-90">
-             <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto text-[#020202] fill-current">
-                 <path d="M0 60L48 65C96 70 192 80 288 83.3C384 86.7 480 83.3 576 75C672 66.7 768 53.3 864 51.7C960 50 1056 60 1152 68.3C1248 76.7 1344 83.3 1392 86.7L1440 90V120H1392C1344 120 1248 120 1152 120C1056 120 960 120 864 120C768 120 672 120 576 120C480 120 384 120 288 120C192 120 96 120 48 120H0V60Z" />
-             </svg>
-         </div>
-         <footer className="w-full text-center py-8 bg-[#020202] text-neutral-600 text-xs border-t border-white/5">
-           <div className="flex justify-center gap-8 mb-4 font-medium tracking-wide">
-               <span className="hover:text-white cursor-pointer transition-colors duration-300">Español</span>
-               <span className="hover:text-white cursor-pointer transition-colors duration-300">English (US)</span>
-               <span className="hover:text-white cursor-pointer transition-colors duration-300">Français</span>
-           </div>
-           <p className="opacity-60">Hubbax © 2025</p>
-         </footer>
-      </div>
+      {/* Modern Professional Footer */}
+      <footer className="relative z-10 w-full mt-auto bg-[#0A0A0A] border-t border-white/5">
+        <div className="max-w-6xl mx-auto px-6 py-10">
+          {/* Footer Links Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+            {/* Company */}
+            <div className="space-y-4">
+              <h4 className="text-white font-semibold text-sm uppercase tracking-wider">Compañía</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Acerca de</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Empleos</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Prensa</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Blog</a></li>
+              </ul>
+            </div>
+            {/* Legal */}
+            <div className="space-y-4">
+              <h4 className="text-white font-semibold text-sm uppercase tracking-wider">Legal</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Condiciones</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Privacidad</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Cookies</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Licencias</a></li>
+              </ul>
+            </div>
+            {/* Help */}
+            <div className="space-y-4">
+              <h4 className="text-white font-semibold text-sm uppercase tracking-wider">Ayuda</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Centro de ayuda</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Seguridad</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Comunidad</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Contacto</a></li>
+              </ul>
+            </div>
+            {/* Social */}
+            <div className="space-y-4">
+              <h4 className="text-white font-semibold text-sm uppercase tracking-wider">Síguenos</h4>
+              <ul className="space-y-3">
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Instagram</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">Twitter</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">YouTube</a></li>
+                <li><a href="#" className="text-neutral-400 hover:text-white text-sm transition-colors">TikTok</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          {/* Bottom Bar */}
+          <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] rounded-xl flex items-center justify-center">
+                <div className="w-2.5 h-2.5 bg-white rounded-full" />
+              </div>
+              <span className="text-white font-bold text-lg">Hubbax</span>
+            </div>
+            
+            <div className="flex items-center gap-6">
+              <select className="bg-transparent text-neutral-400 text-sm border border-white/10 rounded-lg px-3 py-2 cursor-pointer hover:border-white/20 focus:outline-none focus:border-[#d93025] transition-colors">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+              </select>
+              <span className="text-neutral-500 text-sm">© 2025 Hubbax. Todos los derechos reservados.</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
