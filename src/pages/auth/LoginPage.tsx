@@ -31,14 +31,8 @@ export default function LoginPage() {
     }, 2000);
   };
 
-  // Sample avatars for social proof
-  const recentUsers = [
-    'https://randomuser.me/api/portraits/women/1.jpg',
-    'https://randomuser.me/api/portraits/men/2.jpg',
-    'https://randomuser.me/api/portraits/women/3.jpg',
-    'https://randomuser.me/api/portraits/men/4.jpg',
-    'https://randomuser.me/api/portraits/women/5.jpg',
-  ];
+  // Abstract social icons for visual appeal (no real user data)
+  const socialIcons = ['💬', '❤️', '🔔', '📸', '🎉'];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#0f0f0f] to-[#0a0a0a] flex font-sans overflow-hidden">
@@ -134,49 +128,49 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Floating avatars */}
+            {/* Floating emoji icons */}
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-4 -right-4 w-14 h-14 rounded-full border-3 border-[#0a0a0a] overflow-hidden shadow-xl"
+              className="absolute -top-4 -right-4 w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center shadow-xl text-2xl"
             >
-              <img src={recentUsers[0]} alt="" className="w-full h-full object-cover" />
+              ❤️
             </motion.div>
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-16 -left-6 w-12 h-12 rounded-full border-3 border-[#0a0a0a] overflow-hidden shadow-xl"
+              className="absolute top-16 -left-6 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-xl text-xl"
             >
-              <img src={recentUsers[1]} alt="" className="w-full h-full object-cover" />
+              💬
             </motion.div>
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-20 -right-6 w-10 h-10 rounded-full border-3 border-[#0a0a0a] overflow-hidden shadow-xl"
+              className="absolute bottom-20 -right-6 w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-xl text-lg"
             >
-              <img src={recentUsers[2]} alt="" className="w-full h-full object-cover" />
+              🔔
             </motion.div>
           </motion.div>
 
-          {/* Recent Users Bar */}
+          {/* Activity Bar */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-10 flex items-center gap-3"
+            className="mt-10 flex items-center gap-4"
           >
-            <div className="flex -space-x-3">
-              {recentUsers.map((avatar, i) => (
-                <img 
+            <div className="flex gap-2">
+              {socialIcons.map((icon, i) => (
+                <div 
                   key={i}
-                  src={avatar} 
-                  alt="" 
-                  className="w-10 h-10 rounded-full border-2 border-[#0a0a0a] object-cover"
-                />
+                  className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-lg"
+                >
+                  {icon}
+                </div>
               ))}
             </div>
             <div className="text-neutral-400 text-sm">
-              <span className="text-white font-semibold">+50,000</span> se unieron esta semana
+              <span className="text-white font-semibold">+50,000</span> nuevos hoy
             </div>
           </motion.div>
         </div>
