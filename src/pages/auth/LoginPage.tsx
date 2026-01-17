@@ -33,31 +33,31 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex font-sans">
       {/* Left Panel - Hero (Desktop only) */}
-      <div className="hidden lg:flex lg:w-[45%] relative overflow-hidden items-center justify-center bg-gradient-to-br from-[#d93025]/10 via-[#0a0a0a] to-purple-900/10">
+      <div className="hidden lg:flex lg:w-[50%] relative overflow-hidden items-center justify-center bg-gradient-to-br from-[#d93025]/10 via-[#0a0a0a] to-purple-900/10">
         {/* Decorative Orbs */}
-        <div className="absolute top-20 left-10 w-80 h-80 bg-[#d93025]/20 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-64 h-64 bg-purple-600/15 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-20 left-10 w-96 h-96 bg-[#d93025]/25 rounded-full blur-[150px] animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-600/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
         
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center text-center px-10 max-w-md">
-          <img src="/assets/logo.png" alt="Hubbax" className="h-24 object-contain mb-6" />
+        <div className="relative z-10 flex flex-col items-center text-center px-12 max-w-xl">
+          <img src="/assets/logo.png" alt="Hubbax" className="h-32 lg:h-40 object-contain mb-8" />
           
-          <h1 className="text-3xl font-bold text-white leading-tight mb-4">
+          <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
             Donde las conexiones
             <br />
             <span className="text-[#d93025]">cobran vida</span>
           </h1>
-          <p className="text-neutral-400 text-sm mb-8">
-            Únete a millones de personas que comparten momentos únicos.
+          <p className="text-neutral-400 text-lg mb-10 max-w-md">
+            Únete a millones de personas que comparten momentos únicos y crean conexiones reales.
           </p>
 
           {/* Hero Image */}
           <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-tr from-[#d93025] to-purple-600 rounded-2xl blur opacity-30" />
+            <div className="absolute -inset-2 bg-gradient-to-tr from-[#d93025] to-purple-600 rounded-3xl blur-lg opacity-40" />
             <img 
               src="/assets/hero_people.png" 
               alt="Social" 
-              className="relative w-72 h-auto rounded-xl"
+              className="relative w-96 lg:w-[450px] h-auto rounded-2xl shadow-2xl"
             />
           </div>
         </div>
