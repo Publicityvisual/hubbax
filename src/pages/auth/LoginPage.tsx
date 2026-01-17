@@ -24,7 +24,10 @@ export default function LoginPage() {
     setIsLoading(true);
     // Simulate login
     console.log('Login Data:', data);
-    setTimeout(() => setIsLoading(false), 2000);
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate('/feed');
+    }, 2000);
   };
 
   return (

@@ -5,11 +5,11 @@ const MOCK_POSTS = [
   {
     id: 1,
     author: {
-      name: "Elena Rodriguez",
+      name: "Elena Rodríguez",
       username: "elenadev",
       avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
     },
-    content: "¡Acabo de lanzar mi nuevo portafolio construido con React y Tailwind! 🚀 Ha sido un viaje increíble aprendiendo sobre animaciones con Framer Motion. ¿Qué opinan? \n\n#React #WebDev #Frontend",
+    content: "¡Acabo de lanzar mi nuevo portafolio construido con React y Tailwind! 🚀 Ha sido un viaje increíble aprendiendo sobre animaciones. ¿Qué opinan? \n\n#React #DesarrolloWeb #Frontend",
     image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=800&q=80",
     timestamp: "2h",
     stats: {
@@ -21,11 +21,11 @@ const MOCK_POSTS = [
   {
     id: 2,
     author: {
-      name: "Marcus Chen",
+      name: "Marcos Chen",
       username: "mchen_design",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",
     },
-    content: "La simplicidad es la máxima sofisticación. Trabajando en un nuevo sistema de diseño para Hubbax. ✨",
+    content: "La simplicidad es la máxima sofisticación. Trabajando en el nuevo sistema de diseño para Hubbax. ✨",
     timestamp: "5h",
     stats: {
       likes: 890,
@@ -36,11 +36,11 @@ const MOCK_POSTS = [
   {
     id: 3,
     author: {
-      name: "Sarah Miller",
-      username: "sarahm_ai",
+      name: "Sara Miller",
+      username: "saram_ai",
       avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",
     },
-    content: "¿Alguien más emocionada por el futuro de la IA generativa? Las posibilidades son infinitas. 🤖✨",
+    content: "¿Alguien más emocionado por el futuro de la IA generativa aquí en México? Las posibilidades son infinitas. 🤖✨",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
     timestamp: "12h",
     stats: {

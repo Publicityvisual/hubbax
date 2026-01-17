@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SplitAuthLayout } from '../../layouts/SplitAuthLayout';
@@ -12,6 +12,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -25,7 +26,10 @@ export default function RegisterPage() {
     setIsLoading(true);
     // Simulate reg
     console.log('Register Data:', data);
-    setTimeout(() => setIsLoading(false), 2000);
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate('/feed');
+    }, 2000);
   };
 
   return (
