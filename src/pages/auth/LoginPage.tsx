@@ -134,7 +134,7 @@ export default function LoginPage() {
             </motion.div>
           </motion.div>
 
-          {/* Reactions Bar - Facebook Style */}
+          {/* Reactions Bar - Facebook Style with Unique Animations */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -142,22 +142,101 @@ export default function LoginPage() {
             className="mt-8"
           >
             <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-3 flex items-center gap-2">
-              {reactions.map((reaction, i) => (
-                <motion.button 
-                  key={i}
-                  onHoverStart={() => setHoveredReaction(i)}
-                  onHoverEnd={() => setHoveredReaction(null)}
-                  animate={{ 
-                    scale: hoveredReaction === i ? 1.5 : 1,
-                    y: hoveredReaction === i ? -15 : 0
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  className={`w-10 h-10 ${reaction.bg} rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md hover:shadow-lg transition-shadow`}
-                  title={reaction.name}
-                >
-                  {reaction.emoji}
-                </motion.button>
-              ))}
+              {/* Like - Bounce up animation */}
+              <motion.button 
+                onHoverStart={() => setHoveredReaction(0)}
+                onHoverEnd={() => setHoveredReaction(null)}
+                animate={hoveredReaction === 0 ? { 
+                  scale: [1, 1.5, 1.4],
+                  y: [0, -20, -15],
+                  rotate: [0, -10, 0]
+                } : { scale: 1, y: 0, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+                title="Me gusta"
+              >
+                👍
+              </motion.button>
+
+              {/* Love - Heartbeat animation */}
+              <motion.button 
+                onHoverStart={() => setHoveredReaction(1)}
+                onHoverEnd={() => setHoveredReaction(null)}
+                animate={hoveredReaction === 1 ? { 
+                  scale: [1, 1.6, 1.3, 1.5, 1.4],
+                  y: [0, -18, -15, -18, -15]
+                } : { scale: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+                className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+                title="Me encanta"
+              >
+                ❤️
+              </motion.button>
+
+              {/* Haha - Shake/laugh animation */}
+              <motion.button 
+                onHoverStart={() => setHoveredReaction(2)}
+                onHoverEnd={() => setHoveredReaction(null)}
+                animate={hoveredReaction === 2 ? { 
+                  scale: 1.5,
+                  y: -15,
+                  rotate: [0, -10, 10, -10, 10, 0],
+                  x: [0, -3, 3, -3, 3, 0]
+                } : { scale: 1, y: 0, rotate: 0, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+                title="Me divierte"
+              >
+                😆
+              </motion.button>
+
+              {/* Wow - Pop/surprise animation */}
+              <motion.button 
+                onHoverStart={() => setHoveredReaction(3)}
+                onHoverEnd={() => setHoveredReaction(null)}
+                animate={hoveredReaction === 3 ? { 
+                  scale: [1, 1.8, 1.3, 1.5],
+                  y: [0, -25, -12, -15]
+                } : { scale: 1, y: 0 }}
+                transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+                title="Me asombra"
+              >
+                😮
+              </motion.button>
+
+              {/* Sad - Droop/tear animation */}
+              <motion.button 
+                onHoverStart={() => setHoveredReaction(4)}
+                onHoverEnd={() => setHoveredReaction(null)}
+                animate={hoveredReaction === 4 ? { 
+                  scale: 1.5,
+                  y: [-15, -10, -15, -12],
+                  rotate: [0, -5, 5, 0]
+                } : { scale: 1, y: 0, rotate: 0 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+                title="Me entristece"
+              >
+                😢
+              </motion.button>
+
+              {/* Angry - Vibrate/shake animation */}
+              <motion.button 
+                onHoverStart={() => setHoveredReaction(5)}
+                onHoverEnd={() => setHoveredReaction(null)}
+                animate={hoveredReaction === 5 ? { 
+                  scale: 1.5,
+                  y: -15,
+                  x: [0, -2, 2, -2, 2, -2, 2, 0],
+                  rotate: [0, -3, 3, -3, 3, 0]
+                } : { scale: 1, y: 0, x: 0, rotate: 0 }}
+                transition={{ duration: 0.4 }}
+                className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md"
+                title="Me enoja"
+              >
+                😠
+              </motion.button>
             </div>
             
             {/* Tooltip */}
