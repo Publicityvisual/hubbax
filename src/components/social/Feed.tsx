@@ -54,15 +54,12 @@ const MOCK_POSTS = [
 
 export function Feed() {
   return (
-    <div className="w-full max-w-2xl mx-auto border-r border-white/5 min-h-screen pb-20">
-      <div className="sticky top-0 z-40 bg-[#050505]/80 backdrop-blur-xl border-b border-white/5 p-4 cursor-pointer hidden lg:block">
-        <h2 className="text-xl font-bold">Inicio</h2>
-      </div>
-
+    <div className="w-full max-w-[680px] mx-auto pb-8">
+      
       <Stories />
       <CreatePost />
       
-      <div className="divide-y divide-white/5">
+      <div className="space-y-4">
         {MOCK_POSTS.map(post => (
             <PostCard key={post.id} {...post} />
         ))}
