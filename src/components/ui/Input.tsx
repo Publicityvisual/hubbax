@@ -40,17 +40,17 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className="relative w-full group">
         {!hideLabel && label && <label className="text-sm font-medium text-white/80 ml-1 block mb-2">{label}</label>}
         <div className={cn(
-            "relative flex items-center w-full rounded-full border bg-white/5 backdrop-blur-xl transition-all duration-300 overflow-hidden",
-            error ? "border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]" : 
-            isFocused ? "border-violet-500 shadow-[0_0_15px_rgba(139,92,246,0.3)] bg-white/10" : 
-            "border-white/10 hover:border-white/20 hover:bg-white/10",
+            "relative flex items-center w-full rounded-xl border bg-[#0A0A0A]/60 backdrop-blur-xl transition-all duration-300 overflow-hidden",
+            error ? "border-red-500/50 shadow-[0_0_10px_rgba(239,68,68,0.15)]" : 
+            isFocused ? "border-[#d93025]/60 shadow-[0_0_20px_rgba(217,48,37,0.15)] bg-[#0A0A0A]" : 
+            "border-white/10 hover:border-white/20 hover:bg-[#0A0A0A]/80",
             className
           )}
         >
           {icon && (
             <div className={cn(
               "pl-5 transition-colors duration-300",
-              isFocused ? "text-violet-400" : "text-white/40"
+              isFocused ? "text-[#d93025]" : "text-white/40"
             )}>
               {icon}
             </div>
@@ -60,7 +60,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             type={inputType}
             className={cn(
-              "flex w-full bg-transparent px-5 py-4 text-sm text-white placeholder-white/40 focus:outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50",
+              "flex w-full bg-transparent px-5 py-4 text-base text-white placeholder-neutral-500 focus:outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50",
               icon ? "pl-3" : ""
             )}
             placeholder={hideLabel ? props.placeholder : ""}
@@ -74,7 +74,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
              <label
                 className={cn(
                 "absolute left-5 top-1/2 -translate-y-1/2 text-sm transition-all duration-300 pointer-events-none",
-                (isFocused || hasValue || props.value) ? "top-3.5 text-[10px] text-violet-300 font-medium tracking-wide opacity-0" : "text-white/40 opacity-0",
+                (isFocused || hasValue || props.value) ? "top-3.5 text-[10px] text-[#d93025] font-medium tracking-wide opacity-0" : "text-white/40 opacity-0",
                 icon ? (isFocused || hasValue || props.value ? "left-5 translate-x-0" : "left-12") : ""
                 )}
             >
@@ -88,9 +88,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                  <button 
                   type="button" 
                   onClick={() => setShowPassword(!showPassword)}
-                  className="focus:outline-none"
+                  className="focus:outline-none p-1 rounded-full hover:bg-white/10 transition-colors"
                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                  </button>
                ) : endIcon}
             </div>
@@ -104,9 +104,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
-              className="flex items-center mt-1.5 ml-2"
+              className="flex items-center mt-2 ml-1"
             >
-                <div className="w-1 h-1 rounded-full bg-red-500 mr-2" />
+                <div className="w-1.5 h-1.5 rounded-full bg-red-500 mr-2" />
                 <span className="text-xs text-red-400 font-medium">{error}</span>
             </motion.div>
           )}

@@ -15,20 +15,20 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     
     // Base styles + Variant styles
     const variants = {
-      primary: 'bg-white text-black hover:bg-white/90 shadow-[0_0_20px_rgba(255,255,255,0.3)] border-transparent',
+      primary: 'bg-[#d93025] text-white hover:bg-[#b01e15] shadow-[0_0_20px_rgba(217,48,37,0.3)] border-transparent',
       secondary: 'bg-white/10 text-white hover:bg-white/20 border-transparent backdrop-blur-md',
       outline: 'bg-transparent border-white/20 text-white hover:bg-white/10 hover:border-white/40',
       ghost: 'bg-transparent text-white hover:bg-white/10 border-transparent',
-      link: 'text-primary underline-offset-4 hover:underline bg-transparent border-transparent px-0 h-auto',
-      gradient: 'bg-gradient-to-r from-violet-600 to-primary text-white shadow-lg shadow-violet-500/25 border-transparent relative overflow-hidden group',
-      success: 'bg-[#42b72a] hover:bg-[#36a420] text-white shadow-[0_4px_12px_rgba(66,183,42,0.4)] border-transparent font-bold tracking-wide text-md',
+      link: 'text-[#d93025] underline-offset-4 hover:underline bg-transparent border-transparent px-0 h-auto',
+      gradient: 'bg-gradient-to-r from-[#d93025] to-[#ff6b5b] text-white shadow-lg shadow-[#d93025]/25 border-transparent relative overflow-hidden group',
+      success: 'bg-gradient-to-r from-[#00A400] to-[#00c900] hover:brightness-110 text-white shadow-[0_4px_12px_rgba(0,164,0,0.4)] border-transparent font-bold tracking-wide text-md',
     };
 
     const sizes = {
-      sm: 'h-9 px-4 text-xs rounded-full',
-      md: 'h-12 px-6 text-sm rounded-full',
-      lg: 'h-14 px-8 text-base rounded-full',
-      icon: 'h-10 w-10 p-2 rounded-full',
+      sm: 'h-10 px-5 text-sm rounded-xl',
+      md: 'h-12 px-6 text-base rounded-xl',
+      lg: 'h-14 px-8 text-lg rounded-xl',
+      icon: 'h-11 w-11 p-2.5 rounded-xl',
     };
 
     return (
