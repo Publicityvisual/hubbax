@@ -126,30 +126,8 @@ export default function LoginPage() {
             </form>
           </div>
 
-          {/* Recent Users Bar - WoWonder Style */}
-          <motion.div 
-             initial={{ opacity: 0, y: 10 }}
-             animate={{ opacity: 1, y: 0 }}
-             transition={{ delay: 0.5 }}
-             className="flex items-center justify-between bg-[#111] border border-[#222] rounded-lg p-3 px-4 shadow-lg backdrop-blur-sm bg-opacity-80"
-          >
-             <div className="flex items-center -space-x-3">
-                 {[1,2,3,4].map((i) => (
-                     <div key={i} className="w-8 h-8 rounded-full border-2 border-[#111] bg-neutral-800 flex items-center justify-center overflow-hidden">
-                        <img src={`https://i.pravatar.cc/100?img=${10+i}`} alt="User" className="w-full h-full object-cover" />
-                     </div>
-                 ))}
-                 <div className="w-8 h-8 rounded-full border-2 border-[#111] bg-[#d93025] text-white flex items-center justify-center text-[10px] font-bold">
-                    +99
-                 </div>
-             </div>
-             <div className="text-right">
-                 <p className="text-white font-bold text-sm">1,208</p>
-                 <p className="text-[#888] text-[10px]">usuarios nuevos</p>
-             </div>
-          </motion.div>
           
-          <div className="text-center relative z-10">
+          <div className="text-center relative z-10 pt-4">
              <p className="text-xs text-neutral-500">
                <Link to="/create-page" className="font-bold text-white hover:underline transition-colors">Crea una página</Link> para una celebridad, marca o negocio.
              </p>
