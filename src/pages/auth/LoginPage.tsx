@@ -41,19 +41,17 @@ export default function LoginPage() {
         <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-600/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
         
         {/* Content */}
-        <div className="relative z-10 flex flex-col justify-center px-16 py-12 w-full">
-          {/* Logo */}
+        <div className="relative z-10 flex flex-col justify-center px-12 py-12 w-full">
+          {/* Logo Image */}
           <motion.div
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-12"
+            className="mb-8"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] rounded-2xl flex items-center justify-center shadow-xl shadow-[#d93025]/30">
-                <div className="w-4 h-4 bg-white rounded-full" />
-              </div>
-              <span className="text-white text-4xl font-bold tracking-tight">Hubbax</span>
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#d93025] to-purple-600 opacity-20 blur-xl group-hover:opacity-30 transition-opacity duration-500 rounded-full" />
+              <img src="/assets/logo.png" alt="Hubbax" className="relative h-24 lg:h-32 object-contain drop-shadow-2xl" />
             </div>
           </motion.div>
 
@@ -62,27 +60,45 @@ export default function LoginPage() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-16"
+            className="mb-8"
           >
-            <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
               Donde las<br />
               conexiones<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d93025] to-purple-500">cobran vida</span>
             </h1>
-            <p className="text-neutral-400 text-xl max-w-md leading-relaxed">
+            <p className="text-neutral-400 text-lg max-w-md leading-relaxed">
               Únete a millones de personas que ya comparten momentos, historias y experiencias únicas.
             </p>
+          </motion.div>
+
+          {/* Hero Image */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="relative group mb-8"
+          >
+            <div className="absolute -inset-1 bg-gradient-to-tr from-[#d93025] to-purple-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-1000" />
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+              <img 
+                src="/assets/hero_people.png" 
+                alt="Social Connection" 
+                className="w-full max-w-[400px] h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+            </div>
           </motion.div>
 
           {/* Feature Pills */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
             className="flex flex-wrap gap-3"
           >
-            {['🔒 Privacidad Total', '⚡ Súper Rápido', '🌍 Global', '💎 Premium'].map((feature, i) => (
-              <span key={i} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-neutral-300 text-sm font-medium backdrop-blur-sm">
+            {['🔒 Privacidad', '⚡ Rápido', '🌍 Global', '💎 Premium'].map((feature, i) => (
+              <span key={i} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-neutral-300 text-xs font-medium backdrop-blur-sm">
                 {feature}
               </span>
             ))}
