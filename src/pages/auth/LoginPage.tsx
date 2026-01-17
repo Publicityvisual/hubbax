@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,13 +8,11 @@ import { Loader2 } from 'lucide-react';
 import { loginSchema, LoginFormData } from '../../lib/schemas';
 import { RegisterModal } from '../../components/auth/RegisterModal';
 import { motion } from 'framer-motion';
-import Lottie from 'lottie-react';
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [hoveredReaction, setHoveredReaction] = useState<number | null>(null);
-  const [animations, setAnimations] = useState<Record<string, unknown>>({});
   const navigate = useNavigate();
 
   const {
@@ -25,24 +23,6 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
-  // Load Lottie animations
-  useEffect(() => {
-    const loadAnimations = async () => {
-      const names = ['like', 'love', 'haha', 'wow', 'sad', 'angry'];
-      const loaded: Record<string, unknown> = {};
-      for (const name of names) {
-        try {
-          const response = await fetch(`/assets/reactions/${name}.json`);
-          loaded[name] = await response.json();
-        } catch (e) {
-          console.warn(`Could not load ${name} animation`);
-        }
-      }
-      setAnimations(loaded);
-    };
-    loadAnimations();
-  }, []);
-
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
     console.log('Login Data:', data);
@@ -52,21 +32,21 @@ export default function LoginPage() {
     }, 2000);
   };
 
-  // Reactions configuration
+  // Facebook-style reactions
   const reactions = [
-    { name: 'Like', key: 'like', color: 'from-blue-500 to-blue-600', emoji: '👍' },
-    { name: 'Love', key: 'love', color: 'from-red-500 to-pink-500', emoji: '❤️' },
-    { name: 'Haha', key: 'haha', color: 'from-yellow-400 to-orange-400', emoji: '😆' },
-    { name: 'Wow', key: 'wow', color: 'from-yellow-400 to-amber-400', emoji: '😮' },
-    { name: 'Sad', key: 'sad', color: 'from-yellow-400 to-yellow-500', emoji: '😢' },
-    { name: 'Angry', key: 'angry', color: 'from-orange-500 to-red-500', emoji: '😠' },
+    { name: 'Me gusta', emoji: '👍', bg: 'bg-blue-500' },
+    { name: 'Me encanta', emoji: '❤️', bg: 'bg-red-500' },
+    { name: 'Me divierte', emoji: '😆', bg: 'bg-yellow-500' },
+    { name: 'Me asombra', emoji: '😮', bg: 'bg-yellow-500' },
+    { name: 'Me entristece', emoji: '😢', bg: 'bg-yellow-500' },
+    { name: 'Me enoja', emoji: '😠', bg: 'bg-orange-500' },
   ];
 
   return (
     <div className="h-screen bg-[#0a0a0a] flex font-sans overflow-hidden">
       {/* Left Panel - Hero (Desktop only) */}
       <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
-        {/* Animated Background Orbs */}
+        {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 left-20 w-80 h-80 bg-[#d93025]/20 rounded-full blur-[120px] animate-pulse" />
           <div className="absolute bottom-20 right-20 w-72 h-72 bg-purple-600/15 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
@@ -123,98 +103,76 @@ export default function LoginPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             </div>
 
-            {/* Floating Lottie Reactions */}
+            {/* Floating Reactions with CSS Animation */}
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-4 -right-4 w-14 h-14"
+              className="absolute -top-3 -right-3 w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-2xl shadow-lg border-2 border-white"
             >
-              {animations.love ? (
-                <Lottie animationData={animations.love} loop={true} />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center text-2xl">❤️</div>
-              )}
+              ❤️
             </motion.div>
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-12 -left-5 w-12 h-12"
+              className="absolute top-10 -left-4 w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-xl shadow-lg border-2 border-white"
             >
-              {animations.like ? (
-                <Lottie animationData={animations.like} loop={true} />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-xl">👍</div>
-              )}
+              👍
             </motion.div>
             <motion.div
-              animate={{ y: [0, -6, 0], rotate: [0, 5, 0] }}
+              animate={{ y: [0, -6, 0], rotate: [0, 10, 0] }}
               transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-16 -right-5 w-11 h-11"
+              className="absolute bottom-14 -right-4 w-9 h-9 bg-yellow-400 rounded-full flex items-center justify-center text-lg shadow-lg border-2 border-white"
             >
-              {animations.haha ? (
-                <Lottie animationData={animations.haha} loop={true} />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full flex items-center justify-center text-lg">😆</div>
-              )}
+              😆
             </motion.div>
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-2 left-10 w-10 h-10"
+              className="absolute -bottom-1 left-8 w-9 h-9 bg-yellow-400 rounded-full flex items-center justify-center text-lg shadow-lg border-2 border-white"
             >
-              {animations.wow ? (
-                <Lottie animationData={animations.wow} loop={true} />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-yellow-400 to-amber-400 rounded-full flex items-center justify-center text-base">😮</div>
-              )}
+              😮
             </motion.div>
           </motion.div>
 
-          {/* Reactions Bar with Lottie */}
+          {/* Reactions Bar - Facebook Style */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-8 flex items-center gap-3"
+            className="mt-8"
           >
-            {reactions.map((reaction, i) => (
-              <motion.div 
-                key={i}
-                onHoverStart={() => setHoveredReaction(i)}
-                onHoverEnd={() => setHoveredReaction(null)}
-                animate={{ 
-                  scale: hoveredReaction === i ? 1.4 : 1,
-                  y: hoveredReaction === i ? -10 : 0
-                }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                className={`w-11 h-11 rounded-full bg-gradient-to-br ${reaction.color} flex items-center justify-center cursor-pointer shadow-lg overflow-hidden`}
-                title={reaction.name}
-              >
-                {animations[reaction.key] ? (
-                  <Lottie 
-                    animationData={animations[reaction.key]} 
-                    loop={hoveredReaction === i}
-                    style={{ width: '100%', height: '100%' }}
-                  />
-                ) : (
-                  <span className="text-lg">{reaction.emoji}</span>
-                )}
-              </motion.div>
-            ))}
+            <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-3 flex items-center gap-2">
+              {reactions.map((reaction, i) => (
+                <motion.button 
+                  key={i}
+                  onHoverStart={() => setHoveredReaction(i)}
+                  onHoverEnd={() => setHoveredReaction(null)}
+                  animate={{ 
+                    scale: hoveredReaction === i ? 1.5 : 1,
+                    y: hoveredReaction === i ? -15 : 0
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  className={`w-10 h-10 ${reaction.bg} rounded-full flex items-center justify-center text-xl cursor-pointer shadow-md hover:shadow-lg transition-shadow`}
+                  title={reaction.name}
+                >
+                  {reaction.emoji}
+                </motion.button>
+              ))}
+            </div>
+            
+            {/* Tooltip */}
+            <div className="h-6 mt-2 text-center">
+              {hoveredReaction !== null && (
+                <motion.span 
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-white text-sm font-medium bg-black/80 px-3 py-1 rounded-full"
+                >
+                  {reactions[hoveredReaction].name}
+                </motion.span>
+              )}
+            </div>
           </motion.div>
-          
-          {/* Reaction name tooltip */}
-          <div className="mt-2 h-5 text-center">
-            {hoveredReaction !== null && (
-              <motion.span 
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-white text-sm font-medium"
-              >
-                {reactions[hoveredReaction].name}
-              </motion.span>
-            )}
-          </div>
         </div>
       </div>
 
@@ -229,12 +187,8 @@ export default function LoginPage() {
             {/* Mobile Reactions */}
             <div className="flex justify-center gap-2 mt-4">
               {reactions.slice(0, 4).map((reaction, i) => (
-                <div key={i} className={`w-9 h-9 rounded-full bg-gradient-to-br ${reaction.color} shadow-md flex items-center justify-center overflow-hidden`}>
-                  {animations[reaction.key] ? (
-                    <Lottie animationData={animations[reaction.key]} loop={true} style={{ width: '100%', height: '100%' }} />
-                  ) : (
-                    <span className="text-base">{reaction.emoji}</span>
-                  )}
+                <div key={i} className={`w-9 h-9 ${reaction.bg} rounded-full flex items-center justify-center text-lg shadow-md`}>
+                  {reaction.emoji}
                 </div>
               ))}
             </div>
