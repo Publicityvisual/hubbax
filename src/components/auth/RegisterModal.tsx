@@ -61,87 +61,95 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
 
         <div className="p-5">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                   {/* <label className="text-sm font-medium text-neutral-400 ml-1">Nombre</label> */}
+                   <Input 
+                       type="text" 
+                       placeholder="Nombre"
+                       error={errors.firstName?.message}
+                       {...register('firstName')}
+                       className="bg-[#242526] border border-[#2f3031] text-[#E4E6EB] placeholder:text-[#B0B3B8] focus:bg-[#242526] focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025]/20 h-14 rounded-xl text-lg transition-all px-4"
+                       hideLabel
+                   />
+                </div>
+                <div className="space-y-1">
+                   {/* <label className="text-sm font-medium text-neutral-400 ml-1">Apellido</label> */}
+                   <Input 
+                       type="text" 
+                       placeholder="Apellido"
+                       error={errors.lastName?.message}
+                       {...register('lastName')}
+                       className="bg-[#242526] border border-[#2f3031] text-[#E4E6EB] placeholder:text-[#B0B3B8] focus:bg-[#242526] focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025]/20 h-14 rounded-xl text-lg transition-all px-4"
+                       hideLabel
+                   />
+                </div>
+            </div>
+
+            <div className="space-y-4">
                 <Input 
-                    type="text" 
-                    placeholder="Nombre"
-                    error={errors.firstName?.message}
-                    {...register('firstName')}
-                    className="bg-[#242526] border border-[#2f3031] text-[#E4E6EB] placeholder:text-[#B0B3B8] focus:bg-[#242526] focus:border-[#d93025]/50 focus:ring-2 focus:ring-[#d93025]/20 h-11 rounded-md text-[15px] transition-all"
-                    hideLabel
+                  type="text" 
+                  placeholder="Móvil o correo electrónico"
+                  error={errors.email?.message}
+                  {...register('email')}
+                  className="bg-[#242526] border border-[#2f3031] text-[#E4E6EB] placeholder:text-[#B0B3B8] focus:bg-[#242526] focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025]/20 h-14 rounded-xl text-lg transition-all px-4"
+                  hideLabel
                 />
+                
                 <Input 
-                    type="text" 
-                    placeholder="Apellido"
-                    error={errors.lastName?.message}
-                    {...register('lastName')}
-                    className="bg-[#242526] border border-[#2f3031] text-[#E4E6EB] placeholder:text-[#B0B3B8] focus:bg-[#242526] focus:border-[#d93025]/50 focus:ring-2 focus:ring-[#d93025]/20 h-11 rounded-md text-[15px] transition-all"
-                    hideLabel
+                  type="password" 
+                  placeholder="Contraseña nueva"
+                  error={errors.password?.message}
+                  {...register('password')}
+                  className="bg-[#242526] border border-[#2f3031] text-[#E4E6EB] placeholder:text-[#B0B3B8] focus:bg-[#242526] focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025]/20 h-14 rounded-xl text-lg transition-all px-4"
+                  hideLabel
                 />
             </div>
 
-            <Input 
-              type="text" 
-              placeholder="Número de celular o correo electrónico"
-              error={errors.email?.message}
-              {...register('email')}
-              className="bg-[#242526] border border-[#2f3031] text-[#E4E6EB] placeholder:text-neutral-500 focus:bg-[#242526] focus:border-[#d93025]/50 focus:ring-2 focus:ring-[#d93025]/20 h-11 rounded-md text-[15px] transition-all"
-              hideLabel
-            />
-            
-            <Input 
-              type="password" 
-              placeholder="Contraseña nueva"
-              error={errors.password?.message}
-              {...register('password')}
-              className="bg-[#242526] border border-[#2f3031] text-[#E4E6EB] placeholder:text-neutral-500 focus:bg-[#242526] focus:border-[#d93025]/50 focus:ring-2 focus:ring-[#d93025]/20 h-11 rounded-md text-[15px] transition-all"
-              hideLabel
-            />
-
             {/* Birthdate: Split into Day, Month, Year */}
-            <div className="space-y-1 pt-1">
+            <div className="space-y-2 pt-2">
                 <div className="flex items-center gap-1 group">
-                    <label className="text-[11px] text-[#B0B3B8] font-medium ml-1 mb-1 block group-hover:text-[#d93025] transition-colors">Fecha de nacimiento</label>
+                    <label className="text-sm text-[#B0B3B8] font-medium ml-1 block group-hover:text-[#d93025] transition-colors">Fecha de nacimiento</label>
                 </div>
                 <div className="flex gap-3">
                     {/* Day */}
                     <div className="relative flex-1">
                         <select 
-                            className="w-full h-10 rounded-md bg-[#242526] border border-[#2f3031] text-[#E4E6EB] px-3 appearance-none cursor-pointer focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025] transition-all font-medium text-[15px]"
+                            className="w-full h-12 rounded-xl bg-[#242526] border border-[#2f3031] text-[#E4E6EB] px-3 appearance-none cursor-pointer focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025] transition-all font-medium text-base"
                             id="birthDay"
                         >
                             {Array.from({ length: 31 }, (_, i) => i + 1).map(day => (
                                 <option key={day} value={day} className="bg-[#242526] text-[#E4E6EB]">{day}</option>
                             ))}
                         </select>
-                        <ChevronDown className="absolute right-2 top-3 w-4 h-4 text-[#B0B3B8] pointer-events-none" />
+                        <ChevronDown className="absolute right-3 top-4 w-4 h-4 text-[#B0B3B8] pointer-events-none" />
                     </div>
                     
                     {/* Month */}
                     <div className="relative flex-1">
                         <select 
                             id="birthMonth"
-                            className="w-full h-10 rounded-md bg-[#242526] border border-[#2f3031] text-[#E4E6EB] px-3 appearance-none cursor-pointer focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025] transition-all font-medium text-[15px]"
+                            className="w-full h-12 rounded-xl bg-[#242526] border border-[#2f3031] text-[#E4E6EB] px-3 appearance-none cursor-pointer focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025] transition-all font-medium text-base"
                         >
                             {['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'].map((month, idx) => (
                                 <option key={idx} value={idx + 1} className="bg-[#242526] text-[#E4E6EB]">{month}</option>
                             ))}
                         </select>
-                        <ChevronDown className="absolute right-2 top-3 w-4 h-4 text-[#B0B3B8] pointer-events-none" />
+                        <ChevronDown className="absolute right-3 top-4 w-4 h-4 text-[#B0B3B8] pointer-events-none" />
                     </div>
 
                     {/* Year */}
                     <div className="relative flex-1">
                         <select 
                             id="birthYear"
-                            className="w-full h-10 rounded-md bg-[#242526] border border-[#2f3031] text-[#E4E6EB] px-3 appearance-none cursor-pointer focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025] transition-all font-medium text-[15px]"
+                            className="w-full h-12 rounded-xl bg-[#242526] border border-[#2f3031] text-[#E4E6EB] px-3 appearance-none cursor-pointer focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025] transition-all font-medium text-base"
                             defaultValue={new Date().getFullYear()}
                         >
                              {Array.from({ length: 120 }, (_, i) => new Date().getFullYear() - i).map(year => (
                                 <option key={year} value={year} className="bg-[#242526] text-[#E4E6EB]">{year}</option>
                             ))}
                         </select>
-                        <ChevronDown className="absolute right-2 top-3 w-4 h-4 text-[#B0B3B8] pointer-events-none" />
+                        <ChevronDown className="absolute right-3 top-4 w-4 h-4 text-[#B0B3B8] pointer-events-none" />
                     </div>
                 </div>
                 {/* Hidden input for Zod validation - Mocked value to pass validation for UI demo */}
@@ -150,22 +158,22 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
             </div>
 
             {/* Gender: Radio Style Cards */}
-            <div className="space-y-1">
+            <div className="space-y-2">
                 <div className="flex items-center gap-1 group">
-                    <label className="text-[11px] text-[#B0B3B8] font-medium ml-1 mb-1 block group-hover:text-[#d93025] transition-colors">Género</label>
+                    <label className="text-sm text-[#B0B3B8] font-medium ml-1 block group-hover:text-[#d93025] transition-colors">Género</label>
                 </div>
                 <div className="flex gap-3">
-                    <label className="flex-1 flex items-center justify-between px-3 h-10 bg-[#242526] border border-[#2f3031] rounded-md cursor-pointer transition-all hover:bg-[#3A3B3C] has-[:checked]:border-[#d93025] has-[:checked]:bg-[#2a2b2c] group">
-                        <span className="text-[15px] font-medium text-[#E4E6EB] group-hover:text-[#d93025] transition-colors">Mujer</span>
-                        <input type="radio" value="female" {...register('gender')} className="text-[#d93025] focus:ring-0 bg-[#3A3B3C] border-none accent-[#d93025]" />
+                    <label className="flex-1 flex items-center justify-between px-4 h-12 bg-[#242526] border border-[#2f3031] rounded-xl cursor-pointer transition-all hover:bg-[#3A3B3C] hover:border-[#d93025]/50 has-[:checked]:border-[#d93025] has-[:checked]:bg-[#2a2b2c] group">
+                        <span className="text-base font-medium text-[#E4E6EB] group-hover:text-[#d93025] transition-colors">Mujer</span>
+                        <input type="radio" value="female" {...register('gender')} className="scale-125 text-[#d93025] focus:ring-0 bg-[#3A3B3C] border-none accent-[#d93025]" />
                     </label>
-                     <label className="flex-1 flex items-center justify-between px-3 h-10 bg-[#242526] border border-[#2f3031] rounded-md cursor-pointer transition-all hover:bg-[#3A3B3C] has-[:checked]:border-[#d93025] has-[:checked]:bg-[#2a2b2c] group">
-                        <span className="text-[15px] font-medium text-[#E4E6EB] group-hover:text-[#d93025] transition-colors">Hombre</span>
-                        <input type="radio" value="male" {...register('gender')} className="text-[#d93025] focus:ring-0 bg-[#3A3B3C] border-none accent-[#d93025]" />
+                     <label className="flex-1 flex items-center justify-between px-4 h-12 bg-[#242526] border border-[#2f3031] rounded-xl cursor-pointer transition-all hover:bg-[#3A3B3C] hover:border-[#d93025]/50 has-[:checked]:border-[#d93025] has-[:checked]:bg-[#2a2b2c] group">
+                        <span className="text-base font-medium text-[#E4E6EB] group-hover:text-[#d93025] transition-colors">Hombre</span>
+                        <input type="radio" value="male" {...register('gender')} className="scale-125 text-[#d93025] focus:ring-0 bg-[#3A3B3C] border-none accent-[#d93025]" />
                     </label>
-                     <label className="flex-1 flex items-center justify-between px-3 h-10 bg-[#242526] border border-[#2f3031] rounded-md cursor-pointer transition-all hover:bg-[#3A3B3C] has-[:checked]:border-[#d93025] has-[:checked]:bg-[#2a2b2c] group">
-                        <span className="text-[15px] font-medium text-[#E4E6EB] group-hover:text-[#d93025] transition-colors">Personalizado</span>
-                        <input type="radio" value="other" {...register('gender')} className="text-[#d93025] focus:ring-0 bg-[#3A3B3C] border-none accent-[#d93025]" />
+                     <label className="flex-1 flex items-center justify-between px-4 h-12 bg-[#242526] border border-[#2f3031] rounded-xl cursor-pointer transition-all hover:bg-[#3A3B3C] hover:border-[#d93025]/50 has-[:checked]:border-[#d93025] has-[:checked]:bg-[#2a2b2c] group">
+                        <span className="text-base font-medium text-[#E4E6EB] group-hover:text-[#d93025] transition-colors">Personalizado</span>
+                        <input type="radio" value="other" {...register('gender')} className="scale-125 text-[#d93025] focus:ring-0 bg-[#3A3B3C] border-none accent-[#d93025]" />
                     </label>
                 </div>
                 {errors.gender && <span className="text-xs text-red-500 ml-1">{errors.gender.message}</span>}
@@ -179,22 +187,22 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                   >
                      <div className="relative">
                          <select 
-                           className="w-full h-10 rounded-md bg-[#242526] border border-[#2f3031] text-[15px] text-[#E4E6EB] px-3 appearance-none cursor-pointer focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025] transition-all"
+                           className="w-full h-12 rounded-xl bg-[#242526] border border-[#2f3031] text-base text-[#E4E6EB] px-3 appearance-none cursor-pointer focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025] transition-all"
                          >
                             <option value="" disabled selected className="bg-[#242526]">Selecciona tu pronombre</option>
                             <option value="she" className="bg-[#242526]">Ella: "Deséale un feliz cumpleaños a ella"</option>
                             <option value="he" className="bg-[#242526]">Él: "Deséale un feliz cumpleaños a él"</option>
                             <option value="they" className="bg-[#242526]">Neutro: "Deséale un feliz cumpleaños"</option>
                          </select>
-                         <ChevronDown className="absolute right-2 top-3 w-4 h-4 text-[#B0B3B8] pointer-events-none" />
+                         <ChevronDown className="absolute right-3 top-4 w-4 h-4 text-[#B0B3B8] pointer-events-none" />
                      </div>
                      
                      <div className="space-y-1">
-                        <label className="text-[11px] text-[#B0B3B8] ml-1">Tu género (opcional)</label>
+                        <label className="text-sm text-[#B0B3B8] ml-1">Tu género (opcional)</label>
                         <Input 
                             type="text" 
                             placeholder="Género (opcional)"
-                            className="bg-[#242526] border border-[#2f3031] text-[#E4E6EB] placeholder:text-[#B0B3B8] focus:bg-[#242526] focus:border-[#d93025]/50 focus:ring-2 focus:ring-[#d93025]/20 h-10 rounded-md text-[15px] transition-all"
+                            className="bg-[#242526] border border-[#2f3031] text-[#E4E6EB] placeholder:text-[#B0B3B8] focus:bg-[#242526] focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025]/20 h-10 rounded-xl text-lg transition-all"
                             hideLabel
                         />
                      </div>
@@ -202,14 +210,14 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                 )}
             </div>
 
-            <div className="text-[11px] text-[#B0B3B8] leading-relaxed px-1 mt-2">
+            <div className="text-xs text-[#B0B3B8] leading-relaxed px-1 mt-4">
                 Es posible que las personas que usan nuestro servicio hayan subido tu información de contacto a Hubbax. <span className="text-[#d93025] hover:text-[#b01e15] cursor-pointer transition-colors font-medium hover:underline">Obtén más información.</span>
                 <br /><br />
                 Al hacer clic en "Registrarte", aceptas nuestras <span className="text-[#d93025] hover:text-[#b01e15] cursor-pointer transition-colors font-medium hover:underline">Condiciones</span>, la <span className="text-[#d93025] hover:text-[#b01e15] cursor-pointer transition-colors font-medium hover:underline">Política de privacidad</span> y la <span className="text-[#d93025] hover:text-[#b01e15] cursor-pointer transition-colors font-medium hover:underline">Política de cookies</span>.
             </div>
 
-            <div className="flex justify-center pt-4 pb-2">
-                <Button type="submit" className="w-[194px] py-2.5 text-[17px] font-bold bg-[#00A400] hover:bg-[#008f00] text-white rounded-md shadow-none transition-all h-9" size="lg" isLoading={isLoading}>
+            <div className="flex justify-center pt-6 pb-2">
+                <Button type="submit" className="w-full py-4 text-xl font-bold bg-[#00A400] hover:bg-[#008f00] text-white rounded-xl shadow-lg transition-all h-auto hover:scale-[1.01] active:scale-[0.99]" size="lg" isLoading={isLoading}>
                   Registrarte
                 </Button>
             </div>

@@ -76,13 +76,13 @@ export default function LoginPage() {
         <div className="w-full max-w-md lg:w-[420px] space-y-6">
           <div className="bg-[#0A0A0A] border border-[#2f3031] rounded-xl p-8 shadow-2xl relative overflow-hidden ring-1 ring-white/5 group hover:border-[#d93025]/30 transition-colors duration-500">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 relative z-10">
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <Input 
                     type="email" 
                     placeholder="Correo electrónico o teléfono"
                     error={errors.email?.message}
                     {...register('email')}
-                    className="h-14 bg-[#18191A] border-[#2f3031] text-white placeholder:text-[#B0B3B8] focus:bg-[#18191A] focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025]/20 rounded-md transition-all text-base px-4"
+                    className="h-16 bg-[#18191A] border-[#2f3031] text-white placeholder:text-[#B0B3B8] focus:bg-[#18191A] focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025]/20 rounded-xl transition-all text-lg px-5"
                     hideLabel
                 />
                 <Input 
@@ -90,35 +90,35 @@ export default function LoginPage() {
                     placeholder="Contraseña"
                     error={errors.password?.message}
                     {...register('password')}
-                    className="h-14 bg-[#18191A] border-[#2f3031] text-white placeholder:text-[#B0B3B8] focus:bg-[#18191A] focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025]/20 rounded-md transition-all text-base px-4"
+                    className="h-16 bg-[#18191A] border-[#2f3031] text-white placeholder:text-[#B0B3B8] focus:bg-[#18191A] focus:border-[#d93025] focus:ring-1 focus:ring-[#d93025]/20 rounded-xl transition-all text-lg px-5"
                     hideLabel
                 />
               </div>
               
-              <Button type="submit" className="w-full py-7 text-xl font-bold rounded-md bg-[#d93025] hover:bg-[#b01e15] text-white transition-all shadow-lg shadow-red-900/20" size="lg" isLoading={isLoading}>
+              <Button type="submit" className="w-full py-8 text-xl font-bold rounded-xl bg-[#d93025] hover:bg-[#b01e15] text-white transition-all shadow-lg shadow-red-900/20" size="lg" isLoading={isLoading}>
                 {isLoading ? <Loader2 className="animate-spin" /> : "Iniciar sesión"}
               </Button>
     
-              <div className="flex justify-center pt-2">
+              <div className="flex justify-center pt-3">
                 <Link 
                   to="/forgot-password" 
-                  className="text-[#d93025]/80 hover:text-[#d93025] transition-colors text-sm font-medium hover:underline"
+                  className="text-[#d93025]/90 hover:text-[#d93025] transition-colors text-base font-medium hover:underline"
                 >
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
 
-              <div className="relative flex py-3 items-center">
+              <div className="relative flex py-4 items-center">
                   <div className="flex-grow border-t border-[#2f3031]"></div>
-                  <span className="flex-shrink-0 mx-4 text-neutral-500 text-[11px] uppercase font-bold tracking-widest">O</span>
+                  <span className="flex-shrink-0 mx-4 text-neutral-500 text-xs uppercase font-bold tracking-widest">O</span>
                   <div className="flex-grow border-t border-[#2f3031]"></div>
               </div>
       
-              <div className="flex justify-center">
+              <div className="flex justify-center pb-2">
                    <Button 
                       onClick={() => setIsRegisterOpen(true)}
                       type="button" 
-                      className="w-[200px] py-2.5 text-[17px] font-bold bg-[#42B72A] hover:bg-[#36A420] text-white rounded-md shadow-lg transition-all"
+                      className="px-8 py-4 h-auto text-[17px] font-bold bg-[#42B72A] hover:bg-[#36A420] text-white rounded-xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
                   >
                       Crear cuenta nueva
                    </Button>
