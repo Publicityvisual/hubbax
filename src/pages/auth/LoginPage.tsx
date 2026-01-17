@@ -32,129 +32,177 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#050505] flex flex-col justify-between font-sans tracking-tight selection:bg-[#d93025] selection:text-white">
-      {/* Dynamic Background Effects */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-900/20 rounded-full blur-[120px] animate-pulse pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#d93025]/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
-      <div className="absolute inset-0 bg-[url('/assets/noise.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay" />
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex items-center justify-center px-6 lg:px-12 relative z-10 w-full py-12 lg:py-0">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 w-full max-w-6xl">
+    <div className="min-h-screen bg-[#0a0a0a] flex font-sans selection:bg-[#d93025] selection:text-white">
+      {/* Left Panel - Hero/Branding (Hidden on mobile) */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        {/* Animated Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#d93025]/20 via-[#0a0a0a] to-purple-900/20" />
+        <div className="absolute top-20 left-10 w-96 h-96 bg-[#d93025]/30 rounded-full blur-[150px] animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-600/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
         
-        {/* Left Col: Branding & Visuals */}
-        <div className="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-8">
-             <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "backOut" }}
-                className="flex flex-col items-center lg:items-start"
-             >
-                 <div className="relative group">
-                    <div className="absolute -inset-4 bg-gradient-to-r from-[#d93025] to-purple-600 opacity-20 blur-xl group-hover:opacity-30 transition-opacity duration-500 rounded-full" />
-                    <img src="/assets/logo.png" alt="Caramelo Brand" className="relative h-28 lg:h-36 object-contain mb-6 drop-shadow-2xl" />
-                 </div>
-                 <h2 className="text-3xl lg:text-4xl font-medium text-neutral-200 leading-snug max-w-lg tracking-tight">
-                     Conéctate con tu mundo. <br />
-                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d93025] to-purple-500 font-bold">Sin límites.</span>
-                 </h2>
-             </motion.div>
-
-             <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative group"
-             >
-                <div className="absolute -inset-1 bg-gradient-to-tr from-[#d93025] to-purple-600 rounded-[2rem] blur opacity-30 group-hover:opacity-50 transition duration-1000" />
-                <div className="relative rounded-[1.8rem] overflow-hidden shadow-2xl ring-1 ring-white/10">
-                    <img 
-                        src="/assets/hero_people.png" 
-                        alt="Social Connection" 
-                        className="w-[400px] lg:w-[500px] h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
-                </div>
-             </motion.div>
-        </div>
-
-        {/* Right Col: Glassmorphic Login Card */}
-        <div className="w-full max-w-md lg:w-[460px]">
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-[#121212]/85 backdrop-blur-2xl border border-white/15 rounded-3xl p-8 lg:p-12 shadow-[0_0_50px_-12px_rgba(0,0,0,0.8)] relative overflow-hidden"
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-center px-16 py-12 w-full">
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-12"
           >
-            {/* Top Shine */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
-            
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 relative z-10">
-              <div className="space-y-5">
-                <div className="relative group">
-                    <Input 
-                        type="email" 
-                        placeholder="Correo electrónico o teléfono"
-                        error={errors.email?.message}
-                        {...register('email')}
-                        className="h-[60px] bg-[#0A0A0A]/60 border-white/5 text-white placeholder:text-neutral-500 focus:bg-[#0A0A0A] focus:border-[#d93025] focus:ring-4 focus:ring-[#d93025]/10 rounded-xl transition-all text-lg px-5 shadow-inner"
-                        hideLabel
-                    />
-                </div>
-                <div className="relative group">
-                    <Input 
-                        type="password" 
-                        placeholder="Contraseña"
-                        error={errors.password?.message}
-                        {...register('password')}
-                        className="h-[60px] bg-[#0A0A0A]/60 border-white/5 text-white placeholder:text-neutral-500 focus:bg-[#0A0A0A] focus:border-[#d93025] focus:ring-4 focus:ring-[#d93025]/10 rounded-xl transition-all text-lg px-5 shadow-inner"
-                        hideLabel
-                    />
-                </div>
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] rounded-2xl flex items-center justify-center shadow-xl shadow-[#d93025]/30">
+                <div className="w-4 h-4 bg-white rounded-full" />
               </div>
-              
-              <Button 
-                type="submit" 
-                className="w-full py-8 text-xl font-bold rounded-xl bg-gradient-to-r from-[#d93025] to-[#b01e15] hover:brightness-110 text-white transition-all shadow-lg shadow-[#d93025]/20 transform hover:-translate-y-0.5" 
-                size="lg" 
-                isLoading={isLoading}
-              >
-                {isLoading ? <Loader2 className="animate-spin" /> : "Iniciar sesión"}
-              </Button>
-    
-              <div className="flex justify-center pt-2">
-                <Link 
-                  to="/forgot-password" 
-                  className="text-neutral-400 hover:text-[#d93025] transition-colors text-base font-medium"
-                >
-                  ¿Olvidaste tu contraseña?
-                </Link>
-              </div>
-
-              <div className="relative flex py-4 items-center">
-                  <div className="flex-grow border-t border-white/10"></div>
-                  <span className="flex-shrink-0 mx-4 text-neutral-600 text-xs uppercase font-extrabold tracking-widest">O</span>
-                  <div className="flex-grow border-t border-white/10"></div>
-              </div>
-      
-              <div className="flex justify-center">
-                   <Button 
-                      onClick={() => setIsRegisterOpen(true)}
-                      type="button" 
-                      className="px-8 py-4 h-auto text-[17px] font-bold bg-[#2f3031] hover:bg-[#3A3B3C] border border-white/5 text-white rounded-xl shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                      Crear cuenta nueva
-                   </Button>
-              </div>
-            </form>
+              <span className="text-white text-4xl font-bold tracking-tight">Hubbax</span>
+            </div>
           </motion.div>
 
-          <div className="text-center pt-6 space-y-2">
-             <p className="text-sm text-neutral-500">
-               <Link to="/create-page" className="font-semibold text-neutral-300 hover:text-white hover:underline transition-colors">Crea una página</Link> para una celebridad, marca o negocio.
-             </p>
-           </div>
+          {/* Tagline */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mb-16"
+          >
+            <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              Donde las<br />
+              conexiones<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d93025] to-purple-500">cobran vida</span>
+            </h1>
+            <p className="text-neutral-400 text-xl max-w-md leading-relaxed">
+              Únete a millones de personas que ya comparten momentos, historias y experiencias únicas.
+            </p>
+          </motion.div>
+
+          {/* Feature Pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-wrap gap-3"
+          >
+            {['🔒 Privacidad Total', '⚡ Súper Rápido', '🌍 Global', '💎 Premium'].map((feature, i) => (
+              <span key={i} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-neutral-300 text-sm font-medium backdrop-blur-sm">
+                {feature}
+              </span>
+            ))}
+          </motion.div>
         </div>
+      </div>
+
+      {/* Right Panel - Login Form */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 lg:px-16 relative">
+        {/* Mobile Logo (visible only on mobile) */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="lg:hidden flex items-center gap-3 mb-10"
+        >
+          <div className="w-11 h-11 bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] rounded-xl flex items-center justify-center">
+            <div className="w-3 h-3 bg-white rounded-full" />
+          </div>
+          <span className="text-white text-2xl font-bold">Hubbax</span>
+        </motion.div>
+
+        {/* Login Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="w-full max-w-md"
+        >
+          {/* Card Header */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-white mb-2">¡Bienvenido de nuevo!</h2>
+            <p className="text-neutral-400">Ingresa tus datos para continuar</p>
+          </div>
+
+          {/* Social Logins */}
+          <div className="flex gap-3 mb-8">
+            <button className="flex-1 flex items-center justify-center gap-3 h-14 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white font-medium transition-all duration-200 hover:border-white/20">
+              <svg className="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              Google
+            </button>
+            <button className="flex-1 flex items-center justify-center gap-3 h-14 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white font-medium transition-all duration-200 hover:border-white/20">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              Apple
+            </button>
+          </div>
+
+          {/* Divider */}
+          <div className="relative flex items-center mb-8">
+            <div className="flex-grow border-t border-white/10"></div>
+            <span className="px-4 text-neutral-500 text-sm">o continúa con email</span>
+            <div className="flex-grow border-t border-white/10"></div>
+          </div>
+
+          {/* Login Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <div>
+              <Input 
+                type="email" 
+                placeholder="Correo electrónico"
+                error={errors.email?.message}
+                {...register('email')}
+                className="h-14 bg-white/5 border-white/10 text-white placeholder:text-neutral-500 focus:bg-white/10 focus:border-[#d93025] focus:ring-2 focus:ring-[#d93025]/20 rounded-xl transition-all text-base px-5"
+                hideLabel
+              />
+            </div>
+            <div>
+              <Input 
+                type="password" 
+                placeholder="Contraseña"
+                error={errors.password?.message}
+                {...register('password')}
+                className="h-14 bg-white/5 border-white/10 text-white placeholder:text-neutral-500 focus:bg-white/10 focus:border-[#d93025] focus:ring-2 focus:ring-[#d93025]/20 rounded-xl transition-all text-base px-5"
+                hideLabel
+              />
+            </div>
+
+            {/* Remember Me & Forgot Password */}
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 cursor-pointer group">
+                <input type="checkbox" className="w-4 h-4 rounded border-white/20 bg-white/5 text-[#d93025] focus:ring-[#d93025]/20" />
+                <span className="text-neutral-400 text-sm group-hover:text-white transition-colors">Recordarme</span>
+              </label>
+              <Link to="/forgot-password" className="text-[#d93025] hover:text-[#ff6b5b] text-sm font-medium transition-colors">
+                ¿Olvidaste tu contraseña?
+              </Link>
+            </div>
+
+            {/* Submit Button */}
+            <Button 
+              type="submit" 
+              className="w-full h-14 text-lg font-bold rounded-xl bg-gradient-to-r from-[#d93025] to-[#ff4444] hover:brightness-110 text-white transition-all shadow-lg shadow-[#d93025]/30 hover:shadow-[#d93025]/50" 
+              size="lg" 
+              isLoading={isLoading}
+            >
+              {isLoading ? <Loader2 className="animate-spin" /> : "Iniciar sesión"}
+            </Button>
+          </form>
+
+          {/* Sign Up Link */}
+          <div className="mt-8 text-center">
+            <p className="text-neutral-400">
+              ¿No tienes cuenta?{' '}
+              <button 
+                onClick={() => setIsRegisterOpen(true)}
+                className="text-[#d93025] hover:text-[#ff6b5b] font-semibold transition-colors"
+              >
+                Regístrate gratis
+              </button>
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Footer Links */}
+        <div className="mt-auto pt-8 text-center">
+          <div className="flex items-center justify-center gap-6 text-neutral-500 text-xs">
+            <a href="#" className="hover:text-white transition-colors">Términos</a>
+            <a href="#" className="hover:text-white transition-colors">Privacidad</a>
+            <a href="#" className="hover:text-white transition-colors">Ayuda</a>
+            <span>© 2025 Hubbax</span>
+          </div>
         </div>
       </div>
 
