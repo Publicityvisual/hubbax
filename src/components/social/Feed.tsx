@@ -1,5 +1,6 @@
 import { CreatePost } from './CreatePost';
 import { PostCard } from './PostCard';
+import { Stories } from './Stories';
 
 const MOCK_POSTS = [
   {
@@ -57,7 +58,8 @@ export function Feed() {
       <div className="sticky top-0 z-40 bg-[#050505]/80 backdrop-blur-xl border-b border-white/5 p-4 cursor-pointer hidden lg:block">
         <h2 className="text-xl font-bold">Inicio</h2>
       </div>
-      
+
+      <Stories />
       <CreatePost />
       
       <div className="divide-y divide-white/5">

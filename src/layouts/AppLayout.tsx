@@ -79,24 +79,69 @@ export function AppLayout({ children }: AppLayoutProps) {
             {children}
         </main>
 
-        {/* Right Sidebar (Suggestions / Trends) */}
-        <aside className="hidden xl:flex w-80 h-screen sticky top-0 flex-col p-6 space-y-6">
-            <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
-                <input 
-                    type="text" 
-                    placeholder="Buscar en Hubbax..." 
-                    className="w-full bg-white/5 border border-white/5 rounded-full py-2.5 pl-10 pr-4 text-sm text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                />
+        {/* Right Sidebar (Sponsored & Contacts) */}
+        <aside className="hidden xl:flex w-80 h-screen sticky top-0 flex-col p-4 space-y-6 overflow-y-auto no-scrollbar">
+            
+            {/* Sponsored Section */}
+            <div className="space-y-4">
+                <h3 className="font-semibold text-white/50 text-[15px] px-2">Publicidad</h3>
+                <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
+                    <div className="w-[120px] h-[80px] rounded-lg overflow-hidden flex-shrink-0">
+                         <img 
+                            src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&auto=format&fit=crop&q=60" 
+                            alt="Ad" 
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                         />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-white font-medium text-sm leading-tight">Curso de React Avanzado 2025</span>
+                        <span className="text-white/40 text-xs mt-1">udemy.com</span>
+                    </div>
+                </div>
+                <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
+                    <div className="w-[120px] h-[80px] rounded-lg overflow-hidden flex-shrink-0">
+                         <img 
+                            src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=500&auto=format&fit=crop&q=60" 
+                            alt="Ad" 
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                         />
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-white font-medium text-sm leading-tight">Hubbax Analytics Pro</span>
+                        <span className="text-white/40 text-xs mt-1">hubbax.com</span>
+                    </div>
+                </div>
             </div>
 
-            <div className="bg-white/5 rounded-2xl p-4 space-y-4 border border-white/5">
-                <h3 className="font-bold text-lg">Tendencias para ti</h3>
-                {[1, 2, 3].map((i) => (
-                    <div key={i} className="space-y-1 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors">
-                        <p className="text-xs text-white/40">Tecnología · Tendencia</p>
-                        <p className="font-bold text-sm">#InteligenciaArtificial</p>
-                        <p className="text-xs text-white/40">25.4K posts</p>
+            <div className="border-t border-white/5 mx-2" />
+
+            {/* Contacts Section */}
+            <div className="space-y-2">
+                <div className="flex items-center justify-between px-2">
+                    <h3 className="font-semibold text-white/50 text-[15px]">Contactos</h3>
+                    <div className="flex gap-2">
+                        <Search className="w-4 h-4 text-white/40 hover:text-white cursor-pointer" />
+                        <Settings className="w-4 h-4 text-white/40 hover:text-white cursor-pointer" />
+                    </div>
+                </div>
+                
+                {[
+                    { name: "Sarah Connor", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=60", online: true },
+                    { name: "John Wick", img: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=150&auto=format&fit=crop&q=60", online: true },
+                    { name: "Elena Fisher", img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=60", online: false },
+                    { name: "Nathan Drake", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=60", online: true },
+                    { name: "Lara Croft", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=60", online: true },
+                     { name: "Tony Stark", img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=60", online: false },
+                    { name: "Bruce Wayne", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=60", online: true },
+                ].map((user, i) => (
+                    <div key={i} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer group">
+                        <div className="relative w-9 h-9">
+                            <img src={user.img} alt={user.name} className="w-full h-full rounded-full object-cover" />
+                            {user.online && (
+                                <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#050505]" />
+                            )}
+                        </div>
+                        <span className="text-white font-medium text-sm text-[15px]">{user.name}</span>
                     </div>
                 ))}
             </div>
