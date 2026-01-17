@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SplitAuthLayout } from '../../layouts/SplitAuthLayout';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
-import { Mail, Lock, User, ArrowRight, Github, Calendar, Users } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight, Calendar, Users } from 'lucide-react';
 import { registerSchema, RegisterFormData } from '../../lib/schemas';
 import { cn } from '../../lib/utils';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -34,20 +34,7 @@ export default function RegisterPage() {
       subtitle="Únete a la red exclusiva hoy."
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
-         <div className="space-y-4">
-             <Button type="button" variant="outline" className="w-full relative py-6" size="lg">
-                <Github className="w-5 h-5 absolute left-4" />
-                Registrarse con Github
-             </Button>
-             <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t border-white/10" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-[#050505] px-2 text-white/30">O regístrate con tu email</span>
-                </div>
-             </div>
-        </div>
+
 
         <div className="grid grid-cols-2 gap-4">
             <Input 
