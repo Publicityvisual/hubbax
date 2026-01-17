@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { Home, Users, Bell, Settings, Search, LogOut, Menu } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { Button } from '../components/ui/Button';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -21,27 +20,27 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className="min-h-screen bg-[#050505] text-foreground font-sans">
       {/* Navbar Mobile */}
-      <nav className="lg:hidden fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-xl border-b border-white/5 px-4 h-16 flex items-center justify-between">
+      <nav className="lg:hidden fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-4 h-16 flex items-center justify-between">
          <div className="text-xl font-bold tracking-tighter flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-tr from-primary to-violet-500 rounded-lg flex items-center justify-center">
-                <div className="w-3 h-3 bg-white rounded-full" />
+            <div className="w-8 h-8 bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] rounded-xl flex items-center justify-center shadow-lg shadow-[#d93025]/20">
+                <div className="w-2.5 h-2.5 bg-white rounded-full" />
             </div>
-            Hubbax
+            <span className="text-white">Hubbax</span>
         </div>
-        <Button variant="ghost" size="icon">
+        <button className="text-white/60 hover:text-white hover:bg-white/5 p-2 rounded-xl transition-colors">
             <Menu className="w-6 h-6" />
-        </Button>
+        </button>
       </nav>
 
       <div className="flex max-w-7xl mx-auto pt-16 lg:pt-0">
         
         {/* Left Sidebar */}
-        <aside className="hidden lg:flex w-64 h-screen sticky top-0 flex-col border-r border-white/5 p-6 space-y-8">
-            <div className="text-2xl font-bold tracking-tighter flex items-center gap-2 px-2">
-                <div className="w-8 h-8 bg-gradient-to-tr from-primary to-violet-500 rounded-lg flex items-center justify-center">
+        <aside className="hidden lg:flex w-64 h-screen sticky top-0 flex-col border-r border-white/5 p-6 space-y-8 bg-[#050505]/50 backdrop-blur-sm">
+            <div className="text-2xl font-bold tracking-tighter flex items-center gap-3 px-2">
+                <div className="w-9 h-9 bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] rounded-xl flex items-center justify-center shadow-lg shadow-[#d93025]/20">
                     <div className="w-3 h-3 bg-white rounded-full" />
                 </div>
-                Hubbax
+                <span className="text-white">Hubbax</span>
             </div>
 
             <nav className="space-y-1 flex-1">
@@ -51,15 +50,15 @@ export function AppLayout({ children }: AppLayoutProps) {
                         <Link 
                             key={item.path} 
                             to={item.path}
-                            className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${isActive ? 'text-white' : 'text-white/50 hover:text-white hover:bg-white/5'}`}
+                            className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${isActive ? 'text-white bg-[#d93025]/10' : 'text-white/50 hover:text-white hover:bg-white/5'}`}
                         >
                             {isActive && (
                                 <motion.div 
                                     layoutId="activeNav"
-                                    className="absolute inset-0 bg-primary/10 rounded-xl"
+                                    className="absolute inset-0 bg-[#d93025]/10 rounded-xl border-l-2 border-[#d93025]"
                                 />
                             )}
-                            <span className="relative z-10">{item.icon}</span>
+                            <span className={`relative z-10 ${isActive ? 'text-[#d93025]' : ''}`}>{item.icon}</span>
                             <span className="relative z-10 font-medium">{item.label}</span>
                         </Link>
                     );
@@ -67,10 +66,10 @@ export function AppLayout({ children }: AppLayoutProps) {
             </nav>
 
             <div className="pt-4 border-t border-white/5">
-                <Button variant="ghost" className="w-full justify-start text-red-500 hover:text-red-400 hover:bg-red-500/10 gap-4 px-4">
+                <button className="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-red-500 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 font-medium">
                     <LogOut className="w-5 h-5" />
-                    Cerrar Sesión
-                </Button>
+                    <span>Cerrar Sesión</span>
+                </button>
             </div>
         </aside>
 

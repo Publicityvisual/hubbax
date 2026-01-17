@@ -1,5 +1,4 @@
 import { ThumbsUp, MessageCircle, Share2, MoreHorizontal, Globe } from 'lucide-react';
-import { Button } from '../ui/Button';
 
 interface PostProps {
   author: {
@@ -19,7 +18,7 @@ interface PostProps {
 
 export function PostCard({ author, content, image, timestamp, stats }: PostProps) {
   return (
-    <article className="bg-[#242526] rounded-xl mb-4 shadow-sm border border-white/5 overflow-hidden">
+    <article className="bg-[#121212]/80 backdrop-blur-lg rounded-2xl mb-4 shadow-xl border border-white/10 overflow-hidden ring-1 ring-white/5">
       <div className="p-4 pb-2">
         <div className="flex gap-3 mb-2">
             {/* Avatar */}
@@ -75,20 +74,20 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
       </div>
 
       {/* Action Buttons (The Big 3) */}
-      <div className="px-2 pb-1">
-        <div className="border-t border-white/10 flex items-center pt-1">
-            <Button variant="ghost" className="flex-1 gap-2 text-[#B0B3B8] hover:bg-[#3A3B3C] font-medium text-[14px] h-9">
+      <div className="px-3 pb-3 pt-1">
+        <div className="border-t border-white/5 flex items-center gap-1 pt-2">
+            <button className="flex-1 flex items-center justify-center gap-2 text-neutral-400 hover:text-[#d93025] hover:bg-[#d93025]/5 font-medium text-[14px] h-11 rounded-xl transition-all duration-200 active:scale-95">
                 <ThumbsUp className="w-5 h-5" />
-                Me gusta
-            </Button>
-            <Button variant="ghost" className="flex-1 gap-2 text-[#B0B3B8] hover:bg-[#3A3B3C] font-medium text-[14px] h-9">
+                <span>Me gusta</span>
+            </button>
+            <button className="flex-1 flex items-center justify-center gap-2 text-neutral-400 hover:text-white hover:bg-white/5 font-medium text-[14px] h-11 rounded-xl transition-all duration-200 active:scale-95">
                 <MessageCircle className="w-5 h-5" />
-                Comentar
-            </Button>
-            <Button variant="ghost" className="flex-1 gap-2 text-[#B0B3B8] hover:bg-[#3A3B3C] font-medium text-[14px] h-9">
+                <span>Comentar</span>
+            </button>
+            <button className="flex-1 flex items-center justify-center gap-2 text-neutral-400 hover:text-white hover:bg-white/5 font-medium text-[14px] h-11 rounded-xl transition-all duration-200 active:scale-95">
                 <Share2 className="w-5 h-5" />
-                Compartir
-            </Button>
+                <span>Compartir</span>
+            </button>
         </div>
       </div>
     </article>
