@@ -63,32 +63,7 @@ export function SplitAuthLayout({
               elegante y diseñada para los creadores del mañana.
             </motion.p>
 
-          
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex items-center gap-4 pt-8"
-            >
-              <div className="flex -space-x-4">
-                {[...Array(5)].map((_, i) => (
-                  <div key={i} className="w-12 h-12 rounded-full border-2 border-black bg-white/10 overflow-hidden relative z-0 hover:z-10 transition-all hover:scale-110">
-                    <img 
-                      src={`https://i.pravatar.cc/150?u=${i + 10}`} 
-                      alt={`User ${i}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
-                <div className="w-12 h-12 rounded-full border-2 border-black bg-white/10 flex items-center justify-center text-xs font-medium text-white backdrop-blur-md">
-                  +2M
-                </div>
-              </div>
-              <div className="text-sm text-white/60">
-                <span className="text-white font-bold">2.4 Millones</span> de personas <br/>
-                ya están conectadas.
-              </div>
-            </motion.div>
+
           </div>
 
           <motion.div

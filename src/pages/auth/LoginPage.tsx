@@ -81,6 +81,12 @@ export default function LoginPage() {
              </Button>
         </div>
       </div>
+      
+      <div className="mt-8 text-center">
+        <p className="text-sm text-white/60">
+          <Link to="/create-page" className="font-bold hover:underline text-white">Crea una página</Link> para una celebridad, una marca o un negocio.
+        </p>
+      </div>
     </SplitAuthLayout>
   );
 }
