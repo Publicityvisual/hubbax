@@ -1,82 +1,121 @@
 import { motion } from 'framer-motion';
 
-// Using high-quality 3D assets from Flaticon (verified CDN links)
-const reactionAssets = {
-  like: "https://cdn-icons-png.flaticon.com/512/2364/2364444.png", // 3D Blue Like
-  love: "https://cdn-icons-png.flaticon.com/512/2364/2364449.png", // 3D Heart
-  haha: "https://cdn-icons-png.flaticon.com/512/2364/2364450.png", // 3D Laughing
-  wow: "https://cdn-icons-png.flaticon.com/512/2364/2364452.png",  // 3D Surprised
-  sad: "https://cdn-icons-png.flaticon.com/512/2364/2364454.png",  // 3D Sad
-  angry: "https://cdn-icons-png.flaticon.com/512/2364/2364453.png" // 3D Angry
+// --- SVG PATHS (High Fidelity Vector Data) ---
+const PATHS = {
+  like: "M26 12h-6V6a3 3 0 0 0-3-3h-2.13a2.01 2.01 0 0 0-1.98 1.72L12.05 10.64 8.46 16H2v14h21a7 7 0 0 0 7-7v-7a4 4 0 0 0-4-4z",
+  love: "M47.5 15.5c-7.5 0-14.5 5.5-17.5 12.5-3-7-10-12.5-17.5-12.5-10.5 0-19 8.5-19 19 0 21.5 36.5 48.5 36.5 48.5S66.5 54.5 66.5 34.5c0-10.5-8.5-19-19-19z",
+  haha_face: "M50 2.5a47.5 47.5 0 1 0 47.5 47.5A47.5 47.5 0 0 0 50 2.5z",
+  haha_mouth: "M26 66c0 14.36 10.74 26 24 26s24-11.64 24-26H26z",
+  haha_eyes: "M28 42l10-4 10 4-10 4-10-4zm34 0l10-4 10 4-10 4-10-4z",
+  wow_face: "M50 2.5a47.5 47.5 0 1 0 47.5 47.5A47.5 47.5 0 0 0 50 2.5z",
+  wow_mouth: "M50 58a10 10 0 1 0 0 20 10 10 0 0 0 0-20z",
+  wow_brows: "M32 38c0-5 5-8 8-8s8 3 8 8m4 0c0-5 5-8 8-8s8 3 8 8",
+  sad_face: "M50 2.5a47.5 47.5 0 1 0 47.5 47.5A47.5 47.5 0 0 0 50 2.5z",
+  sad_mouth: "M34 78c4-5 12-5 16-5s12 0 16 5",
+  sad_brows: "M30 38c2-4 8-6 12-4m16-4c4-2 10 0 12 4",
+  angry_face: "M50 2.5a47.5 47.5 0 1 0 47.5 47.5A47.5 47.5 0 0 0 50 2.5z",
+  angry_brows: "M30 46l14 8m12 0l14-8",
+  angry_mouth: "M38 72h24"
 };
 
+const BaseIcon = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+  // <motion.div> wrapper integrated into individual components for specific animations
+  <svg viewBox="0 0 100 100" className={`w-full h-full drop-shadow-lg ${className}`}>
+    {children}
+  </svg>
+);
+
 export const LikeReaction = () => (
-  <motion.img 
-    src={reactionAssets.like}
-    alt="Like" 
-    className="w-full h-full object-contain drop-shadow-md"
-    initial={{ rotate: 0, scale: 1 }}
-    animate={{ 
-      rotate: [-5, 0, -5],
-      scale: [1, 1.1, 1] 
-    }}
-    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-  />
+    <motion.div className="w-full h-full" whileHover={{ scale: 1.2, rotate: -15 }}>
+        <svg viewBox="0 0 32 32" className="w-full h-full drop-shadow-md">
+            <circle cx="16" cy="16" r="16" fill="#1877F2"/>
+            <path d="M23 11h-5V8a2 2 0 0 0-2-2h-1.42a1.34 1.34 0 0 0-1.32 1.15L12.7 10.43 10.31 14H6v9.33h14a4.67 4.67 0 0 0 4.67-4.67v-4.66A2.67 2.67 0 0 0 23 11z" fill="white"/>
+             <path d="M6 14v9.33h4.31V14z" fill="#0e5cbd"/>
+        </svg>
+    </motion.div>
 );
 
 export const LoveReaction = () => (
-  <motion.img 
-    src={reactionAssets.love}
-    alt="Love" 
-    className="w-full h-full object-contain drop-shadow-md"
-    initial={{ scale: 1 }}
-    animate={{ scale: [1, 1.15, 1] }} 
-    transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-  />
+    <motion.div className="w-full h-full" whileHover={{ scale: 1.2 }}>
+         <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md">
+            <circle cx="50" cy="50" r="50" fill="#F3425F"/>
+            <path d={PATHS.love} fill="white"/>
+        </svg>
+    </motion.div>
 );
 
 export const HahaReaction = () => (
-  <motion.img 
-    src={reactionAssets.haha}
-    alt="Haha" 
-    className="w-full h-full object-contain drop-shadow-md"
-    animate={{ 
-      rotate: [-3, 3, -3], 
-      y: [0, 2, 0] 
-    }}
-    transition={{ duration: 0.6, repeat: Infinity }}
-  />
+    <motion.div className="w-full h-full" whileHover={{ scale: 1.2, rotate: 10 }}>
+        <BaseIcon>
+            <path d={PATHS.haha_face} fill="url(#faceGradient)" />
+            <path d={PATHS.haha_eyes} fill="#593616" />
+            <path d={PATHS.haha_mouth} fill="#593616" />
+            <defs>
+                <linearGradient id="faceGradient" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#FFEA00" />
+                    <stop offset="100%" stopColor="#F7B125" />
+                </linearGradient>
+            </defs>
+        </BaseIcon>
+    </motion.div>
 );
 
 export const WowReaction = () => (
-  <motion.img 
-    src={reactionAssets.wow}
-    alt="Wow" 
-    className="w-full h-full object-contain drop-shadow-md"
-    animate={{ scale: [1, 1.05, 1] }} 
-    transition={{ duration: 1.5, repeat: Infinity }}
-  />
+    <motion.div className="w-full h-full" whileHover={{ scale: 1.2 }}>
+         <BaseIcon>
+             <defs>
+                <linearGradient id="faceGradient-wow" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#FFEA00" />
+                    <stop offset="100%" stopColor="#F7B125" />
+                </linearGradient>
+            </defs>
+            <path d={PATHS.wow_face} fill="url(#faceGradient-wow)" />
+            <path d={PATHS.wow_brows} stroke="#593616" strokeWidth="3" fill="none" />
+            <path d={PATHS.wow_mouth} fill="#593616" />
+             <g fill="#593616">
+                 <circle cx="36" cy="46" r="4"/>
+                 <circle cx="64" cy="46" r="4"/>
+             </g>
+        </BaseIcon>
+    </motion.div>
 );
 
 export const SadReaction = () => (
-  <motion.img 
-    src={reactionAssets.sad}
-    alt="Sad" 
-    className="w-full h-full object-contain drop-shadow-md"
-    animate={{ y: [0, 3, 0] }} 
-    transition={{ duration: 2, repeat: Infinity }}
-  />
+    <motion.div className="w-full h-full" whileHover={{ scale: 1.1, y: 5 }}>
+        <BaseIcon>
+            <defs>
+                <linearGradient id="faceGradient-sad" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#FFEA00" />
+                    <stop offset="100%" stopColor="#F7B125" />
+                </linearGradient>
+            </defs>
+            <path d={PATHS.sad_face} fill="url(#faceGradient-sad)" />
+            <path d={PATHS.sad_brows} stroke="#593616" strokeWidth="3" fill="none" />
+            <path d={PATHS.sad_mouth} stroke="#593616" strokeWidth="3" fill="none" strokeLinecap="round" />
+            <g fill="#593616">
+                 <circle cx="36" cy="50" r="4"/>
+                 <circle cx="64" cy="50" r="4"/>
+            </g>
+        </BaseIcon>
+    </motion.div>
 );
 
 export const AngryReaction = () => (
-  <motion.img 
-    src={reactionAssets.angry}
-    alt="Angry" 
-    className="w-full h-full object-contain drop-shadow-md"
-    animate={{ 
-      x: [-1, 1, -1], 
-      rotate: [-1, 1, -1] 
-    }}
-    transition={{ duration: 0.2, repeat: Infinity }} 
-  />
+    <motion.div className="w-full h-full" whileHover={{ scale: 1.2, x: [0, -2, 2, 0] }}>
+         <BaseIcon>
+             <defs>
+                <linearGradient id="angryGradient" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#F5503E" />
+                    <stop offset="100%" stopColor="#E43A29" />
+                </linearGradient>
+            </defs>
+            <path d={PATHS.angry_face} fill="url(#angryGradient)" />
+            <path d={PATHS.angry_brows} stroke="#581F13" strokeWidth="4" fill="none" />
+            <path d={PATHS.angry_mouth} stroke="#581F13" strokeWidth="3" fill="none" strokeLinecap="round" />
+             <g fill="#581F13">
+                 <circle cx="38" cy="56" r="3"/>
+                 <circle cx="62" cy="56" r="3"/>
+            </g>
+        </BaseIcon>
+    </motion.div>
 );
