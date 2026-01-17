@@ -33,38 +33,27 @@ export function SplitAuthLayout({
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="text-3xl font-bold tracking-tighter flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-tr from-primary to-violet-500 rounded-xl rotate-3 shadow-lg shadow-primary/20 flex items-center justify-center">
-                <div className="w-4 h-4 bg-white rounded-full" />
-              </div>
-              Hubbax<span className="text-primary">.</span>
-            </div>
-          </motion.div>
-
-          <div className="space-y-8 max-w-xl">
+          <div className="space-y-6 max-w-2xl mt-20">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-6xl font-bold leading-tight tracking-tight"
+              className="text-[#1877F2] text-6xl font-bold tracking-tighter mb-4"
             >
-              Conecta con <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-primary to-orange-400 animate-shimmer bg-[length:200%_auto]">
-                Energía Global.
-              </span>
+              hubbax
             </motion.h1>
-            <motion.p
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-xl text-white/50 leading-relaxed max-w-sm"
+              className="text-[28px] leading-8 text-white font-normal"
             >
-              La próxima generación de redes sociales está aquí. Más rápida, más
-              elegante y diseñada para los creadores del mañana.
-            </motion.p>
-
-
+              Hubbax te ayuda a comunicarte y compartir con las personas que forman parte de tu vida.
+            </motion.h2>
           </div>
+
+
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
