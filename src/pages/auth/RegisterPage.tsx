@@ -54,8 +54,8 @@ export default function RegisterPage() {
         </div>
 
         <Input 
-          label="Dirección de Correo" 
-          type="email" 
+          label="Número de celular o correo electrónico" 
+          type="text" 
           icon={<Mail className="w-4 h-4" />}
           error={errors.email?.message}
           {...register('email')}
@@ -109,13 +109,7 @@ export default function RegisterPage() {
           error={errors.password?.message}
           {...register('password')}
         />
-        <Input 
-          label="Confirmar Contraseña" 
-          type="password" 
-          icon={<Lock className="w-4 h-4" />}
-          error={errors.confirmPassword?.message}
-          {...register('confirmPassword')}
-        />
+
         
         <div className="text-xs text-center text-white/40 leading-relaxed px-4">
             Al hacer clic en "Crear Cuenta", aceptas nuestros <span className="text-primary cursor-pointer hover:underline">Términos de Servicio</span> y <span className="text-primary cursor-pointer hover:underline">Política de Privacidad</span>.

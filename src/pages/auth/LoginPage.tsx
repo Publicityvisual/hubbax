@@ -29,8 +29,8 @@ export default function LoginPage() {
 
   return (
     <SplitAuthLayout 
-      title="Bienvenido de nuevo" 
-      subtitle="Conecta con el futuro en Hubbax."
+      title="Hubbax" 
+      subtitle="Hubbax te ayuda a comunicarte y compartir con las personas que forman parte de tu vida."
     >
       <div className="w-full space-y-6">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full bg-white/5 p-6 rounded-2xl border border-white/5 backdrop-blur-2xl shadow-xl">
