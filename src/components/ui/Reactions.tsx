@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 
 // --- SVG PATHS (High Fidelity Vector Data) ---
+// --- SVG PATHS (High Fidelity Vector Data) ---
 const PATHS = {
   like: "M26 12h-6V6a3 3 0 0 0-3-3h-2.13a2.01 2.01 0 0 0-1.98 1.72L12.05 10.64 8.46 16H2v14h21a7 7 0 0 0 7-7v-7a4 4 0 0 0-4-4z",
-  love: "M47.5 15.5c-7.5 0-14.5 5.5-17.5 12.5-3-7-10-12.5-17.5-12.5-10.5 0-19 8.5-19 19 0 21.5 36.5 48.5 36.5 48.5S66.5 54.5 66.5 34.5c0-10.5-8.5-19-19-19z",
+  love: "M50 88s-41-23.5-41-53a25 25 0 0 1 50 0c0-29.5 50-29.5 50 0 0 29.5-41 53-41 53z", // Full Heart Shape
   haha_face: "M50 2.5a47.5 47.5 0 1 0 47.5 47.5A47.5 47.5 0 0 0 50 2.5z",
   haha_mouth: "M26 66c0 14.36 10.74 26 24 26s24-11.64 24-26H26z",
   haha_eyes: "M28 42l10-4 10 4-10 4-10-4zm34 0l10-4 10 4-10 4-10-4z",
@@ -13,13 +14,13 @@ const PATHS = {
   sad_face: "M50 2.5a47.5 47.5 0 1 0 47.5 47.5A47.5 47.5 0 0 0 50 2.5z",
   sad_mouth: "M34 78c4-5 12-5 16-5s12 0 16 5",
   sad_brows: "M30 38c2-4 8-6 12-4m16-4c4-2 10 0 12 4",
+  sad_tear: "M62 62s-4-6-4-9a4 4 0 0 1 8 0c0 3-4 9-4 9z", // Teardrop
   angry_face: "M50 2.5a47.5 47.5 0 1 0 47.5 47.5A47.5 47.5 0 0 0 50 2.5z",
   angry_brows: "M30 46l14 8m12 0l14-8",
   angry_mouth: "M38 72h24"
 };
 
 const BaseIcon = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
-  // <motion.div> wrapper integrated into individual components for specific animations
   <svg viewBox="0 0 100 100" className={`w-full h-full drop-shadow-lg ${className}`}>
     {children}
   </svg>
@@ -37,9 +38,16 @@ export const LikeReaction = () => (
 
 export const LoveReaction = () => (
     <motion.div className="w-full h-full" whileHover={{ scale: 1.2 }}>
-         <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md">
-            <circle cx="50" cy="50" r="50" fill="#F3425F"/>
-            <path d={PATHS.love} fill="white"/>
+        <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-md">
+            {/* Pure Heart Shape - No Circle Background */}
+             <defs>
+                <linearGradient id="heartGradient" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#F3425F" />
+                    <stop offset="100%" stopColor="#E0245E" />
+                </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="48" fill="white" className="opacity-0"/> {/* Spacer for centering */}
+            <path d={PATHS.love} fill="url(#heartGradient)" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.2))"/>
         </svg>
     </motion.div>
 );
@@ -92,6 +100,12 @@ export const SadReaction = () => (
             <path d={PATHS.sad_face} fill="url(#faceGradient-sad)" />
             <path d={PATHS.sad_brows} stroke="#593616" strokeWidth="3" fill="none" />
             <path d={PATHS.sad_mouth} stroke="#593616" strokeWidth="3" fill="none" strokeLinecap="round" />
+            <motion.path 
+                d={PATHS.sad_tear} 
+                fill="#56C1FF"
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+            />
             <g fill="#593616">
                  <circle cx="36" cy="50" r="4"/>
                  <circle cx="64" cy="50" r="4"/>
