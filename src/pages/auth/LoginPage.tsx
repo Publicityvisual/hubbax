@@ -41,6 +41,19 @@ export default function LoginPage() {
         
         {/* Left Col: 3D Illustration & Branding */}
         <div className="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
+             {/* Custom Logo Brand */}
+             <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="flex flex-col items-center lg:items-start"
+             >
+                 <img src="/assets/logo.png" alt="Caramelo Brand" className="h-24 lg:h-32 object-contain mb-4 drop-shadow-[0_0_15px_rgba(217,48,37,0.5)]" />
+                 <h2 className="text-2xl lg:text-3xl font-light text-neutral-300 leading-snug max-w-md">
+                     Conéctate con amigos y el mundo que te rodea.
+                 </h2>
+             </motion.div>
+
              <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -56,19 +69,6 @@ export default function LoginPage() {
                         className="w-[380px] lg:w-[480px] h-auto object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
                     />
                 </div>
-             </motion.div>
-             
-             {/* Custom Logo Brand */}
-             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-col items-center lg:items-start"
-             >
-                 <img src="/assets/logo.png" alt="Caramelo Brand" className="h-24 lg:h-32 object-contain mb-4 drop-shadow-[0_0_15px_rgba(217,48,37,0.5)]" />
-                 <h2 className="text-2xl lg:text-3xl font-light text-neutral-300 leading-snug max-w-md">
-                     Conéctate con amigos y el mundo que te rodea.
-                 </h2>
              </motion.div>
         </div>
 
