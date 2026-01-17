@@ -31,8 +31,8 @@ export default function LoginPage() {
     }, 2000);
   };
 
-  // Abstract social icons for visual appeal (no real user data)
-  const socialIcons = ['💬', '❤️', '🔔', '📸', '🎉'];
+  // Facebook-style reactions for visual appeal
+  const reactions = ['👍', '❤️', '😆', '😮', '😢', '😠'];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#0f0f0f] to-[#0a0a0a] flex font-sans overflow-hidden">
@@ -160,12 +160,12 @@ export default function LoginPage() {
             className="mt-10 flex items-center gap-4"
           >
             <div className="flex gap-2">
-              {socialIcons.map((icon, i) => (
+              {reactions.map((reaction, i) => (
                 <div 
                   key={i}
                   className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-lg"
                 >
-                  {icon}
+                  {reaction}
                 </div>
               ))}
             </div>
