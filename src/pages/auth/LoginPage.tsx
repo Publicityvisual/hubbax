@@ -32,77 +32,68 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#0a0a0a] flex flex-col">
-      {/* Animated Background Gradients */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[-20%] left-[-10%] w-[700px] h-[700px] bg-primary/20 rounded-full blur-[120px] mix-blend-screen opacity-30 animate-pulse" />
-          <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-violet-600/20 rounded-full blur-[120px] mix-blend-screen opacity-30 animate-pulse delay-700" />
-      </div>
+    <div className="min-h-screen relative overflow-hidden bg-[#000000] flex flex-col items-center justify-center font-sans tracking-tight">
+      {/* Subtle Static Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-neutral-900/50 via-[#000000] to-[#000000] z-0 pointer-events-none" />
 
-      <div className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 px-6 lg:px-12 relative z-10 w-full max-w-7xl mx-auto">
+      <div className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 px-6 lg:px-12 relative z-10 w-full max-w-6xl mx-auto">
         
-        {/* Left Col: Brand / Slogan */}
-        <div className="lg:w-1/2 text-center lg:text-left space-y-4">
+        {/* Left Col: Brand / Slogan - Clean & Typography Focused */}
+        <div className="lg:w-1/2 text-center lg:text-left space-y-6">
              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.6 }}
              >
-                <div className="inline-block p-1 rounded-2xl bg-gradient-to-tr from-primary/20 to-transparent backdrop-blur-sm border border-white/5 mb-6">
-                    <h1 className="text-6xl lg:text-7xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-blue-400 via-primary to-violet-500 pb-2">
-                        hubbax
-                    </h1>
-                </div>
-                <h2 className="text-2xl lg:text-3xl font-medium text-white/90 leading-tight">
+                <h1 className="text-5xl lg:text-7xl font-bold tracking-tighter text-white mb-4">
+                    hubbax
+                </h1>
+                <h2 className="text-2xl lg:text-3xl font-normal text-neutral-400 leading-snug">
                     Conéctate con tu mundo <br/> en la siguiente generación social.
                 </h2>
              </motion.div>
         </div>
 
-        {/* Right Col: Glass Card Form */}
-        <div className="w-full max-w-md lg:w-[420px]">
-          <motion.div 
-             initial={{ opacity: 0, scale: 0.95 }}
-             animate={{ opacity: 1, scale: 1 }}
-             transition={{ duration: 0.6, delay: 0.2 }}
-             className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-2xl relative overflow-hidden group"
-          >
-            {/* Glossy sheen effect */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
-
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 relative z-10">
-              <Input 
-                label="Correo electrónico" 
-                type="email" 
-                error={errors.email?.message}
-                {...register('email')}
-                className="h-[56px] bg-black/20 border-white/10 focus:border-primary/50 focus:bg-black/40 transition-all rounded-xl text-lg backdrop-blur-sm"
-              />
-              <Input 
-                label="Contraseña" 
-                type="password" 
-                error={errors.password?.message}
-                {...register('password')}
-                className="h-[56px] bg-black/20 border-white/10 focus:border-primary/50 focus:bg-black/40 transition-all rounded-xl text-lg backdrop-blur-sm"
-              />
+        {/* Right Col: Solid Premium Card */}
+        <div className="w-full max-w-md lg:w-[400px]">
+          <div className="bg-[#0A0A0A] border border-white/5 rounded-2xl p-8 shadow-2xl relative overflow-hidden ring-1 ring-white/5">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 relative z-10">
+              <div className="space-y-4">
+                <Input 
+                    type="email" 
+                    placeholder="Correo electrónico o teléfono"
+                    error={errors.email?.message}
+                    {...register('email')}
+                    className="h-12 bg-[#1A1A1A] border-transparent text-white placeholder:text-neutral-500 focus:bg-[#202020] focus:ring-1 focus:ring-white/20 rounded-lg transition-all"
+                    hideLabel
+                />
+                <Input 
+                    type="password" 
+                    placeholder="Contraseña"
+                    error={errors.password?.message}
+                    {...register('password')}
+                    className="h-12 bg-[#1A1A1A] border-transparent text-white placeholder:text-neutral-500 focus:bg-[#202020] focus:ring-1 focus:ring-white/20 rounded-lg transition-all"
+                    hideLabel
+                />
+              </div>
               
-              <Button type="submit" className="w-full py-7 text-xl font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all" size="lg" isLoading={isLoading} variant="gradient">
-                {isLoading ? <Loader2 className="animate-spin" /> : "Iniciar Sesión"}
+              <Button type="submit" className="w-full py-6 text-lg font-medium rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-lg shadow-blue-900/20" size="lg" isLoading={isLoading}>
+                {isLoading ? <Loader2 className="animate-spin" /> : "Iniciar sesión"}
               </Button>
     
               <div className="flex justify-center pt-2">
                 <Link 
                   to="/forgot-password" 
-                  className="text-primary/80 hover:text-primary transition-colors text-sm font-medium hover:underline"
+                  className="text-blue-400/80 hover:text-blue-400 transition-colors text-sm font-medium hover:underline"
                 >
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
 
-              <div className="relative flex py-2 items-center">
-                  <div className="flex-grow border-t border-white/10"></div>
-                  <span className="flex-shrink-0 mx-4 text-white/30 text-xs uppercase font-medium tracking-wider">O</span>
-                  <div className="flex-grow border-t border-white/10"></div>
+              <div className="relative flex py-3 items-center">
+                  <div className="flex-grow border-t border-white/5"></div>
+                  <span className="flex-shrink-0 mx-4 text-neutral-600 text-[10px] uppercase font-bold tracking-widest">O</span>
+                  <div className="flex-grow border-t border-white/5"></div>
               </div>
       
               <div className="flex justify-center">
@@ -110,16 +101,16 @@ export default function LoginPage() {
                       onClick={() => setIsRegisterOpen(true)}
                       type="button" 
                       variant="outline" 
-                      className="w-full py-6 text-lg border-white/20 hover:bg-white/5 hover:text-white hover:border-white/40 transition-all bg-transparent backdrop-blur-sm"
+                      className="w-full py-5 text-base font-medium border-white/10 hover:bg-white/5 text-white transition-colors bg-transparent rounded-lg"
                   >
                       Crear cuenta nueva
                    </Button>
               </div>
             </form>
-          </motion.div>
+          </div>
           
           <div className="mt-8 text-center relative z-10">
-             <p className="text-sm text-white/40">
+             <p className="text-xs text-neutral-500">
                <Link to="/create-page" className="font-bold hover:text-white transition-colors">Crea una página</Link> para una celebridad, marca o negocio.
              </p>
            </div>
@@ -128,12 +119,12 @@ export default function LoginPage() {
 
       <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
       
-      {/* Footer (Simplified for Aesthetics) */}
-      <footer className="relative z-10 w-full text-center py-6 text-white/20 text-xs">
-          <div className="flex justify-center gap-4 mb-2 flex-wrap px-4">
-              <span className="hover:text-white/40 cursor-pointer transition-colors">Español</span>
-              <span className="hover:text-white/40 cursor-pointer transition-colors">English (US)</span>
-              <span className="hover:text-white/40 cursor-pointer transition-colors">Français</span>
+      {/* Clean Footer */}
+      <footer className="relative z-10 w-full text-center py-8 text-neutral-600 text-xs">
+          <div className="flex justify-center gap-6 mb-3 px-4 font-medium">
+              <span className="hover:text-neutral-400 cursor-pointer transition-colors">Español</span>
+              <span className="hover:text-neutral-400 cursor-pointer transition-colors">English (US)</span>
+              <span className="hover:text-neutral-400 cursor-pointer transition-colors">Français</span>
           </div>
           Hubbax © 2025
       </footer>

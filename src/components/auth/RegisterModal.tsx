@@ -43,24 +43,23 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
       <div className="absolute inset-0 bg-white/80 backdrop-blur-sm" onClick={onClose} />
       
       <motion.div 
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="relative w-full max-w-[480px] bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden"
+        className="relative w-full max-w-[480px] bg-[#0A0A0A] border border-white/10 rounded-2xl shadow-2xl overflow-hidden ring-1 ring-white/5"
       >
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-50 pointer-events-none" />
 
-        <div className="flex items-center justify-between p-6 border-b border-white/10 relative z-10">
+        <div className="flex items-center justify-between p-6 border-b border-white/5 bg-[#111]">
           <div>
-            <h2 className="text-3xl font-bold text-white tracking-tight">Crear cuenta</h2>
-            <p className="text-white/60 text-[15px] mt-1">Es rápido y fácil.</p>
+            <h2 className="text-2xl font-bold text-white tracking-tight">Crear cuenta</h2>
+            <p className="text-neutral-500 text-sm mt-0.5">Es rápido y fácil.</p>
           </div>
-          <button onClick={onClose} className="text-white/40 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full">
-            <X className="w-6 h-6" />
+          <button onClick={onClose} className="text-neutral-500 hover:text-white transition-colors p-2 hover:bg-white/5 rounded-full">
+            <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="p-6 relative z-10">
+        <div className="p-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
                 <Input 
@@ -68,7 +67,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                     placeholder="Nombre"
                     error={errors.firstName?.message}
                     {...register('firstName')}
-                    className="bg-black/20 border-white/5 text-white placeholder:text-white/40 focus:ring-0 focus:border-primary/50 focus:bg-black/40 h-11 rounded-xl"
+                    className="bg-[#1A1A1A] border-transparent text-white placeholder:text-neutral-600 focus:bg-[#202020] focus:ring-1 focus:ring-white/10 h-10 rounded-lg text-sm"
                     hideLabel
                 />
                 <Input 
@@ -76,7 +75,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                     placeholder="Apellido"
                     error={errors.lastName?.message}
                     {...register('lastName')}
-                    className="bg-black/20 border-white/5 text-white placeholder:text-white/40 focus:ring-0 focus:border-primary/50 focus:bg-black/40 h-11 rounded-xl"
+                    className="bg-[#1A1A1A] border-transparent text-white placeholder:text-neutral-600 focus:bg-[#202020] focus:ring-1 focus:ring-white/10 h-10 rounded-lg text-sm"
                     hideLabel
                 />
             </div>
@@ -86,7 +85,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
               placeholder="Número de celular o correo electrónico"
               error={errors.email?.message}
               {...register('email')}
-              className="bg-black/20 border-white/5 text-white placeholder:text-white/40 focus:ring-0 focus:border-primary/50 focus:bg-black/40 h-11 rounded-xl"
+              className="bg-[#1A1A1A] border-transparent text-white placeholder:text-neutral-600 focus:bg-[#202020] focus:ring-1 focus:ring-white/10 h-10 rounded-lg text-sm"
               hideLabel
             />
             
@@ -95,15 +94,15 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
               placeholder="Contraseña nueva"
               error={errors.password?.message}
               {...register('password')}
-              className="bg-black/20 border-white/5 text-white placeholder:text-white/40 focus:ring-0 focus:border-primary/50 focus:bg-black/40 h-11 rounded-xl"
+              className="bg-[#1A1A1A] border-transparent text-white placeholder:text-neutral-600 focus:bg-[#202020] focus:ring-1 focus:ring-white/10 h-10 rounded-lg text-sm"
               hideLabel
             />
 
             <div className="space-y-2 pt-1">
-                <label className="text-xs text-white/50 uppercase tracking-wider font-semibold ml-1">Fecha de nacimiento</label>
+                <label className="text-[10px] text-neutral-500 uppercase tracking-wider font-semibold ml-1">Fecha de nacimiento</label>
                 <Input 
                     type="date" 
-                    className="bg-black/20 border-white/5 text-white [&::-webkit-calendar-picker-indicator]:invert h-11 rounded-xl focus:border-primary/50 focus:bg-black/40"
+                    className="bg-[#1A1A1A] border-transparent text-white [&::-webkit-calendar-picker-indicator]:invert h-10 rounded-lg text-sm focus:bg-[#202020]"
                     error={errors.birthDate?.message}
                     {...register('birthDate')}
                     hideLabel
@@ -111,33 +110,33 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
             </div>
 
             <div className="space-y-2">
-                <label className="text-xs text-white/50 uppercase tracking-wider font-semibold ml-1">Género</label>
+                <label className="text-[10px] text-neutral-500 uppercase tracking-wider font-semibold ml-1">Género</label>
                 <div className="relative">
                      <select 
                        className={cn(
-                         "w-full h-11 rounded-xl bg-black/20 text-sm text-white px-3 focus:outline-none appearance-none transition-all cursor-pointer border border-white/5 focus:border-primary/50 focus:bg-black/40",
+                         "w-full h-10 rounded-lg bg-[#1A1A1A] text-sm text-white px-3 focus:outline-none appearance-none transition-all cursor-pointer border-transparent focus:bg-[#202020]",
                          errors.gender ? "border-red-500" : ""
                        )}
                        {...register('gender')}
                        defaultValue=""
                      >
-                        <option value="" disabled className="bg-[#242526]">Selecciona...</option>
-                        <option value="male" className="bg-[#242526]">Hombre</option>
-                        <option value="female" className="bg-[#242526]">Mujer</option>
-                        <option value="other" className="bg-[#242526]">Personalizado</option>
+                        <option value="" disabled className="bg-[#1A1A1A]">Selecciona...</option>
+                        <option value="male" className="bg-[#1A1A1A]">Hombre</option>
+                        <option value="female" className="bg-[#1A1A1A]">Mujer</option>
+                        <option value="other" className="bg-[#1A1A1A]">Personalizado</option>
                      </select>
                 </div>
                 {errors.gender && <span className="text-xs text-red-500">{errors.gender.message}</span>}
             </div>
 
-            <div className="text-[11px] text-white/30 leading-relaxed px-1">
-                Es posible que las personas que usan nuestro servicio hayan subido tu información de contacto a Hubbax. <span className="text-primary hover:text-white cursor-pointer transition-colors">Obtén más información.</span>
+            <div className="text-[10px] text-neutral-600 leading-relaxed px-1">
+                Es posible que las personas que usan nuestro servicio hayan subido tu información de contacto a Hubbax. <span className="text-blue-500 hover:text-blue-400 cursor-pointer transition-colors">Obtén más información.</span>
                 <br /><br />
-                Al hacer clic en "Registrarte", aceptas nuestras <span className="text-primary hover:text-white cursor-pointer transition-colors">Condiciones</span>, la <span className="text-primary hover:text-white cursor-pointer transition-colors">Política de privacidad</span> y la <span className="text-primary hover:text-white cursor-pointer transition-colors">Política de cookies</span>.
+                Al hacer clic en "Registrarte", aceptas nuestras <span className="text-blue-500 hover:text-blue-400 cursor-pointer transition-colors">Condiciones</span>, la <span className="text-blue-500 hover:text-blue-400 cursor-pointer transition-colors">Política de privacidad</span> y la <span className="text-blue-500 hover:text-blue-400 cursor-pointer transition-colors">Política de cookies</span>.
             </div>
 
             <div className="flex justify-center pt-4 pb-2">
-                <Button type="submit" className="w-1/2 py-6 text-lg font-bold shadow-lg shadow-green-500/20 hover:shadow-green-500/40 transition-all rounded-xl" size="lg" isLoading={isLoading} variant="success">
+                <Button type="submit" className="w-1/2 py-5 text-base font-medium bg-green-600 hover:bg-green-500 text-white rounded-lg shadow-lg shadow-green-900/20" size="lg" isLoading={isLoading}>
                   Registrarte
                 </Button>
             </div>
