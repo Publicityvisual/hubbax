@@ -46,7 +46,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
         initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="relative w-full max-w-[550px] bg-[#121212]/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden ring-1 ring-white/5"
+        className="relative w-full max-w-[600px] bg-[#121212]/95 backdrop-blur-2xl border border-white/15 rounded-3xl shadow-[0_0_60px_-15px_rgba(0,0,0,0.9)] overflow-hidden ring-1 ring-white/10"
       >
         {/* Decorative Top Line */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#d93025] to-transparent opacity-80" />

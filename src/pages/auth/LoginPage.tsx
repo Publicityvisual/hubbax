@@ -83,7 +83,7 @@ export default function LoginPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-[#121212]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-8 lg:p-10 shadow-2xl shadow-black/50 relative overflow-hidden"
+            className="bg-[#121212]/85 backdrop-blur-2xl border border-white/15 rounded-3xl p-8 lg:p-12 shadow-[0_0_50px_-12px_rgba(0,0,0,0.8)] relative overflow-hidden"
           >
             {/* Top Shine */}
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
