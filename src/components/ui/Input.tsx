@@ -4,14 +4,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff } from 'lucide-react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   error?: string;
   icon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  hideLabel?: boolean;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, label, error, icon, endIcon, onFocus, onBlur, ...props }, ref) => {
+  ({ className, type, label, error, icon, endIcon, hideLabel, onFocus, onBlur, ...props }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
     const [hasValue, setHasValue] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -37,6 +38,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className="relative w-full group">
+        {!hideLabel && label && <label className="text-sm font-medium text-white/80 ml-1 block mb-2">{label}</label>}
         <div className={cn(
             "relative flex items-center w-full rounded-full border bg-white/5 backdrop-blur-xl transition-all duration-300 overflow-hidden",
             error ? "border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]" : 
@@ -58,25 +60,27 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             type={inputType}
             className={cn(
-              "flex w-full bg-transparent px-5 py-4 pt-6 pb-2 text-sm text-white placeholder-transparent focus:outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50",
+              "flex w-full bg-transparent px-5 py-4 text-sm text-white placeholder-white/40 focus:outline-none file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:cursor-not-allowed disabled:opacity-50",
               icon ? "pl-3" : ""
             )}
-            placeholder={label}
+            placeholder={hideLabel ? props.placeholder : ""}
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={handleChange}
             {...props}
           />
           
-          <label
-            className={cn(
-              "absolute left-5 top-1/2 -translate-y-1/2 text-sm transition-all duration-300 pointer-events-none",
-              (isFocused || hasValue || props.value) ? "top-3.5 text-[10px] text-violet-300 font-medium tracking-wide" : "text-white/40",
-              icon ? (isFocused || hasValue || props.value ? "left-5 translate-x-0" : "left-12") : ""
-            )}
-          >
-            {label}
-          </label>
+          {!hideLabel && (
+             <label
+                className={cn(
+                "absolute left-5 top-1/2 -translate-y-1/2 text-sm transition-all duration-300 pointer-events-none",
+                (isFocused || hasValue || props.value) ? "top-3.5 text-[10px] text-violet-300 font-medium tracking-wide opacity-0" : "text-white/40 opacity-0",
+                icon ? (isFocused || hasValue || props.value ? "left-5 translate-x-0" : "left-12") : ""
+                )}
+            >
+                {label}
+            </label>
+          )}
 
           {(isPassword || endIcon) && (
             <div className="pr-5 text-white/40 hover:text-white transition-colors cursor-pointer">
