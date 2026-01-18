@@ -224,7 +224,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
             </div>
 
             <div className="flex justify-center pt-6 pb-2">
-                <Button type="submit" className="w-full py-4 text-xl font-bold bg-gradient-to-r from-[#00A400] to-[#008f00] hover:brightness-110 text-white rounded-xl shadow-lg transition-all h-auto hover:-translate-y-0.5" size="lg" isLoading={isLoading}>
+                <Button type="submit" className="w-full py-4 text-xl font-bold bg-gradient-to-r from-[#d93025] to-[#ff6b5b] hover:brightness-110 text-white rounded-xl shadow-[0_4px_14px_rgba(217,48,37,0.4)] transition-all h-auto hover:-translate-y-0.5" size="lg" isLoading={isLoading}>
                   Registrarte
                 </Button>
             </div>

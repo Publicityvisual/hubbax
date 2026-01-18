@@ -50,7 +50,7 @@ export function Stories() {
             </div>
             <div className="absolute bottom-0 w-full h-[25%] bg-[#242526] flex flex-col items-center justify-center pt-3 relative">
                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 bg-[#242526] rounded-full flex items-center justify-center p-1">
-                     <div className="w-full h-full bg-blue-500 rounded-full flex items-center justify-center">
+                     <div className="w-full h-full bg-[#d93025] rounded-full flex items-center justify-center shadow-lg shadow-[#d93025]/30">
                         <Plus className="text-white w-6 h-6" />
                      </div>
                  </div>
@@ -75,7 +75,7 @@ export function Stories() {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
                 
                 {/* Avatar Ring */}
-                <div className="absolute top-3 left-3 w-10 h-10 rounded-full p-[2px] bg-blue-500 ring-2 ring-black/50">
+                <div className="absolute top-3 left-3 w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-[#d93025] to-purple-600 ring-2 ring-black/50">
                      <img 
                         src={story.avatar} 
                         alt={story.name} 

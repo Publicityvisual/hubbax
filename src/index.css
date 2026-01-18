@@ -14,4 +14,31 @@
       "rlig" 1,
       "calt" 1;
   }
+
+  /* Custom Red Scrollbar (Hubbax Style) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #18191A; 
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #555; 
+    border-radius: 5px;
+    border: 2px solid #18191A;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #d93025; /* Hubbax Red on Hover */
+  }
+
+  /* Specific Red Thumb for active scroll areas */
+  .overflow-y-auto::-webkit-scrollbar-thumb,
+  select::-webkit-scrollbar-thumb {
+     background: #d93025;
+  }
 }

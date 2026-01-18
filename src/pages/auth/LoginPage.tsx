@@ -264,7 +264,7 @@ export default function LoginPage() {
               <p className="text-neutral-400 text-sm mb-3">¿No tienes cuenta?</p>
               <button 
                 onClick={() => setIsRegisterOpen(true)}
-                className="w-full h-12 text-base font-bold rounded-xl bg-green-600 hover:bg-green-700 text-white transition-all"
+                className="w-full h-12 text-base font-bold rounded-xl border border-white/10 hover:bg-white/5 text-white transition-all hover:scale-[1.02] active:scale-95"
               >
                 Crear cuenta nueva
               </button>
