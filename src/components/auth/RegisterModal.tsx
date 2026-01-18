@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
-import { X, ChevronDown } from 'lucide-react';
+import { X, ChevronDown, User, Star, UserCheck } from 'lucide-react';
 import { registerSchema, RegisterFormData } from '../../lib/schemas';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -154,17 +154,37 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                     <label className="text-sm text-neutral-400 font-medium ml-1 block group-hover:text-[#d93025] transition-colors">Género</label>
                 </div>
                 <div className="flex gap-3">
-                    <label className="flex-1 flex items-center justify-between px-4 h-12 bg-[#0A0A0A]/50 border border-white/5 rounded-xl cursor-pointer transition-all hover:bg-[#18191A] hover:border-[#d93025]/50 has-[:checked]:border-[#d93025] has-[:checked]:bg-[#d93025]/10 group shadow-inner">
-                        <span className="text-base font-medium text-white group-hover:text-[#d93025] transition-colors">Mujer</span>
-                        <input type="radio" value="female" {...register('gender')} className="scale-125 text-[#d93025] focus:ring-0 bg-[#3A3B3C] border-none accent-[#d93025]" />
+                    {/* Visual Card: Female */}
+                    <label className="flex-1 relative">
+                        <input type="radio" value="female" {...register('gender')} className="peer sr-only" />
+                        <div className="flex flex-col items-center justify-center h-24 rounded-2xl border border-white/5 bg-[#0A0A0A]/50 cursor-pointer transition-all duration-300 peer-checked:border-[#d93025] peer-checked:bg-[#d93025]/10 peer-checked:shadow-[0_0_15px_rgba(217,48,37,0.15)] hover:bg-[#18191A] hover:border-white/10 group">
+                            <div className="p-2 rounded-full bg-white/5 mb-1 group-hover:bg-white/10 peer-checked:bg-[#d93025]/20 transition-colors">
+                                <User className="w-5 h-5 text-neutral-400 group-hover:text-white peer-checked:text-[#d93025]" />
+                            </div>
+                            <span className="text-sm font-medium text-neutral-400 group-hover:text-white peer-checked:text-[#d93025] transition-colors">Mujer</span>
+                        </div>
                     </label>
-                     <label className="flex-1 flex items-center justify-between px-4 h-12 bg-[#0A0A0A]/50 border border-white/5 rounded-xl cursor-pointer transition-all hover:bg-[#18191A] hover:border-[#d93025]/50 has-[:checked]:border-[#d93025] has-[:checked]:bg-[#d93025]/10 group shadow-inner">
-                        <span className="text-base font-medium text-white group-hover:text-[#d93025] transition-colors">Hombre</span>
-                        <input type="radio" value="male" {...register('gender')} className="scale-125 text-[#d93025] focus:ring-0 bg-[#3A3B3C] border-none accent-[#d93025]" />
+
+                    {/* Visual Card: Male */}
+                    <label className="flex-1 relative">
+                        <input type="radio" value="male" {...register('gender')} className="peer sr-only" />
+                         <div className="flex flex-col items-center justify-center h-24 rounded-2xl border border-white/5 bg-[#0A0A0A]/50 cursor-pointer transition-all duration-300 peer-checked:border-[#d93025] peer-checked:bg-[#d93025]/10 peer-checked:shadow-[0_0_15px_rgba(217,48,37,0.15)] hover:bg-[#18191A] hover:border-white/10 group">
+                            <div className="p-2 rounded-full bg-white/5 mb-1 group-hover:bg-white/10 peer-checked:bg-[#d93025]/20 transition-colors">
+                                <UserCheck className="w-5 h-5 text-neutral-400 group-hover:text-white peer-checked:text-[#d93025]" />
+                            </div>
+                            <span className="text-sm font-medium text-neutral-400 group-hover:text-white peer-checked:text-[#d93025] transition-colors">Hombre</span>
+                        </div>
                     </label>
-                     <label className="flex-1 flex items-center justify-between px-4 h-12 bg-[#0A0A0A]/50 border border-white/5 rounded-xl cursor-pointer transition-all hover:bg-[#18191A] hover:border-[#d93025]/50 has-[:checked]:border-[#d93025] has-[:checked]:bg-[#d93025]/10 group shadow-inner">
-                        <span className="text-base font-medium text-white group-hover:text-[#d93025] transition-colors">Personalizado</span>
-                        <input type="radio" value="other" {...register('gender')} className="scale-125 text-[#d93025] focus:ring-0 bg-[#3A3B3C] border-none accent-[#d93025]" />
+
+                    {/* Visual Card: Custom */}
+                    <label className="flex-1 relative">
+                        <input type="radio" value="other" {...register('gender')} className="peer sr-only" />
+                         <div className="flex flex-col items-center justify-center h-24 rounded-2xl border border-white/5 bg-[#0A0A0A]/50 cursor-pointer transition-all duration-300 peer-checked:border-[#d93025] peer-checked:bg-[#d93025]/10 peer-checked:shadow-[0_0_15px_rgba(217,48,37,0.15)] hover:bg-[#18191A] hover:border-white/10 group">
+                            <div className="p-2 rounded-full bg-white/5 mb-1 group-hover:bg-white/10 peer-checked:bg-[#d93025]/20 transition-colors">
+                                <Star className="w-5 h-5 text-neutral-400 group-hover:text-white peer-checked:text-[#d93025]" />
+                            </div>
+                            <span className="text-sm font-medium text-neutral-400 group-hover:text-white peer-checked:text-[#d93025] transition-colors">Otro</span>
+                        </div>
                     </label>
                 </div>
                 {errors.gender && <span className="text-xs text-red-500 ml-1">{errors.gender.message}</span>}

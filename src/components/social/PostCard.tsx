@@ -1,4 +1,8 @@
 import { ThumbsUp, MessageCircle, Share2, MoreHorizontal, Globe } from 'lucide-react';
+import { useState } from 'react';
+import { ReactionSelector } from '../ui/ReactionSelector';
+import { REACTION_METADATA } from '../ui/Reactions';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface PostProps {
   author: {
@@ -17,8 +21,41 @@ interface PostProps {
 }
 
 export function PostCard({ author, content, image, timestamp, stats }: PostProps) {
+  const [selectedReaction, setSelectedReaction] = useState<typeof REACTION_METADATA[0] | null>(null);
+  const [isHoveringLike, setIsHoveringLike] = useState(false);
+  let hoverTimeout: NodeJS.Timeout;
+
+  const handleMouseEnter = () => {
+    hoverTimeout = setTimeout(() => {
+        setIsHoveringLike(true);
+    }, 400); // 400ms delay to prevent accidental triggering
+  };
+
+  const handleMouseLeave = () => {
+    clearTimeout(hoverTimeout);
+    setTimeout(() => {
+         setIsHoveringLike(false);
+    }, 500); // Delay closing to allow moving to dock
+  };
+
+  const handleSelectReaction = (reaction: typeof REACTION_METADATA[0]) => {
+    if (selectedReaction?.id === reaction.id) {
+        setSelectedReaction(null); // Toggle off
+    } else {
+        setSelectedReaction(reaction);
+    }
+    setIsHoveringLike(false);
+  };
+
+  // Default "Like" state config
+  const activeReaction = selectedReaction || {
+    name: 'Me gusta',
+    color: 'text-neutral-400', // Default text color
+    icon: <ThumbsUp className="w-5 h-5" />
+  };
+
   return (
-    <article className="bg-[#121212]/80 backdrop-blur-lg rounded-2xl mb-4 shadow-xl border border-white/10 overflow-hidden ring-1 ring-white/5">
+    <article className="bg-[#121212]/80 backdrop-blur-lg rounded-2xl mb-4 shadow-xl border border-white/10 overflow-hidden ring-1 ring-white/5 relative z-0 hover:z-10 transition-all">
       <div className="p-4 pb-2">
         <div className="flex gap-3 mb-2">
             {/* Avatar */}
@@ -76,10 +113,42 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
       {/* Action Buttons (The Big 3) */}
       <div className="px-3 pb-3 pt-1">
         <div className="border-t border-white/5 flex items-center gap-1 pt-2">
-            <button className="flex-1 flex items-center justify-center gap-2 text-neutral-400 hover:text-[#d93025] hover:bg-[#d93025]/5 font-medium text-[14px] h-11 rounded-xl transition-all duration-200 active:scale-95">
-                <ThumbsUp className="w-5 h-5" />
-                <span>Me gusta</span>
-            </button>
+            <div 
+                className="relative flex-1"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+            >
+                <AnimatePresence>
+                    {isHoveringLike && (
+                        <motion.div 
+                            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                            animate={{ opacity: 1, y: -5, scale: 1 }}
+                            exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                            className="absolute bottom-full left-0 z-50 pointer-events-auto"
+                        >
+                            <ReactionSelector onSelect={handleSelectReaction} />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                <button 
+                    onClick={() => handleSelectReaction(REACTION_METADATA[0])} // Default click = Like
+                    className={`w-full flex items-center justify-center gap-2 hover:bg-white/5 font-bold text-[15px] h-11 rounded-xl transition-all duration-200 active:scale-95 ${
+                        selectedReaction ? '' : 'text-neutral-400 hover:text-white'
+                    }`}
+                    style={{ color: selectedReaction?.color }}
+                >
+                    {selectedReaction ? (
+                        <div className="w-5 h-5 relative">
+                             {/* Render the actual component from metadata if it exists */}
+                             <selectedReaction.Component /> 
+                        </div>
+                    ) : (
+                        <ThumbsUp className="w-5 h-5" />
+                    )}
+                    <span>{activeReaction.name}</span>
+                </button>
+            </div>
             <button className="flex-1 flex items-center justify-center gap-2 text-neutral-400 hover:text-white hover:bg-white/5 font-medium text-[14px] h-11 rounded-xl transition-all duration-200 active:scale-95">
                 <MessageCircle className="w-5 h-5" />
                 <span>Comentar</span>
