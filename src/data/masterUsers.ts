@@ -13,14 +13,14 @@ export const MASTER_USERS = {
     isVerified: true
   },
   founder: {
-    username: "ceo_alpha",
-    fullName: "Alpha Creator",
-    headline: "Fundador & Arquitecto",
-    bio: "Construyendo el futuro de la interacción social. Bienvenidos al nuevo estándar. 🚀",
-    location: "Silicon Valley, CA",
-    joinDate: "Diciembre 2025",
-    friendsCount: "5.2k",
-    mutualFriends: 12,
+    username: "diego_admin",
+    fullName: "Diego Creator",
+    headline: "CEO & Fundador @ Hubbax",
+    bio: "Arquitecto del sistema. Creando la próxima generación de redes sociales con IA. 🧠💻",
+    location: "Centro de Comando",
+    joinDate: "Enero 2025",
+    friendsCount: "8.5k",
+    mutualFriends: 500,
     coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&auto=format&fit=crop&q=80",
     avatarImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80",
     isVerified: true
