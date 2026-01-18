@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Navbar } from '../../components/layout/Navbar';
+import { AppNavbar as Navbar } from '../../components/layout/AppNavbar';
 import { Button } from '../../components/ui/Button';
-import { MapPin, Calendar, Briefcase, Camera, MessageCircle, UserPlus, MoreHorizontal } from 'lucide-react';
+import { MapPin, Calendar, Briefcase, Camera, MessageCircle, UserPlus, MoreHorizontal, CheckCircle2 } from 'lucide-react';
+import { useParams } from 'react-router-dom';
+import { MASTER_USERS } from '../../data/masterUsers';
 
 export default function ProfilePage() {
-  const [activeTab, setActiveTab] = useState('posts');
+  const [activeTab, setActiveTab] = useState('posts'); // Used for tab switching
+  const { username } = useParams();
+  
+  // Default to "Founder" if no username or "/me", otherwise look up in master users
+  const profileKey = (username && username in MASTER_USERS) ? username as keyof typeof MASTER_USERS : 'founder';
+  const user = MASTER_USERS[profileKey];
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
@@ -17,7 +24,7 @@ export default function ProfilePage() {
         {/* Cover Photo Area - Immersive & Premium */}
         <div className="relative w-full h-[35vh] md:h-[400px] bg-neutral-800 overflow-hidden group">
             <img 
-              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1600&auto=format&fit=crop&q=80" 
+              src={user.coverImage} 
               alt="Cover" 
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
@@ -41,7 +48,7 @@ export default function ProfilePage() {
                 <div className="relative">
                     <div className="w-40 h-40 md:w-44 md:h-44 rounded-full p-1.5 bg-[#0a0a0a]">
                         <img 
-                            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&auto=format&fit=crop&q=80" 
+                            src={user.avatarImage} 
                             alt="Profile" 
                             className="w-full h-full rounded-full object-cover border-4 border-[#242526]"
                         />
@@ -52,14 +59,17 @@ export default function ProfilePage() {
 
                 {/* Name & Headline */}
                 <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left flex-1">
-                    <h1 className="text-3xl font-bold text-white tracking-tight">Daniel Johnson</h1>
-                    <p className="text-neutral-400 font-medium text-lg">Product Designer @ Hubbax</p>
+                    <div className="flex items-center gap-2">
+                        <h1 className="text-3xl font-bold text-white tracking-tight">{user.fullName}</h1>
+                        {user.isVerified && <CheckCircle2 className="w-6 h-6 text-blue-500 fill-blue-500/10" />}
+                    </div>
+                    <p className="text-neutral-400 font-medium text-lg">{user.headline}</p>
                     
                     {/* Quick Stats - Friends/Mutuals */}
                     <div className="flex items-center justify-center md:justify-start gap-4 mt-2 text-neutral-400 text-sm">
-                        <span className="hover:underline cursor-pointer"><strong className="text-white">1.2k</strong> amigos</span>
+                        <span className="hover:underline cursor-pointer"><strong className="text-white">{user.friendsCount}</strong> amigos</span>
                         <span className="w-1 h-1 bg-neutral-600 rounded-full" />
-                        <span className="hover:underline cursor-pointer">45 amigos en común</span>
+                        <span className="hover:underline cursor-pointer">{user.mutualFriends} amigos en común</span>
                     </div>
 
                     {/* Friend Row Preview */}
@@ -120,15 +130,15 @@ export default function ProfilePage() {
                         <div className="space-y-4">
                             <div className="flex items-center gap-3 text-neutral-300">
                                 <Briefcase className="w-5 h-5 text-neutral-500" />
-                                <span>Diseñador en <strong>Hubbax Inc.</strong></span>
+                                <span>{user.headline} en <strong>Hubbax Inc.</strong></span>
                             </div>
                             <div className="flex items-center gap-3 text-neutral-300">
                                 <MapPin className="w-5 h-5 text-neutral-500" />
-                                <span>Vive en <strong>Ciudad de México</strong></span>
+                                <span>Vive en <strong>{user.location}</strong></span>
                             </div>
                             <div className="flex items-center gap-3 text-neutral-300">
                                 <Calendar className="w-5 h-5 text-neutral-500" />
-                                <span>Se unió en Enero 2024</span>
+                                <span>Se unió en {user.joinDate}</span>
                             </div>
                         </div>
                         <Button className="w-full mt-4 bg-[#242526] hover:bg-[#3a3b3c] text-white">
