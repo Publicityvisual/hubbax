@@ -277,7 +277,7 @@ export default function LoginPage() {
             <span>•</span>
             <a href="#" className="hover:text-white">Privacidad</a>
             <span>•</span>
-            <span>© 2025 Hubbax</span>
+            <span>© 2025 Hubbax <span className="text-neutral-700 ml-1">v0.0.3</span></span>
           </div>
         </div>
       </div>
