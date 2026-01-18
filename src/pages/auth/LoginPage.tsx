@@ -256,7 +256,7 @@ export default function LoginPage() {
                 size="lg" 
                 isLoading={isLoading}
               >
-                {isLoading ? <Loader2 className="animate-spin" /> : "Iniciar sesión"}
+                {isLoading ? "Iniciando..." : "Iniciar sesión"}
               </Button>
             </form>
 
