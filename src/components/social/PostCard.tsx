@@ -23,7 +23,7 @@ interface PostProps {
 export function PostCard({ author, content, image, timestamp, stats }: PostProps) {
   const [selectedReaction, setSelectedReaction] = useState<typeof REACTION_METADATA[0] | null>(null);
   const [isHoveringLike, setIsHoveringLike] = useState(false);
-  let hoverTimeout: NodeJS.Timeout;
+  let hoverTimeout: ReturnType<typeof setTimeout>;
 
   const handleMouseEnter = () => {
     hoverTimeout = setTimeout(() => {
