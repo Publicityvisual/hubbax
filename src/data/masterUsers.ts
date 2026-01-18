@@ -1,3 +1,4 @@
+export const MASTER_USERS = {
   ai_assistant: {
     username: "hubbax_ai",
     fullName: "Hubbax AI",
