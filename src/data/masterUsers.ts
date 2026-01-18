@@ -15,6 +15,7 @@ export const MASTER_USERS = {
   },
   founder: {
     username: "diego_admin",
+    email: "duegob53@gmail.com",
     fullName: "Diego Creator",
     headline: "CEO & Fundador @ Hubbax",
     bio: "Arquitecto del sistema. Creando la próxima generación de redes sociales con IA. 🧠💻",
