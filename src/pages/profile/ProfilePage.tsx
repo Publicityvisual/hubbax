@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { AppNavbar as Navbar } from '../../components/layout/AppNavbar';
+import { AppLayout } from '../../layouts/AppLayout';
 import { Button } from '../../components/ui/Button';
 import { MapPin, Calendar, Briefcase, Camera, MessageCircle, UserPlus, MoreHorizontal, CheckCircle2 } from 'lucide-react';
 import { useParams } from 'react-router-dom';
@@ -15,11 +15,11 @@ export default function ProfilePage() {
   const user = MASTER_USERS[profileKey];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <Navbar />
-      
-      {/* Scrollable Container with nice spacing for Fixed Navbar */}
-      <div className="pt-16 pb-20">
+    <AppLayout>
+      <div className="min-h-screen bg-[#0a0a0a] text-white -m-4 md:-m-0"> {/* Negative margin to offset layout padding if needed, or adjust to fit */}
+        
+        {/* Scrollable Container */}
+        <div className="pb-20">
         
         {/* Cover Photo Area - Immersive & Premium */}
         <div className="relative w-full h-[35vh] md:h-[400px] bg-neutral-800 overflow-hidden group">
@@ -207,6 +207,6 @@ export default function ProfilePage() {
             </div>
         </div>
       </div>
-    </div>
+    </AppLayout>
   );
 }
