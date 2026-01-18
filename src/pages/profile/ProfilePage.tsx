@@ -23,10 +23,13 @@ export default function ProfilePage() {
         
         {/* Cover Photo Area - Immersive & Premium */}
         <div className="relative w-full h-[35vh] md:h-[400px] bg-neutral-800 overflow-hidden group">
-            <img 
+            <motion.img 
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.5 }}
               src={user.coverImage} 
               alt="Cover" 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-full object-cover"
             />
             {/* Gradient Overlay for Text Readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-black/20" />
@@ -59,9 +62,17 @@ export default function ProfilePage() {
 
                 {/* Name & Headline */}
                 <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left flex-1">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 justify-center md:justify-start">
                         <h1 className="text-3xl font-bold text-white tracking-tight">{user.fullName}</h1>
-                        {user.isVerified && <CheckCircle2 className="w-6 h-6 text-blue-500 fill-blue-500/10" />}
+                        {user.isVerified && (
+                          <CheckCircle2 
+                            className={`w-6 h-6 ${
+                              user.verificationLevel === 'gold' 
+                                ? 'text-yellow-400 fill-yellow-400/20' 
+                                : 'text-blue-500 fill-blue-500/10'
+                            }`} 
+                          />
+                        )}
                     </div>
                     <p className="text-neutral-400 font-medium text-lg">{user.headline}</p>
                     
@@ -105,8 +116,9 @@ export default function ProfilePage() {
                 {['Publicaciones', 'Información', 'Amigos', 'Fotos', 'Videos', 'Reels'].map((tab) => (
                     <button 
                         key={tab}
+                        onClick={() => setActiveTab(tab === 'Publicaciones' ? 'posts' : tab.toLowerCase())}
                         className={`px-4 py-3 rounded-lg font-medium transition-colors whitespace-nowrap ${
-                            activeTab === 'posts' && tab === 'Publicaciones' 
+                            (activeTab === 'posts' && tab === 'Publicaciones') || activeTab === tab.toLowerCase()
                             ? 'text-[#d93025] bg-[#d93025]/10' 
                             : 'text-neutral-400 hover:bg-[#242526] hover:text-white'
                         }`}

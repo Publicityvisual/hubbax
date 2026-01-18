@@ -1,4 +1,3 @@
-export const MASTER_USERS = {
   ai_assistant: {
     username: "hubbax_ai",
     fullName: "Hubbax AI",
@@ -10,7 +9,8 @@ export const MASTER_USERS = {
     mutualFriends: 0,
     coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1600&auto=format&fit=crop&q=80",
     avatarImage: "https://images.unsplash.com/photo-1675252269966-261944510b65?w=500&auto=format&fit=crop&q=80",
-    isVerified: true
+    isVerified: true,
+    verificationLevel: 'blue' as const
   },
   founder: {
     username: "diego_admin",
@@ -23,6 +23,7 @@ export const MASTER_USERS = {
     mutualFriends: 500,
     coverImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&auto=format&fit=crop&q=80",
     avatarImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80",
-    isVerified: true
+    isVerified: true,
+    verificationLevel: 'gold' as const
   }
 };
