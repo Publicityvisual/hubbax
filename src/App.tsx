@@ -1,4 +1,4 @@
-```
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/auth/LoginPage';
 import HomePage from './pages/home/HomePage';
