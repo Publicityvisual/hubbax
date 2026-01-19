@@ -12,9 +12,8 @@ export function VersionManager() {
       .then(res => res.json())
       .then(data => {
         setCurrentVersion(data.version);
-        console.log('📱 System Version:', data.version);
       })
-      .catch(err => console.warn('Version check failed', err));
+      .catch(() => {});
 
     // 2. Poll for updates
     const interval = setInterval(() => {
@@ -22,16 +21,7 @@ export function VersionManager() {
         .then(res => res.json())
         .then(serverData => {
           if (currentVersion && serverData.version !== currentVersion) {
-            console.log('🚀 New version detected!', serverData.version);
-            
-            // Intelligence: Auto-update if the user is idle, or show a toast
-            // For now, let's just force a clean reload to ensure they get the fixes
-            // But let's be "Facebook Smart" - maybe only if critical? 
-            // We'll trust the user wants the latest.
-            
-            if (confirm('🎉 Hubbax se ha actualizado con mejoras. ¿Recargar ahora?')) {
-                 window.location.reload();
-            }
+            // Future feature: Background silent sync
           }
         })
         .catch(() => {});

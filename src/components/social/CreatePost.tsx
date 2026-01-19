@@ -5,10 +5,8 @@ interface CreatePostProps {
   onPost?: (content: string) => void;
 }
 
-export function CreatePost({ onPost }: CreatePostProps) {
+export function CreatePost(_props: CreatePostProps) {
   // Logic for a real input would go here, currently using as a simplified trigger
-  // Silencing unused onPost if needed, but better to keep it for future expansion
-  console.log('CreatePost initialized with onPost:', !!onPost);
 
   return (
     <div className="bg-[#242526] rounded-xl shadow-sm mb-4 p-3 md:p-4">

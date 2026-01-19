@@ -25,9 +25,8 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = async (data: RegisterFormData) => {
+  const onSubmit = async () => {
     setIsLoading(true);
-    console.log('Register Data:', data);
     setTimeout(() => {
       setIsLoading(false);
       navigate('/feed');

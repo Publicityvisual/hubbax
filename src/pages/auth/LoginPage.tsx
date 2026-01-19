@@ -41,9 +41,8 @@ export default function LoginPage() {
         setValue('email', savedEmail);
         setValue('remember', true);
       }
-    } catch (e) {
+    } catch {
       // Ignore security errors in private mode
-      console.warn('LocalStorage access failed', e);
     }
   }, [setValue]);
 
@@ -57,11 +56,10 @@ export default function LoginPage() {
       } else {
         localStorage.removeItem('hubbax_remembered_email');
       }
-    } catch (e) {
-      console.warn('Failed to save persistence', e);
+    } catch {
+      // Ignore security errors in private mode
     }
 
-    console.log('Login Data:', data);
     setTimeout(() => {
       setIsLoading(false);
       navigate('/feed');
