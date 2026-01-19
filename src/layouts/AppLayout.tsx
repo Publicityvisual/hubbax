@@ -32,7 +32,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         </button>
       </nav>
 
-      <div className="flex max-w-7xl mx-auto pt-16 lg:pt-0">
+      <div className="flex max-w-7xl mx-auto pt-16 lg:pt-0 pb-16 lg:pb-0">
         
         {/* Left Sidebar */}
         <aside className="hidden lg:flex w-64 h-screen sticky top-0 flex-col border-r border-white/5 p-6 space-y-8 bg-[#050505]/50 backdrop-blur-sm">
@@ -145,6 +145,30 @@ export function AppLayout({ children }: AppLayoutProps) {
         </aside>
 
       </div>
-    </div>
-  );
-}
+      
+      {/* Mobile Bottom Navigation Dock */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#050505]/95 backdrop-blur-xl border-t border-white/10 pb-safe z-50">
+        <div className="flex justify-around items-center h-16 px-2">
+            {navItems.slice(0, 5).map((item) => {
+                const isActive = location.pathname === item.path;
+                return (
+                    <Link 
+                        key={item.path} 
+                        to={item.path}
+                        className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${isActive ? 'text-[#d93025]' : 'text-neutral-500 active:text-white'}`}
+                    >
+                        <div className="relative">
+                            {item.icon}
+                            {isActive && <motion.div layoutId="mobileActive" className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#d93025] rounded-full" />}
+                        </div>
+                    </Link>
+                );
+            })}
+             <Link 
+                to="/settings"
+                className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${location.pathname === '/settings' ? 'text-[#d93025]' : 'text-neutral-500 active:text-white'}`}
+            >
+                <Settings className="w-5 h-5" />
+            </Link>
+        </div>
+      </div>
