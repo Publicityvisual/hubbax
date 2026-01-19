@@ -1,5 +1,5 @@
-import { ThumbsUp, MessageCircle, Share2, MoreHorizontal, Globe } from 'lucide-react';
-import { useState } from 'react';
+import { ThumbsUp, MessageCircle, Share2, MoreHorizontal, Globe, Heart } from 'lucide-react';
+import { useState, useRef } from 'react';
 import { ReactionSelector } from '../ui/ReactionSelector';
 import { REACTION_METADATA } from '../ui/Reactions';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -58,6 +58,25 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
     icon: <ThumbsUp className="w-5 h-5" />
   };
 
+
+  const [showHeartOverlay, setShowHeartOverlay] = useState(false);
+  const lastTap = useRef<number>(0);
+
+  const handleDoubleTap = () => {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300;
+    
+    if (now - lastTap.current < DOUBLE_TAP_DELAY) {
+        // Double tap confirmed
+        if (!selectedReaction) {
+            handleSelectReaction(REACTION_METADATA[1]); // Index 1 is usually Love/Heart, or use 0 for Like. Let's use Love for double tap usually.
+        }
+        setShowHeartOverlay(true);
+        setTimeout(() => setShowHeartOverlay(false), 800);
+    }
+    lastTap.current = now;
+  };
+
   return (
     <article className="bg-[#121212]/80 backdrop-blur-lg rounded-2xl mb-4 shadow-xl border border-white/10 overflow-hidden ring-1 ring-white/5 relative z-0 hover:z-10 transition-all">
       <div className="p-4 pb-2">
@@ -93,10 +112,27 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
         <p className="text-[15px] text-white/90 leading-normal whitespace-pre-wrap mb-2">{content}</p>
       </div>
 
-      {/* Image Attachment */}
+      {/* Image Attachment with Smart Double Tap */}
       {image && (
-          <div className="w-full bg-black">
+          <div 
+            className="w-full bg-black relative select-none cursor-pointer"
+            onClick={handleDoubleTap}
+          >
               <img src={image} alt="Post content" className="w-full h-auto max-h-[600px] object-cover" />
+              
+              <AnimatePresence>
+                {showHeartOverlay && (
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1.2 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ type: "spring", duration: 0.5 }}
+                        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                    >
+                         <Heart className="w-24 h-24 text-white fill-[#d93025] stroke-[#d93025] drop-shadow-[0_0_15px_rgba(0,0,0,0.5)]" />
+                    </motion.div>
+                )}
+              </AnimatePresence>
           </div>
       )}
 
