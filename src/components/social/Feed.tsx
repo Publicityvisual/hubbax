@@ -109,7 +109,7 @@ export function Feed() {
     <div className="w-full max-w-[680px] mx-auto pb-8">
       
       <Stories />
-      <CreatePost onPost={handleCreatePost} />
+      <CreatePost />
       
       <div className="space-y-4">
         {posts.map(post => (
