@@ -57,24 +57,6 @@ const INITIAL_POSTS = [
 export function Feed() {
   const [posts, setPosts] = useState(INITIAL_POSTS);
 
-  const handleCreatePost = (content: string) => {
-    const newPost = {
-      id: Date.now(),
-      author: {
-        name: CURRENT_USER.fullName,
-        username: CURRENT_USER.username,
-        avatar: CURRENT_USER.avatarImage,
-      },
-      content: content,
-      timestamp: "Justo ahora",
-      stats: {
-        likes: 0,
-        comments: 0,
-        shares: 0
-      }
-    };
-    setPosts([newPost, ...posts]);
-  };
 
   const [isLoading, setIsLoading] = useState(true);
 
