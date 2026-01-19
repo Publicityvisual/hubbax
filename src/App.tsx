@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/auth/LoginPage';
 import HomePage from './pages/home/HomePage';
 import ProfilePage from './pages/profile/ProfilePage';
+import FriendsPage from './pages/social/FriendsPage';
+import NotificationsPage from './pages/social/NotificationsPage';
+import SettingsPage from './pages/settings/SettingsPage';
 
 function App() {
   return (
@@ -13,6 +16,11 @@ function App() {
         <Route path="/feed" element={<HomePage />} />
         <Route path="/profile/:username" element={<ProfilePage />} />
         <Route path="/me" element={<ProfilePage />} />
+        
+        {/* New Pages */}
+        <Route path="/friends" element={<FriendsPage />} />
+        <Route path="/notifications" element={<NotificationsPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </Router>
   );

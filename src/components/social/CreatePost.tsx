@@ -1,4 +1,5 @@
 import { Image, Smile, Video } from 'lucide-react';
+import { CURRENT_USER } from '../../data/masterUsers';
 
 export function CreatePost() {
   return (
@@ -7,8 +8,8 @@ export function CreatePost() {
         <div className="flex-shrink-0">
              <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] p-[2px] shadow-lg shadow-[#d93025]/20">
                 <img 
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop" 
-                    alt="Current User" 
+                    src={CURRENT_USER.avatarImage} 
+                    alt={CURRENT_USER.fullName} 
                     className="w-full h-full rounded-full object-cover border-2 border-[#121212]"
                 />
             </div>
@@ -16,7 +17,7 @@ export function CreatePost() {
         <div className="flex-1">
             <input 
                 className="w-full bg-[#0A0A0A]/60 text-white/90 placeholder:text-neutral-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-[#d93025]/30 focus:bg-[#0A0A0A] hover:bg-[#0A0A0A]/80 transition-all cursor-pointer text-base border border-white/5" 
-                placeholder="¿Qué estás pensando, Maria?" 
+                placeholder={`¿Qué estás pensando, ${CURRENT_USER.fullName.split(' ')[0]}?`} 
             />
         </div>
       </div>

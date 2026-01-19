@@ -4,11 +4,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../../components/ui/Input';
 import { Button } from '../../components/ui/Button';
-import { Loader2 } from 'lucide-react';
+
 import { loginSchema, LoginFormData } from '../../lib/schemas';
 import { RegisterModal } from '../../components/auth/RegisterModal';
 import { motion } from 'framer-motion';
-import { LikeReaction, LoveReaction, HahaReaction, WowReaction, SadReaction, AngryReaction } from '../../components/ui/Reactions';
+import { LikeReaction, LoveReaction, CareReaction, HahaReaction, WowReaction, SadReaction, AngryReaction } from '../../components/ui/Reactions';
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,16 +16,51 @@ export default function LoginPage() {
   const [hoveredReaction, setHoveredReaction] = useState<number | null>(null);
   const navigate = useNavigate();
 
+  /* Load saved email on mount handled by defaultValues */
+
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+      register,
+      handleSubmit,
+      setValue,
+      formState: { errors },
+    } = useForm<LoginFormData>({
+      resolver: zodResolver(loginSchema),
+      defaultValues: {
+        email: '',
+        remember: false
+      }
+    });
+
+  // Safe hydration of saved email
+  useState(() => {
+    try {
+      const savedEmail = localStorage.getItem('hubbax_remembered_email');
+      
+      if (savedEmail) {
+        // Use reset to update all values cleanly once mounted
+        setValue('email', savedEmail);
+        setValue('remember', true);
+      }
+    } catch (e) {
+      // Ignore security errors in private mode
+      console.warn('LocalStorage access failed', e);
+    }
   });
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
+    
+    // Remember Me Logic - Wrapped in try/catch for safety
+    try {
+      if (data.remember) {
+        localStorage.setItem('hubbax_remembered_email', data.email);
+      } else {
+        localStorage.removeItem('hubbax_remembered_email');
+      }
+    } catch (e) {
+      console.warn('Failed to save persistence', e);
+    }
+
     console.log('Login Data:', data);
     setTimeout(() => {
       setIsLoading(false);
@@ -36,6 +71,7 @@ export default function LoginPage() {
   const reactions = [
     { name: 'Me gusta', Component: LikeReaction },
     { name: 'Me encanta', Component: LoveReaction },
+    { name: 'Me importa', Component: CareReaction },
     { name: 'Me divierte', Component: HahaReaction },
     { name: 'Me asombra', Component: WowReaction },
     { name: 'Me entristece', Component: SadReaction },
@@ -242,7 +278,11 @@ export default function LoginPage() {
 
               <div className="flex items-center justify-between text-xs pt-1">
                 <label className="flex items-center gap-2 text-neutral-400 cursor-pointer hover:text-white">
-                  <input type="checkbox" className="w-3.5 h-3.5 rounded bg-white/5 border-white/20 text-[#d93025]" />
+                  <input 
+                    type="checkbox" 
+                    className="w-3.5 h-3.5 rounded bg-white/5 border-white/20 text-[#d93025]"
+                    {...register('remember')} 
+                  />
                   Recordarme
                 </label>
                 <Link to="/forgot-password" className="text-[#d93025] hover:underline">

@@ -96,13 +96,20 @@ export const SadReaction = () => (
 
 export const AngryReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.3, rotate: 5, transition: bounceTransition }}
-        animate={{ x: [-1, 1, -1] }} 
-        transition={{ duration: 0.1, repeat: Infinity, type: "tween" }}>
+        whileHover={{ scale: 1.35, rotate: 0, transition: bounceTransition }}
+        animate={{ 
+            x: [-2, 2, -1, 1, 0],
+            scale: [1, 1.1, 1] 
+        }} 
+        transition={{ 
+            x: { duration: 0.2, repeat: Infinity, repeatDelay: 1 }, 
+            scale: { duration: 0.3, repeat: Infinity, repeatDelay: 1 }
+        }}
+    >
         <img 
             src={reactionAssets.angry} 
             alt="Angry" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain filter drop-shadow-lg scale-110" // Slightly larger
         />
     </motion.div>
 );

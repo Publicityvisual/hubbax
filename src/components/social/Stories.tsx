@@ -1,12 +1,13 @@
 import { Plus } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { CURRENT_USER } from '../../data/masterUsers';
 
 const MOCK_STORIES = [
   {
     id: 'user-story',
     isUser: true,
     name: 'Crear historia',
-    image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3', // User avatar
+    image: CURRENT_USER.avatarImage, // Use current user avatar
   },
   {
     id: '1',

@@ -29,3 +29,5 @@ export const MASTER_USERS = {
     verificationLevel: 'gold' as const
   }
 };
+
+export const CURRENT_USER = MASTER_USERS.founder;

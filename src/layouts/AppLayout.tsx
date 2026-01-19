@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { Home, Users, Bell, Settings, Search, LogOut, Menu } from 'lucide-react';
+import { Home, Users, Bell, Settings, Search, LogOut, Menu, User, MessageSquare } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { CURRENT_USER } from '../data/masterUsers';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -11,8 +12,10 @@ export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
 
   const navItems = [
-    { icon: <Home className="w-5 h-5" />, label: "Inicio", path: "/" },
+    { icon: <Home className="w-5 h-5" />, label: "Inicio", path: "/feed" },
+    { icon: <User className="w-5 h-5" />, label: "Perfil", path: `/profile/${CURRENT_USER.username}` },
     { icon: <Users className="w-5 h-5" />, label: "Amigos", path: "/friends" },
+    { icon: <MessageSquare className="w-5 h-5" />, label: "Mensajes", path: "/messages" },
     { icon: <Bell className="w-5 h-5" />, label: "Notificaciones", path: "/notifications" },
     { icon: <Settings className="w-5 h-5" />, label: "Configuración", path: "/settings" },
   ];
@@ -22,10 +25,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       {/* Navbar Mobile */}
       <nav className="lg:hidden fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-4 h-16 flex items-center justify-between">
          <div className="text-xl font-bold tracking-tighter flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] rounded-xl flex items-center justify-center shadow-lg shadow-[#d93025]/20">
-                <div className="w-2.5 h-2.5 bg-white rounded-full" />
-            </div>
-            <span className="text-white">Hubbax</span>
+            <img src="/assets/logo.png" alt="Hubbax" className="h-8 w-auto object-contain" />
         </div>
         <button className="text-white/60 hover:text-white hover:bg-white/5 p-2 rounded-xl transition-colors">
             <Menu className="w-6 h-6" />
@@ -36,11 +36,9 @@ export function AppLayout({ children }: AppLayoutProps) {
         
         {/* Left Sidebar */}
         <aside className="hidden lg:flex w-64 h-screen sticky top-0 flex-col border-r border-white/5 p-6 space-y-8 bg-[#050505]/50 backdrop-blur-sm">
-            <div className="text-2xl font-bold tracking-tighter flex items-center gap-3 px-2">
-                <div className="w-9 h-9 bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] rounded-xl flex items-center justify-center shadow-lg shadow-[#d93025]/20">
-                    <div className="w-3 h-3 bg-white rounded-full" />
-                </div>
-                <span className="text-white">Hubbax</span>
+            <div className="flex items-center gap-2">
+                <img src="/assets/logo.png" alt="Hubbax" className="h-8 w-auto object-contain" />
+                <span className="text-white text-xl font-bold">Hubbax</span>
             </div>
 
             <nav className="space-y-1 flex-1">
