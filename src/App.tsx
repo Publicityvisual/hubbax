@@ -7,9 +7,12 @@ import FriendsPage from './pages/social/FriendsPage';
 import NotificationsPage from './pages/social/NotificationsPage';
 import SettingsPage from './pages/settings/SettingsPage';
 
+import { VersionManager } from './components/VersionManager';
+
 function App() {
   return (
     <Router>
+      <VersionManager />
       <Routes>
         <Route path="/" element={<LoginPage />} />
         
