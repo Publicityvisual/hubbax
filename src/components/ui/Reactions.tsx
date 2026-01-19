@@ -140,7 +140,4 @@ export const REACTION_METADATA = [
   { id: 'wow', name: 'Me asombra', Component: WowReaction, color: '#fbc02d' },
   { id: 'sad', name: 'Me entristece', Component: SadReaction, color: '#fbc02d' },
   { id: 'angry', name: 'Me enoja', Component: AngryReaction, color: '#e64a19' },
-  // Secret / Premium
-  { id: 'fire', name: '¡Está que arde!', Component: FireReaction, color: '#ff5722' },
-  { id: 'rocket', name: '¡Despegando!', Component: RocketReaction, color: '#2979ff' },
 ];

@@ -77,6 +77,36 @@ export function Feed() {
   };
 
   return (
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate smart loading
+  useState(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  });
+
+  if (isLoading) {
+    return (
+        <div className="w-full max-w-[680px] mx-auto pb-8 space-y-6">
+             {/* Stories Skeleton */}
+             <div className="flex gap-2 overflow-hidden py-4">
+                {[1,2,3,4,5].map(i => (
+                    <div key={i} className="flex-shrink-0 w-[110px] h-[200px] bg-[#18191a] rounded-xl animate-pulse border border-white/5" />
+                ))}
+             </div>
+             
+             {/* Create Post Skeleton */}
+             <div className="h-32 bg-[#18191a] rounded-2xl animate-pulse border border-white/5" />
+
+             {/* Posts Skeletons */}
+             {[1,2].map(i => (
+                 <div key={i} className="bg-[#18191a] rounded-2xl h-[400px] animate-pulse border border-white/5" />
+             ))}
+        </div>
+    );
+  }
+
+  return (
     <div className="w-full max-w-[680px] mx-auto pb-8">
       
       <Stories />
@@ -88,5 +118,6 @@ export function Feed() {
         ))}
       </div>
     </div>
+  );
   );
 }
