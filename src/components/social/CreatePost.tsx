@@ -1,12 +1,7 @@
 import { Image, Smile, Video } from 'lucide-react';
 import { CURRENT_USER } from '../../data/masterUsers';
 
-interface CreatePostProps {
-  onPost?: (content: string) => void;
-}
-
 export function CreatePost() {
- Broadway
   // Logic for a real input would go here, currently using as a simplified trigger
 
   return (
