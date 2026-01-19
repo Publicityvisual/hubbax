@@ -47,6 +47,10 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
     setIsHoveringLike(false);
   };
 
+  const toggleDock = () => {
+    setIsHoveringLike(!isHoveringLike);
+  };
+
   // Default "Like" state config
   const activeReaction = selectedReaction || {
     name: 'Me gusta',
@@ -117,6 +121,7 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
                 className="relative flex-1"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                onClick={toggleDock} // Allow tap to toggle dock on mobile
             >
                 <AnimatePresence>
                     {isHoveringLike && (
@@ -125,6 +130,7 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
                             animate={{ opacity: 1, y: -5, scale: 1 }}
                             exit={{ opacity: 0, y: 10, scale: 0.9 }}
                             className="absolute bottom-full left-0 z-50 pointer-events-auto"
+                            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside dock
                         >
                             <ReactionSelector onSelect={handleSelectReaction} />
                         </motion.div>
@@ -132,7 +138,16 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
                 </AnimatePresence>
 
                 <button 
-                    onClick={() => handleSelectReaction(REACTION_METADATA[0])} // Default click = Like
+                    // Remove direct onClick here to let parent handle the logic or distinct
+                    onClick={(e) => {
+                        e.stopPropagation(); // Stop parent toggle
+                        if (isHoveringLike) {
+                            setIsHoveringLike(false);
+                        } else {
+                             // If no dock, simple Like toggle
+                             handleSelectReaction(REACTION_METADATA[0])
+                        }
+                    }}
                     className={`w-full flex items-center justify-center gap-2 hover:bg-white/5 font-bold text-[15px] h-11 rounded-xl transition-all duration-200 active:scale-95 ${
                         selectedReaction ? '' : 'text-neutral-400 hover:text-white'
                     }`}
