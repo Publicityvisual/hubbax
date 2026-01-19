@@ -1,4 +1,7 @@
-import { INITIAL_POSTS } from '../../data/mockPosts'; // Just an example, wait, I see CURRENT_USER was line 5
+import { useState, useEffect } from 'react';
+import { CreatePost } from './CreatePost';
+import { PostCard } from './PostCard';
+import { Stories } from './Stories';
 
 const INITIAL_POSTS = [
   {
@@ -52,7 +55,6 @@ const INITIAL_POSTS = [
 
 export function Feed() {
   const [posts] = useState(INITIAL_POSTS);
- Broadway
 
 
   const [isLoading, setIsLoading] = useState(true);
