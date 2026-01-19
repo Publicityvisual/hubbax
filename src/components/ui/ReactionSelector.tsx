@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { REACTION_METADATA } from './Reactions';
+import { REACTION_METADATA } from './ReactionMetadata';
 
 interface ReactionSelectorProps {
   onSelect: (reaction: typeof REACTION_METADATA[0]) => void;

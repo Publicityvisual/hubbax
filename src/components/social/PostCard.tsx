@@ -1,7 +1,7 @@
 import { ThumbsUp, MessageCircle, Share2, MoreHorizontal, Globe, Heart } from 'lucide-react';
 import { useState, useRef } from 'react';
 import { ReactionSelector } from '../ui/ReactionSelector';
-import { REACTION_METADATA } from '../ui/Reactions';
+import { REACTION_METADATA } from '../ui/ReactionMetadata';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface PostProps {
