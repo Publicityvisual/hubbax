@@ -28,19 +28,19 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
   const handleMouseEnter = () => {
     hoverTimeout = setTimeout(() => {
         setIsHoveringLike(true);
-    }, 400); // 400ms delay to prevent accidental triggering
+    }, 400); 
   };
 
   const handleMouseLeave = () => {
     clearTimeout(hoverTimeout);
     setTimeout(() => {
          setIsHoveringLike(false);
-    }, 500); // Delay closing to allow moving to dock
+    }, 500); 
   };
 
   const handleSelectReaction = (reaction: typeof REACTION_METADATA[0]) => {
     if (selectedReaction?.id === reaction.id) {
-        setSelectedReaction(null); // Toggle off
+        setSelectedReaction(null); 
     } else {
         setSelectedReaction(reaction);
     }
@@ -51,13 +51,11 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
     setIsHoveringLike(!isHoveringLike);
   };
 
-  // Default "Like" state config
   const activeReaction = selectedReaction || {
     name: 'Me gusta',
-    color: 'text-neutral-400', // Default text color
-    icon: <ThumbsUp className="w-5 h-5" />
+    color: 'text-zinc-400 group-hover:text-zinc-300', 
+    icon: <ThumbsUp className="w-[18px] h-[18px]" />
   };
-
 
   const [showHeartOverlay, setShowHeartOverlay] = useState(false);
   const lastTap = useRef<number>(0);
@@ -67,9 +65,8 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
     const DOUBLE_TAP_DELAY = 300;
     
     if (now - lastTap.current < DOUBLE_TAP_DELAY) {
-        // Double tap confirmed
         if (!selectedReaction) {
-            handleSelectReaction(REACTION_METADATA[1]); // Index 1 is usually Love/Heart, or use 0 for Like. Let's use Love for double tap usually.
+            handleSelectReaction(REACTION_METADATA[1]); 
         }
         setShowHeartOverlay(true);
         setTimeout(() => setShowHeartOverlay(false), 800);
@@ -78,137 +75,146 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
   };
 
   return (
-    <article className="bg-[#121212]/80 backdrop-blur-lg rounded-2xl mb-4 shadow-xl border border-white/10 overflow-hidden ring-1 ring-white/5 relative z-0 hover:z-10 transition-all">
-      <div className="p-4 pb-2">
-        <div className="flex gap-3 mb-2">
-            {/* Avatar */}
-            <div className="flex-shrink-0 cursor-pointer">
+    <article className="group/card relative bg-[#0a0a0a]/60 backdrop-blur-md rounded-3xl mb-6 border border-white/5 overflow-hidden transition-all duration-300 hover:border-white/10 hover:shadow-[0_0_40px_-10px_rgba(0,0,0,0.5)]">
+      
+      {/* Header */}
+      <div className="p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+            <div className="relative cursor-pointer">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 opacity-0 group-hover/card:opacity-20 blur-md transition-opacity" />
                 <img 
                     src={author.avatar} 
                     alt={author.name} 
-                    className="w-10 h-10 rounded-full object-cover border border-white/10"
+                    className="w-10 h-10 rounded-full object-cover border border-white/10 relative z-10"
                 />
             </div>
-
-            {/* Header Info */}
-            <div className="flex-1 min-w-0 flex justify-between items-start">
-                <div>
-                   <h3 className="text-[15px] font-semibold text-white/90 hover:underline cursor-pointer leading-tight">
-                       {author.name}
-                   </h3>
-                   <div className="flex items-center gap-1.5 text-xs text-[#B0B3B8] mt-0.5">
-                       <span className="hover:underline cursor-pointer">{timestamp}</span>
-                       <span>·</span>
-                       <Globe className="w-3 h-3" />
-                   </div>
+            <div>
+                <h3 className="text-[15px] font-semibold text-zinc-100 hover:text-white cursor-pointer transition-colors">
+                    {author.name}
+                </h3>
+                <div className="flex items-center gap-1.5 text-xs text-zinc-500">
+                    <span className="hover:underline cursor-pointer transition-colors hover:text-zinc-400">{timestamp}</span>
+                    <span className="text-zinc-700">·</span>
+                    <Globe className="w-3 h-3" />
                 </div>
-                <button className="text-[#B0B3B8] hover:bg-white/10 p-2 rounded-full transition-colors">
-                    <MoreHorizontal className="w-5 h-5" />
-                </button>
             </div>
         </div>
-
-        {/* Content Body */}
-        <p className="text-[15px] text-white/90 leading-normal whitespace-pre-wrap mb-2">{content}</p>
+        <button className="text-zinc-500 hover:text-white hover:bg-white/5 p-2 rounded-full transition-all">
+            <MoreHorizontal className="w-5 h-5" />
+        </button>
       </div>
 
-      {/* Image Attachment with Smart Double Tap */}
+      {/* Content */}
+      <div className="px-4 pb-3">
+         <p className="text-[15px] text-zinc-200 leading-relaxed dark:text-zinc-300 font-normal whitespace-pre-wrap">{content}</p>
+      </div>
+
+      {/* Media */}
       {image && (
           <div 
-            className="w-full bg-black relative select-none cursor-pointer"
+            className="w-full relative select-none cursor-pointer bg-black/50 overflow-hidden"
             onClick={handleDoubleTap}
           >
-              <img src={image} alt="Post content" className="w-full h-auto max-h-[600px] object-cover" />
+              <img src={image} alt="Post content" className="w-full h-auto max-h-[700px] object-cover transition-transform duration-700 hover:scale-[1.01]" />
               
               <AnimatePresence>
                 {showHeartOverlay && (
                     <motion.div 
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{ opacity: 1, scale: 1.2 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        transition={{ type: "spring", duration: 0.5 }}
-                        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                        initial={{ opacity: 0, scale: 0.5, rotate: -15 }}
+                        animate={{ opacity: 1, scale: 1.2, rotate: 0 }}
+                        exit={{ opacity: 0, scale: 0.8, rotate: 15 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                        className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
                     >
-                         <Heart className="w-24 h-24 text-white fill-[#d93025] stroke-[#d93025] drop-shadow-[0_0_15px_rgba(0,0,0,0.5)]" />
+                         <Heart className="w-28 h-28 text-[#ef4444] fill-[#ef4444] drop-shadow-[0_10px_30px_rgba(239,68,68,0.5)]" />
                     </motion.div>
                 )}
               </AnimatePresence>
           </div>
       )}
 
-      {/* Stats Bar */}
-      <div className="px-4 py-2.5 flex items-center justify-between text-[#B0B3B8] text-[13px]">
-          <div className="flex items-center gap-1.5 cursor-pointer hover:underline">
-              <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                  <ThumbsUp className="w-2.5 h-2.5 text-white fill-white" />
+      {/* Stats & Actions Footer */}
+      <div className="bg-gradient-to-b from-transparent to-black/20">
+          <div className="px-4 py-3 flex items-center justify-between text-zinc-500 text-[13px]">
+              <div className="flex items-center gap-1.5 cursor-pointer hover:text-zinc-300 transition-colors">
+                  {selectedReaction ? (
+                      <div className="flex items-center -space-x-1">
+                          <div className="w-4 h-4 rounded-full overflow-hidden border border-[#0a0a0a]">
+                              <selectedReaction.Component />
+                          </div>
+                      </div>
+                  ) : (
+                      <div className="w-4 h-4 bg-blue-500/10 rounded-full flex items-center justify-center border border-blue-500/20">
+                        <ThumbsUp className="w-2.5 h-2.5 text-blue-400 fill-blue-400" />
+                      </div>
+                  )}
+                  <span className="font-medium">{stats.likes + (selectedReaction ? 1 : 0)}</span>
               </div>
-              <span>{stats.likes}</span>
+              <div className="flex gap-4">
+                  <span className="hover:text-zinc-300 cursor-pointer transition-colors">{stats.comments} comentarios</span>
+                  <span className="hover:text-zinc-300 cursor-pointer transition-colors">{stats.shares} veces compartido</span>
+              </div>
           </div>
-          <div className="flex gap-3">
-              <span className="hover:underline cursor-pointer">{stats.comments} comentarios</span>
-              <span className="hover:underline cursor-pointer">{stats.shares} veces compartido</span>
-          </div>
-      </div>
 
-      {/* Action Buttons (The Big 3) */}
-      <div className="px-3 pb-3 pt-1">
-        <div className="border-t border-white/5 flex items-center gap-1 pt-2">
-            <div 
-                className="relative flex-1"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onClick={toggleDock} // Allow tap to toggle dock on mobile
-            >
-                <AnimatePresence>
-                    {isHoveringLike && (
-                        <motion.div 
-                            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                            animate={{ opacity: 1, y: -5, scale: 1 }}
-                            exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                            className="absolute bottom-full left-0 z-50 pointer-events-auto"
-                            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside dock
-                        >
-                            <ReactionSelector onSelect={handleSelectReaction} />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                <button 
-                    // Remove direct onClick here to let parent handle the logic or distinct
-                    onClick={(e) => {
-                        e.stopPropagation(); // Stop parent toggle
-                        if (isHoveringLike) {
-                            setIsHoveringLike(false);
-                        } else {
-                             // If no dock, simple Like toggle
-                             handleSelectReaction(REACTION_METADATA[0])
-                        }
-                    }}
-                    className={`w-full flex items-center justify-center gap-2 hover:bg-white/5 font-bold text-[15px] h-11 rounded-xl transition-all duration-200 active:scale-95 ${
-                        selectedReaction ? '' : 'text-neutral-400 hover:text-white'
-                    }`}
-                    style={{ color: selectedReaction?.color }}
+          <div className="px-2 pb-2">
+            <div className="grid grid-cols-3 gap-1 pt-1 border-t border-white/5">
+                {/* Like Button Wrapper */}
+                <div 
+                    className="relative"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    onClick={toggleDock}
                 >
-                    {selectedReaction ? (
-                        <div className="w-5 h-5 relative">
-                             {/* Render the actual component from metadata if it exists */}
-                             <selectedReaction.Component /> 
-                        </div>
-                    ) : (
-                        <ThumbsUp className="w-5 h-5" />
-                    )}
-                    <span>{activeReaction.name}</span>
+                    <AnimatePresence>
+                        {isHoveringLike && (
+                            <motion.div 
+                                initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                                animate={{ opacity: 1, y: -8, scale: 1 }}
+                                exit={{ opacity: 0, y: 15, scale: 0.95 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className="absolute bottom-full left-0 z-50 w-full flex justify-center pointer-events-auto pl-2"
+                                onClick={(e) => e.stopPropagation()} 
+                            >
+                                <ReactionSelector onSelect={handleSelectReaction} />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    <button 
+                        onClick={(e) => {
+                            e.stopPropagation(); 
+                            if (isHoveringLike) {
+                                setIsHoveringLike(false);
+                            } else {
+                                handleSelectReaction(REACTION_METADATA[0])
+                            }
+                        }}
+                        className={`w-full group flex items-center justify-center gap-2 hover:bg-white/5 font-semibold text-[14px] h-10 rounded-lg transition-all duration-200 active:scale-95 ${
+                            selectedReaction ? '' : 'text-zinc-400 hover:text-zinc-200'
+                        }`}
+                        style={{ color: selectedReaction?.color }}
+                    >
+                        {selectedReaction ? (
+                            <div className="w-[18px] h-[18px] relative">
+                                <selectedReaction.Component /> 
+                            </div>
+                        ) : (
+                            <ThumbsUp className="w-[18px] h-[18px] group-hover:scale-110 transition-transform" />
+                        )}
+                        <span>{activeReaction.name}</span>
+                    </button>
+                </div>
+
+                <button className="flex items-center justify-center gap-2 text-zinc-400 hover:text-zinc-200 hover:bg-white/5 font-semibold text-[14px] h-10 rounded-lg transition-all duration-200 active:scale-95 group">
+                    <MessageCircle className="w-[18px] h-[18px] group-hover: -rotate-6 transition-transform" />
+                    <span>Comentar</span>
+                </button>
+                <button className="flex items-center justify-center gap-2 text-zinc-400 hover:text-zinc-200 hover:bg-white/5 font-semibold text-[14px] h-10 rounded-lg transition-all duration-200 active:scale-95 group">
+                    <Share2 className="w-[18px] h-[18px] group-hover:rotate-12 transition-transform" />
+                    <span>Compartir</span>
                 </button>
             </div>
-            <button className="flex-1 flex items-center justify-center gap-2 text-neutral-400 hover:text-white hover:bg-white/5 font-medium text-[14px] h-11 rounded-xl transition-all duration-200 active:scale-95">
-                <MessageCircle className="w-5 h-5" />
-                <span>Comentar</span>
-            </button>
-            <button className="flex-1 flex items-center justify-center gap-2 text-neutral-400 hover:text-white hover:bg-white/5 font-medium text-[14px] h-11 rounded-xl transition-all duration-200 active:scale-95">
-                <Share2 className="w-5 h-5" />
-                <span>Compartir</span>
-            </button>
-        </div>
+          </div>
       </div>
     </article>
   );
