@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { CreatePost } from './CreatePost';
 import { PostCard } from './PostCard';
 import { Stories } from './Stories';
+import { CURRENT_USER } from '../../data/masterUsers';
 
-const MOCK_POSTS = [
+const INITIAL_POSTS = [
   {
     id: 1,
     author: {
@@ -53,14 +55,35 @@ const MOCK_POSTS = [
 ];
 
 export function Feed() {
+  const [posts, setPosts] = useState(INITIAL_POSTS);
+
+  const handleCreatePost = (content: string) => {
+    const newPost = {
+      id: Date.now(),
+      author: {
+        name: CURRENT_USER.fullName,
+        username: CURRENT_USER.username,
+        avatar: CURRENT_USER.avatarImage,
+      },
+      content: content,
+      timestamp: "Justo ahora",
+      stats: {
+        likes: 0,
+        comments: 0,
+        shares: 0
+      }
+    };
+    setPosts([newPost, ...posts]);
+  };
+
   return (
     <div className="w-full max-w-[680px] mx-auto pb-8">
       
       <Stories />
-      <CreatePost />
+      <CreatePost onPost={handleCreatePost} />
       
       <div className="space-y-4">
-        {MOCK_POSTS.map(post => (
+        {posts.map(post => (
             <PostCard key={post.id} {...post} />
         ))}
       </div>

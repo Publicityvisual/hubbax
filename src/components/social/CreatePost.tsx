@@ -1,7 +1,29 @@
-import { Image, Smile, Video } from 'lucide-react';
+import { useState } from 'react';
+import { Image, Smile, Video, Send } from 'lucide-react';
 import { CURRENT_USER } from '../../data/masterUsers';
 
-export function CreatePost() {
+interface CreatePostProps {
+  onPost?: (content: string) => void;
+}
+
+export function CreatePost({ onPost }: CreatePostProps) {
+  const [content, setContent] = useState("");
+
+  const handleSubmit = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (!content.trim()) return;
+    
+    onPost?.(content);
+    setContent("");
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   return (
     <div className="px-4 py-4 bg-[#121212]/80 backdrop-blur-lg rounded-2xl border border-white/10 mb-4 ring-1 ring-white/5">
       <div className="flex gap-3 mb-4 border-b border-white/5 pb-4">
@@ -14,11 +36,22 @@ export function CreatePost() {
                 />
             </div>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 relative">
             <input 
-                className="w-full bg-[#0A0A0A]/60 text-white/90 placeholder:text-neutral-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-[#d93025]/30 focus:bg-[#0A0A0A] hover:bg-[#0A0A0A]/80 transition-all cursor-pointer text-base border border-white/5" 
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="w-full bg-[#0A0A0A]/60 text-white/90 placeholder:text-neutral-500 rounded-xl px-5 py-3 focus:outline-none focus:ring-2 focus:ring-[#d93025]/30 focus:bg-[#0A0A0A] hover:bg-[#0A0A0A]/80 transition-all cursor-pointer text-base border border-white/5 pr-12" 
                 placeholder={`¿Qué estás pensando, ${CURRENT_USER.fullName.split(' ')[0]}?`} 
             />
+            {content.trim().length > 0 && (
+              <button 
+                onClick={() => handleSubmit()}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-lg bg-[#d93025] hover:bg-[#b01e15] text-white transition-all shadow-lg shadow-red-500/20"
+              >
+                <Send className="w-4 h-4 ml-0.5" />
+              </button>
+            )}
         </div>
       </div>
 
