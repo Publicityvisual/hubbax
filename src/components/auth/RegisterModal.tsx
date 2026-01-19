@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
-import { X, ChevronDown, User, Star, UserCheck, HelpCircle } from 'lucide-react';
+import { X, ChevronDown, HelpCircle } from 'lucide-react';
 import { registerSchema, RegisterFormData } from '../../lib/schemas';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,6 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),

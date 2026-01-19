@@ -79,13 +79,13 @@ export default function LoginPage() {
   ];
 
   return (
-    <div className="h-screen bg-[#0a0a0a] flex font-sans overflow-hidden">
+    <div className="h-screen bg-[#18191a] flex font-sans overflow-hidden">
       {/* Left Panel - Hero (Desktop only) */}
-      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
+      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center bg-[#18191a]">
         {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-20 w-80 h-80 bg-[#d93025]/20 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-20 right-20 w-72 h-72 bg-purple-600/15 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-20 left-20 w-80 h-80 bg-[#d93025]/10 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-20 right-20 w-72 h-72 bg-purple-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
         
         {/* Content */}
@@ -97,7 +97,7 @@ export default function LoginPage() {
             transition={{ duration: 0.5 }}
             className="relative mb-6"
           >
-            <div className="absolute -inset-3 bg-gradient-to-r from-[#d93025] to-purple-600 rounded-full blur-xl opacity-25" />
+            <div className="absolute -inset-3 bg-gradient-to-r from-[#d93025] to-purple-600 rounded-full blur-xl opacity-20" />
             <img src="/assets/logo.png" alt="Hubbax" className="relative h-28 object-contain" />
           </motion.div>
           
@@ -117,7 +117,7 @@ export default function LoginPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-neutral-400 text-base mb-8 max-w-sm"
+            className="text-[#B0B3B8] text-base mb-8 max-w-sm"
           >
             Conecta, comparte y descubre con millones de personas.
           </motion.p>
@@ -129,14 +129,14 @@ export default function LoginPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="relative"
           >
-            <div className="absolute -inset-2 bg-gradient-to-tr from-[#d93025] to-purple-600 rounded-2xl blur-lg opacity-30" />
-            <div className="relative rounded-xl overflow-hidden shadow-2xl">
+            <div className="absolute -inset-2 bg-gradient-to-tr from-[#d93025] to-purple-600 rounded-2xl blur-lg opacity-20" />
+            <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/5">
               <img 
                 src="/assets/hero_people.png" 
                 alt="Social" 
                 className="w-80 h-auto"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#18191a]/80 via-transparent to-transparent" />
             </div>
 
             {/* Floating Reactions with Advanced SVG Animation */}
@@ -177,7 +177,7 @@ export default function LoginPage() {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="mt-10"
           >
-            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-6 py-4 flex items-center gap-4 shadow-2xl">
+            <div className="bg-[#242526] backdrop-blur-md border border-white/10 rounded-full px-6 py-4 flex items-center gap-4 shadow-2xl">
               {reactions.map((reaction, i) => (
                 <div key={i} className="relative group">
                   <motion.div
@@ -207,12 +207,12 @@ export default function LoginPage() {
       </div>
 
       {/* Right Panel - Login Form */}
-      <div className="flex-1 flex items-center justify-center px-6 lg:px-12 bg-[#0a0a0a]">
+      <div className="flex-1 flex items-center justify-center px-6 lg:px-12 bg-[#18191a]">
         <div className="w-full max-w-[420px]">
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-6">
             <img src="/assets/logo.png" alt="Hubbax" className="h-14 mx-auto mb-2" />
-            <p className="text-neutral-500 text-sm">La red social del futuro</p>
+            <p className="text-[#B0B3B8] text-sm">La red social del futuro</p>
             
             {/* Mobile Animated Reactions */}
             <div className="flex justify-center gap-4 mt-6">
@@ -225,10 +225,10 @@ export default function LoginPage() {
           </div>
 
           {/* Login Card */}
-          <div className="bg-[#111] border border-white/10 rounded-2xl p-7">
+          <div className="bg-[#242526] border border-white/10 rounded-2xl p-7 shadow-2xl">
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-white mb-1">¡Bienvenido!</h2>
-              <p className="text-neutral-400 text-sm">Ingresa a tu cuenta</p>
+              <p className="text-[#B0B3B8] text-sm">Ingresa a tu cuenta</p>
             </div>
 
             {/* Social Buttons - Premium Glass */}

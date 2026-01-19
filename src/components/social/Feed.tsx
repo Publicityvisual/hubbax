@@ -76,7 +76,6 @@ export function Feed() {
     setPosts([newPost, ...posts]);
   };
 
-  return (
   const [isLoading, setIsLoading] = useState(true);
 
   // Simulate smart loading
