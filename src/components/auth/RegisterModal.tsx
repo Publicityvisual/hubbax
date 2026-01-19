@@ -43,7 +43,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="relative w-full max-w-[432px] bg-white dark:bg-[#242526] rounded-xl shadow-[0_12px_28px_0_rgba(0,0,0,0.2),0_2px_4px_0_rgba(0,0,0,0.1)] overflow-hidden"
+        className="relative w-full max-w-[432px] bg-white dark:bg-[#242526] rounded-xl shadow-[0_12px_28px_0_rgba(0,0,0,0.2),0_2px_4px_0_rgba(0,0,0,0.1)] max-h-[90vh] overflow-y-auto custom-scrollbar"
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-[#dadde1] dark:border-[#3E4042]">

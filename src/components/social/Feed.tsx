@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CreatePost } from './CreatePost';
 import { PostCard } from './PostCard';
 import { Stories } from './Stories';
@@ -79,10 +79,10 @@ export function Feed() {
   const [isLoading, setIsLoading] = useState(true);
 
   // Simulate smart loading
-  useState(() => {
+  useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   if (isLoading) {
     return (

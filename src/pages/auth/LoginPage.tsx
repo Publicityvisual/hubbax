@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,7 +32,7 @@ export default function LoginPage() {
     });
 
   // Safe hydration of saved email
-  useState(() => {
+  useEffect(() => {
     try {
       const savedEmail = localStorage.getItem('hubbax_remembered_email');
       
@@ -45,7 +45,7 @@ export default function LoginPage() {
       // Ignore security errors in private mode
       console.warn('LocalStorage access failed', e);
     }
-  });
+  }, [setValue]);
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
@@ -79,7 +79,7 @@ export default function LoginPage() {
   ];
 
   return (
-    <div className="h-screen bg-[#18191a] flex font-sans overflow-hidden">
+    <div className="min-h-screen bg-[#18191a] flex font-sans overflow-y-auto">
       {/* Left Panel - Hero (Desktop only) */}
       <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center bg-[#18191a]">
         {/* Animated Background */}

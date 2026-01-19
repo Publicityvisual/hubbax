@@ -64,10 +64,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               icon ? "pl-3" : ""
             )}
             placeholder={hideLabel ? props.placeholder : ""}
+            {...props}
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={handleChange}
-            {...props}
           />
           
           {!hideLabel && (
