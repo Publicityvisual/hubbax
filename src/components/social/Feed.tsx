@@ -119,5 +119,4 @@ export function Feed() {
       </div>
     </div>
   );
-  );
 }

@@ -19,4 +19,4 @@ export const bounceTransition = {
     stiffness: 400,
     damping: 10,
     mass: 0.8
-};
+} as const;
