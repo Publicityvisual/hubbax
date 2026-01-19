@@ -172,3 +172,6 @@ export function AppLayout({ children }: AppLayoutProps) {
             </Link>
         </div>
       </div>
+    </div>
+  );
+}
