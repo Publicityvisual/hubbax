@@ -231,10 +231,11 @@ export default function LoginPage() {
               <p className="text-neutral-400 text-sm">Ingresa a tu cuenta</p>
             </div>
 
-            {/* Social Buttons */}
+            {/* Social Buttons - Premium Glass */}
             <div className="flex gap-3 mb-5">
-              <button className="flex-1 flex items-center justify-center gap-2 h-12 bg-white hover:bg-gray-100 rounded-xl text-gray-800 font-medium transition-all text-sm">
-                <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <button className="flex-1 flex items-center justify-center gap-2 h-12 bg-white hover:bg-neutral-100 rounded-xl text-gray-900 font-bold transition-all text-sm shadow-[0_4px_12px_rgba(255,255,255,0.1)] hover:shadow-[0_4px_16px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-white/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <svg className="w-5 h-5 relative z-10" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                   <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -242,8 +243,9 @@ export default function LoginPage() {
                 </svg>
                 Google
               </button>
-              <button className="flex-1 flex items-center justify-center gap-2 h-12 bg-black border border-white/20 rounded-xl text-white font-medium transition-all text-sm hover:bg-gray-900">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <button className="flex-1 flex items-center justify-center gap-2 h-12 bg-[#050505] border border-white/10 rounded-xl text-white font-bold transition-all text-sm hover:bg-black hover:border-white/30 shadow-lg hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:-translate-y-0.5 group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <svg className="w-5 h-5 relative z-10" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                 </svg>
                 Apple
@@ -258,45 +260,55 @@ export default function LoginPage() {
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-              <Input 
-                type="email" 
-                placeholder="Correo electrónico"
-                error={errors.email?.message}
-                {...register('email')}
-                className="h-12 bg-[#0a0a0a] border-white/10 text-white placeholder:text-neutral-500 focus:border-[#d93025] rounded-xl px-4 text-sm"
-                hideLabel
-              />
-              <Input 
-                type="password" 
-                placeholder="Contraseña"
-                error={errors.password?.message}
-                {...register('password')}
-                className="h-12 bg-[#0a0a0a] border-white/10 text-white placeholder:text-neutral-500 focus:border-[#d93025] rounded-xl px-4 text-sm"
-                hideLabel
-              />
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div className="relative group">
+                <Input 
+                  type="email" 
+                  placeholder="Correo electrónico"
+                  error={errors.email?.message}
+                  {...register('email')}
+                  className="h-14 bg-[#0a0a0a]/50 border-white/10 text-white placeholder:text-neutral-500 focus:border-[#d93025] focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-base transition-all group-hover:border-white/20"
+                  hideLabel
+                />
+              </div>
+              <div className="relative group">
+                <Input 
+                  type="password" 
+                  placeholder="Contraseña"
+                  error={errors.password?.message}
+                  {...register('password')}
+                  className="h-14 bg-[#0a0a0a]/50 border-white/10 text-white placeholder:text-neutral-500 focus:border-[#d93025] focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-base transition-all group-hover:border-white/20"
+                  hideLabel
+                />
+              </div>
 
-              <div className="flex items-center justify-between text-xs pt-1">
-                <label className="flex items-center gap-2 text-neutral-400 cursor-pointer hover:text-white">
-                  <input 
-                    type="checkbox" 
-                    className="w-3.5 h-3.5 rounded bg-white/5 border-white/20 text-[#d93025]"
-                    {...register('remember')} 
-                  />
-                  Recordarme
+              <div className="flex items-center justify-between text-xs pt-2">
+                <label className="flex items-center gap-2 text-neutral-400 cursor-pointer hover:text-white select-none group">
+                  <div className="relative">
+                      <input 
+                        type="checkbox" 
+                        className="peer sr-only"
+                        {...register('remember')} 
+                      />
+                      <div className="w-4 h-4 rounded border border-white/20 bg-transparent peer-checked:bg-[#d93025] peer-checked:border-[#d93025] transition-all" />
+                      <svg className="w-2.5 h-2.5 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 peer-checked:opacity-100 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                  <span className="group-hover:text-[#d93025] transition-colors">Recordarme</span>
                 </label>
-                <Link to="/forgot-password" className="text-[#d93025] hover:underline">
+                <Link to="/forgot-password" className="text-[#d93025] hover:text-[#ff6b5b] transition-colors hover:underline">
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
 
               <Button 
                 type="submit" 
-                className="w-full h-12 text-base font-bold rounded-xl bg-[#d93025] hover:bg-[#b01e15] text-white transition-all" 
+                className="w-full h-14 text-lg font-bold rounded-xl bg-gradient-to-r from-[#d93025] to-[#ff3b2f] hover:brightness-110 text-white transition-all shadow-lg shadow-[#d93025]/30 hover:shadow-[#d93025]/50 hover:scale-[1.01] active:scale-[0.99] relative overflow-hidden" 
                 size="lg" 
                 isLoading={isLoading}
               >
-                {isLoading ? "Iniciando..." : "Iniciar sesión"}
+                {/* Shine Effect */}
+                <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
+                <span className="relative z-20">{isLoading ? "Iniciando..." : "Iniciar sesión"}</span>
               </Button>
             </form>
 
