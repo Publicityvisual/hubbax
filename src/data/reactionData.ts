@@ -1,8 +1,8 @@
 
 // --- AUTHENTIC ANIMATED ASSETS ---
 export const reactionAssets = {
-  like: "/assets/reactions/like.png",
-  love: "/assets/reactions/love.png",
+  like: "/assets/reactions/like_premium.png",
+  love: "/assets/reactions/love_premium.png",
   care: "/assets/reactions/care.png", 
   haha: "/assets/reactions/haha.png",
   wow: "/assets/reactions/wow.png",

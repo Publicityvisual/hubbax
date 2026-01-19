@@ -5,9 +5,9 @@ import { bounceTransition, reactionAssets } from '../../data/reactionData';
 
 export const LikeReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.3, rotate: -15, transition: bounceTransition }}
+        whileHover={{ scale: 1.25, rotate: -15, transition: bounceTransition }}
         whileTap={{ scale: 0.9 }}
-        animate={{ scale: [1, 1.05, 1] }} 
+        animate={{ rotate: [0, -5, 0] }} 
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
         <img 
             src={reactionAssets.like} 
@@ -20,7 +20,7 @@ export const LikeReaction = () => (
 export const LoveReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
         whileHover={{ scale: 1.3, transition: bounceTransition }}
-        animate={{ scale: [1, 1.15, 1] }} 
+        animate={{ scale: [1, 1.2, 1] }} 
         transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}>
         <img 
             src={reactionAssets.love} 
