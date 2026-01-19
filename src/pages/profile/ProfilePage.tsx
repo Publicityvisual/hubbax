@@ -26,7 +26,7 @@ export default function ProfilePage() {
 
   return (
     <AppLayout>
-      <div className="min-h-screen bg-[#0a0a0a] text-white -m-4 md:-m-0">
+      <div className="min-h-screen bg-[#0a0a0a] text-white">
         
         {/* Scrollable Container */}
         <div className="pb-20">
