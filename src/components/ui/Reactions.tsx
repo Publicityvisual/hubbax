@@ -1,30 +1,5 @@
 import { motion } from 'framer-motion';
-
-// --- AUTHENTIC ANIMATED ASSETS (Originals from Duy Tran's Flutter Demo) ---
-// These are the exact GIF files used in the reference implementation.
-// "Care" uses a high-res PNG fallback as it wasn't in the original 2018 set.
-const reactionAssets = {
-  like: "/assets/reactions/like.png",
-  love: "/assets/reactions/love.png",
-  care: "/assets/reactions/care.png", 
-  haha: "/assets/reactions/haha.png",
-  wow: "/assets/reactions/wow.png",
-  sad: "/assets/reactions/sad.png",
-  angry: "/assets/reactions/angry.png",
-  // Secret / Premium Reactions (Better than FB)
-  fire: "/assets/reactions/fire.png",
-  rocket: "/assets/reactions/rocket.png"
-};
-
-// --- PHYSICS CONFIGURATION (Improved) ---
-import { Transition } from 'framer-motion';
-
-const bounceTransition: Transition = {
-    type: "spring",
-    stiffness: 400,
-    damping: 10,
-    mass: 0.8
-};
+import { bounceTransition, reactionAssets } from '../../data/reactionData';
 
 // --- REACTION COMPONENTS ---
 
