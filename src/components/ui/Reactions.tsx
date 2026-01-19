@@ -32,9 +32,9 @@ export const LoveReaction = () => (
 
 export const HahaReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.3, rotate: -10, transition: bounceTransition }}
-        animate={{ rotate: [-5, 5, -5] }} 
-        transition={{ duration: 0.4, repeat: Infinity, ease: "easeInOut" }}>
+        whileHover={{ scale: 1.25, rotate: -10, transition: bounceTransition }}
+        animate={{ rotate: [-8, 8, -8], scale: [1, 1.1, 1] }} 
+        transition={{ duration: 0.4, repeat: Infinity, ease: "linear" }}>
         <img 
             src={reactionAssets.haha} 
             alt="Haha" 
@@ -45,8 +45,8 @@ export const HahaReaction = () => (
 
 export const WowReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.3, rotate: 5, transition: bounceTransition }}
-        animate={{ scale: [1, 1.05, 1] }} 
+        whileHover={{ scale: 1.25, rotate: 5, transition: bounceTransition }}
+        animate={{ scale: [1, 1.15, 1], rotate: [0, -3, 3, 0] }} 
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
         <img 
             src={reactionAssets.wow} 
@@ -58,9 +58,9 @@ export const WowReaction = () => (
 
 export const SadReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.3, rotate: -5, transition: bounceTransition }}
-        animate={{ rotate: [-2, 2, -2] }} 
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}>
+        whileHover={{ scale: 1.25, rotate: -5, transition: bounceTransition }}
+        animate={{ rotate: [-3, 3, -3], y: [0, 2, 0] }} 
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}>
         <img 
             src={reactionAssets.sad} 
             alt="Sad" 
@@ -73,18 +73,15 @@ export const AngryReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
         whileHover={{ scale: 1.35, rotate: 0, transition: bounceTransition }}
         animate={{ 
-            x: [-2, 2, -1, 1, 0],
-            scale: [1, 1.1, 1] 
+            x: [-1.5, 1.5, -1.5],
+            scale: [1, 1.05, 1] 
         }} 
-        transition={{ 
-            x: { duration: 0.2, repeat: Infinity, repeatDelay: 1 }, 
-            scale: { duration: 0.3, repeat: Infinity, repeatDelay: 1 }
-        }}
+        transition={{ duration: 0.2, repeat: Infinity }}
     >
         <img 
             src={reactionAssets.angry} 
             alt="Angry" 
-            className="w-full h-full object-contain filter drop-shadow-lg scale-110" // Slightly larger
+            className="w-full h-full object-contain filter drop-shadow-lg scale-110"
         />
     </motion.div>
 );
@@ -92,9 +89,10 @@ export const AngryReaction = () => (
 // High-Res PNG for Care (keeps it consistent with quality)
 export const CareReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.3, rotate: 5, transition: bounceTransition }}
-        animate={{ y: [0, -2, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+        whileHover={{ scale: 1.25, rotate: 5, transition: bounceTransition }}
+        whileTap={{ scale: 0.9 }}
+        animate={{ y: [0, -3, 0], scale: [1, 1.05, 1] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
         <img 
             src={reactionAssets.care} 
             alt="Care" 

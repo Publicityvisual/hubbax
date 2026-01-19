@@ -3,11 +3,11 @@
 export const reactionAssets = {
   like: "/assets/reactions/like_premium.png",
   love: "/assets/reactions/love_premium.png",
-  care: "/assets/reactions/care.png", 
-  haha: "/assets/reactions/haha.png",
-  wow: "/assets/reactions/wow.png",
-  sad: "/assets/reactions/sad.png",
-  angry: "/assets/reactions/angry.png",
+  care: "/assets/reactions/care_premium.png", 
+  haha: "/assets/reactions/haha_premium.png",
+  wow: "/assets/reactions/wow_premium.png",
+  sad: "/assets/reactions/sad_premium.png",
+  angry: "/assets/reactions/angry_premium.png",
   // Secret / Premium Reactions
   fire: "/assets/reactions/fire.png",
   rocket: "/assets/reactions/rocket.png"
