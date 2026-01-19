@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 // These are the exact GIF files used in the reference implementation.
 // "Care" uses a high-res PNG fallback as it wasn't in the original 2018 set.
 const reactionAssets = {
-  like: "/assets/reactions/like.gif",
-  love: "/assets/reactions/love.gif",
+  like: "/assets/reactions/like.png",
+  love: "/assets/reactions/love.png",
   care: "/assets/reactions/care.png", 
-  haha: "/assets/reactions/haha.gif",
-  wow: "/assets/reactions/wow.gif",
-  sad: "/assets/reactions/sad.gif",
-  angry: "/assets/reactions/angry.gif",
+  haha: "/assets/reactions/haha.png",
+  wow: "/assets/reactions/wow.png",
+  sad: "/assets/reactions/sad.png",
+  angry: "/assets/reactions/angry.png",
   // Secret / Premium Reactions (Better than FB)
   fire: "/assets/reactions/fire.png",
   rocket: "/assets/reactions/rocket.png"
