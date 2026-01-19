@@ -177,7 +177,7 @@ export default function LoginPage() {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="mt-10"
           >
-            <div className="bg-[#242526] backdrop-blur-md border border-white/10 rounded-full px-6 py-4 flex items-center gap-4 shadow-2xl">
+            <div className="flex items-center gap-4 py-4">
               {reactions.map((reaction, i) => (
                 <div key={i} className="relative group">
                   <motion.div

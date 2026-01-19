@@ -12,7 +12,7 @@ export const LikeReaction = () => (
         <img 
             src={reactionAssets.like} 
             alt="Like" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );
@@ -25,7 +25,7 @@ export const LoveReaction = () => (
         <img 
             src={reactionAssets.love} 
             alt="Love" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );
@@ -38,7 +38,7 @@ export const HahaReaction = () => (
         <img 
             src={reactionAssets.haha} 
             alt="Haha" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );
@@ -51,7 +51,7 @@ export const WowReaction = () => (
         <img 
             src={reactionAssets.wow} 
             alt="Wow" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );
@@ -64,7 +64,7 @@ export const SadReaction = () => (
         <img 
             src={reactionAssets.sad} 
             alt="Sad" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );
@@ -81,7 +81,7 @@ export const AngryReaction = () => (
         <img 
             src={reactionAssets.angry} 
             alt="Angry" 
-            className="w-full h-full object-contain filter drop-shadow-lg scale-110"
+            className="w-full h-full object-contain scale-110"
         />
     </motion.div>
 );
@@ -96,7 +96,7 @@ export const CareReaction = () => (
         <img 
             src={reactionAssets.care} 
             alt="Care" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );
@@ -111,7 +111,7 @@ export const FireReaction = () => (
         <img 
             src={reactionAssets.fire} 
             alt="Lit" 
-            className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(255,87,34,0.8)]"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );
@@ -124,7 +124,7 @@ export const RocketReaction = () => (
         <img 
             src={reactionAssets.rocket} 
             alt="Rocket" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );
@@ -137,7 +137,7 @@ export const FlowerReaction = () => (
         <img 
             src={reactionAssets.flower} 
             alt="Thankful" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );
@@ -150,7 +150,7 @@ export const PrideReaction = () => (
         <img 
             src={reactionAssets.pride} 
             alt="Pride" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );
@@ -163,7 +163,7 @@ export const PlaneReaction = () => (
         <img 
             src={reactionAssets.plane} 
             alt="Plane" 
-            className="w-full h-full object-contain filter drop-shadow-lg"
+            className="w-full h-full object-contain"
         />
     </motion.div>
 );

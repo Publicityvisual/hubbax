@@ -144,10 +144,10 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
                   </div>
               ) : (
                   <div className="flex items-center gap-1.5">
-                      <div className="w-[18px] h-[18px] bg-[#1877F2] rounded-full flex items-center justify-center">
-                          <ThumbsUp className="w-2.5 h-2.5 text-white fill-white" />
+                      <div className="w-[18px] h-[18px] flex items-center justify-center">
+                          <ThumbsUp className="w-4 h-4 text-[#1877F2] fill-[#1877F2]" />
                       </div>
-                      <span>{stats.likes}</span>
+                      <span className="text-[14px]">{stats.likes}</span>
                   </div>
               )}
           </div>

@@ -16,7 +16,7 @@ export function ReactionSelector({ onSelect }: ReactionSelectorProps) {
         initial={{ opacity: 0, scale: 0.8, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.8, y: 10 }}
-        className="flex items-center gap-1.5 p-1.5 bg-white/80 dark:bg-[#1c1c1e]/90 backdrop-blur-2xl rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 dark:border-white/5 absolute bottom-full left-0 mb-3 z-50 origin-bottom-left"
+        className="flex items-center gap-1 p-1 bg-[#242526]/95 backdrop-blur-3xl rounded-full shadow-2xl border border-white/10 absolute bottom-full left-0 mb-3 z-50 origin-bottom-left"
       >
         {REACTION_METADATA.map((reaction, index) => (
           <div key={reaction.id} className="relative group">
@@ -43,16 +43,6 @@ export function ReactionSelector({ onSelect }: ReactionSelectorProps) {
                 <reaction.Component />
               </div>
 
-              {/* Reflection/Shine for extra polish */}
-              {hoveredIndex === index && (
-                 <motion.div 
-                    layoutId="highlight"
-                    className="absolute inset-0 rounded-full bg-white/20 blur-sm -z-10"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                 />
-              )}
             </motion.button>
 
             {/* Smart Tooltip (Pill) */}
