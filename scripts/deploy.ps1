@@ -4,8 +4,23 @@ param(
 
 Write-Host "🚀 Starting Rapid Deployment..." -ForegroundColor Cyan
 
+
+# 0. Cache Busting - Update version.json
+$versionFile = "public/version.json"
+$timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+$jsonContent = @"
+{
+  "version": "$timestamp",
+  "buildId": "$(New-Guid)",
+  "status": "deployed"
+}
+"@
+Set-Content -Path $versionFile -Value $jsonContent
+Write-Host "🔄 Cache Buster Updated: $timestamp" -ForegroundColor Magenta
+
 # 1. Add all changes
 git add .
+
 
 # 2. Commit with message
 git commit -m "$msg"
