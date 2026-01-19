@@ -5,7 +5,8 @@ interface CreatePostProps {
   onPost?: (content: string) => void;
 }
 
-export function CreatePost(_props: CreatePostProps) {
+export function CreatePost() {
+ Broadway
   // Logic for a real input would go here, currently using as a simplified trigger
 
   return (
