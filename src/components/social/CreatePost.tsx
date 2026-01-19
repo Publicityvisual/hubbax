@@ -25,7 +25,7 @@ export function CreatePost({ onPost }: CreatePostProps) {
   };
 
   return (
-    <div className="px-4 py-4 bg-[#121212]/80 backdrop-blur-lg rounded-2xl border border-white/10 mb-4 ring-1 ring-white/5">
+    <div className="px-3 py-3 md:px-4 md:py-4 bg-[#121212]/80 backdrop-blur-lg md:rounded-2xl border-b md:border border-white/10 mb-2 md:mb-4 ring-0 md:ring-1 ring-white/5">
       <div className="flex gap-3 mb-4 border-b border-white/5 pb-4">
         <div className="flex-shrink-0">
              <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-[#d93025] to-[#ff6b5b] p-[2px] shadow-lg shadow-[#d93025]/20">
