@@ -10,45 +10,69 @@ export function ReactionSelector({ onSelect }: ReactionSelectorProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className="bg-white dark:bg-[#242526] rounded-full shadow-2xl border border-black/5 dark:border-white/10 p-1.5 flex items-center gap-2 absolute bottom-full left-0 mb-2 z-50 origin-bottom-left will-change-transform">
-      {REACTION_METADATA.map((reaction, index) => (
-        <div key={reaction.id} className="relative group">
-          <motion.div
-            className="w-[42px] h-[42px] cursor-pointer relative"
-            onHoverStart={() => setHoveredIndex(index)}
-            onHoverEnd={() => setHoveredIndex(null)}
-            initial={{ scale: 0, opacity: 0, y: 10 }}
-            animate={{ 
-              scale: hoveredIndex === index ? 1.4 : 1,
-              opacity: 1, 
-              y: hoveredIndex === index ? -10 : 0, 
-            }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 400, 
-              damping: 15,
-              delay: index * 0.03 // Staggered entrance
-            }}
-            onClick={() => onSelect(reaction)}
-          >
-            <reaction.Component />
-          </motion.div>
+    <div className="relative">
+      {/* The Dock Container */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.8, y: 10 }}
+        className="flex items-center gap-1.5 p-1.5 bg-white/80 dark:bg-[#1c1c1e]/90 backdrop-blur-2xl rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/20 dark:border-white/5 absolute bottom-full left-0 mb-3 z-50 origin-bottom-left"
+      >
+        {REACTION_METADATA.map((reaction, index) => (
+          <div key={reaction.id} className="relative group">
+            <motion.button
+              className="relative w-10 h-10 flex items-center justify-center rounded-full focus:outline-none"
+              onHoverStart={() => setHoveredIndex(index)}
+              onHoverEnd={() => setHoveredIndex(null)}
+              onClick={() => onSelect(reaction)}
+              initial={{ opacity: 0, y: 20, scale: 0 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0, 
+                scale: hoveredIndex === index ? 1.4 : 1,
+              }}
+              transition={{
+                scale: { type: "spring", stiffness: 300, damping: 15 },
+                y: { type: "spring", stiffness: 400, damping: 20, delay: index * 0.04 },
+                opacity: { duration: 0.2, delay: index * 0.04 }
+              }}
+              whileTap={{ scale: 0.9 }}
+            >
+              {/* The Reaction Component (3D Asset) */}
+              <div className="w-full h-full pointer-events-none">
+                <reaction.Component />
+              </div>
 
-          {/* Floating Label (Tooltip) */}
-          <AnimatePresence>
-            {hoveredIndex === index && (
-              <motion.div
-                initial={{ opacity: 0, y: -20, scale: 0.8 }}
-                animate={{ opacity: 1, y: -45, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.1 } }}
-                className="absolute left-1/2 -translate-x-1/2 top-0 whitespace-nowrap bg-black/80 backdrop-blur-sm text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-lg pointer-events-none z-50"
-              >
-                {reaction.name}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      ))}
+              {/* Reflection/Shine for extra polish */}
+              {hoveredIndex === index && (
+                 <motion.div 
+                    layoutId="highlight"
+                    className="absolute inset-0 rounded-full bg-white/20 blur-sm -z-10"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                 />
+              )}
+            </motion.button>
+
+            {/* Smart Tooltip (Pill) */}
+            <AnimatePresence>
+              {hoveredIndex === index && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8, scale: 0.8 }}
+                  animate={{ opacity: 1, y: -45, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.1 } }}
+                  className="absolute left-1/2 -translate-x-1/2 -top-2 whitespace-nowrap bg-black/90 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-xl z-50 pointer-events-none"
+                >
+                  {reaction.name}
+                  {/* Tiny arrow */}
+                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[4px] border-t-black/90"></div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        ))}
+      </motion.div>
     </div>
   );
 }
