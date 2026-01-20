@@ -24,6 +24,11 @@ function App() {
         <Route path="/friends" element={<FriendsPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
+        
+        {/* Stub routes for professional links */}
+        <Route path="/recovery" element={<LoginPage />} />
+        <Route path="/legal/*" element={<LoginPage />} />
+        <Route path="/help/*" element={<LoginPage />} />
       </Routes>
     </Router>
   );

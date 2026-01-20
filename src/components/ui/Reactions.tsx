@@ -4,11 +4,19 @@ import { bounceTransition, reactionAssets } from '../../data/reactionData';
 // --- REACTION COMPONENTS ---
 
 export const LikeReaction = () => (
-    <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.25, rotate: -15, transition: bounceTransition }}
+    <motion.div className="w-full h-full p-0 flex items-center justify-center"
+        whileHover={{ scale: 1.3, rotate: -15 }}
         whileTap={{ scale: 0.9 }}
-        animate={{ rotate: [0, -5, 0] }} 
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+        animate={{ 
+          rotate: [0, -5, 5, -5, 0],
+          y: [0, -2, 0]
+        }}
+        transition={{ 
+          duration: 3, 
+          repeat: Infinity, 
+          ease: "easeInOut",
+          scale: { type: "spring", stiffness: 450, damping: 10 } 
+        }}>
         <img 
             src={reactionAssets.like} 
             alt="Like" 
@@ -19,9 +27,15 @@ export const LikeReaction = () => (
 
 export const LoveReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.3, transition: bounceTransition }}
-        animate={{ scale: [1, 1.2, 1] }} 
-        transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}>
+        whileHover={{ scale: 1.4 }}
+        whileTap={{ scale: 0.9 }}
+        animate={{ scale: [1, 1.15, 1] }} 
+        transition={{ 
+          duration: 0.8, 
+          repeat: Infinity, 
+          ease: "easeInOut",
+          scale: { type: "spring", stiffness: 350, damping: 12 }
+        }}>
         <img 
             src={reactionAssets.love} 
             alt="Love" 
@@ -32,9 +46,14 @@ export const LoveReaction = () => (
 
 export const HahaReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.25, rotate: -10, transition: bounceTransition }}
-        animate={{ rotate: [-8, 8, -8], scale: [1, 1.1, 1] }} 
-        transition={{ duration: 0.4, repeat: Infinity, ease: "linear" }}>
+        whileHover={{ scale: 1.4 }}
+        whileTap={{ scale: 0.9 }}
+        animate={{ y: [0, -4, 0], rotate: [0, -5, 5, 0] }} 
+        transition={{ 
+          duration: 0.6, 
+          repeat: Infinity, 
+          ease: "linear"
+        }}>
         <img 
             src={reactionAssets.haha} 
             alt="Haha" 
@@ -45,9 +64,15 @@ export const HahaReaction = () => (
 
 export const WowReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.25, rotate: 5, transition: bounceTransition }}
-        animate={{ scale: [1, 1.15, 1], rotate: [0, -3, 3, 0] }} 
-        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}>
+        whileHover={{ scale: 1.4 }}
+        whileTap={{ scale: 0.9 }}
+        animate={{ scale: [1, 1.2, 1], rotate: [0, -3, 3, 0] }} 
+        transition={{ 
+          duration: 1.2, 
+          repeat: Infinity, 
+          ease: "easeInOut",
+          scale: { type: "spring", stiffness: 350 }
+        }}>
         <img 
             src={reactionAssets.wow} 
             alt="Wow" 
@@ -58,9 +83,15 @@ export const WowReaction = () => (
 
 export const SadReaction = () => (
     <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.25, rotate: -5, transition: bounceTransition }}
-        animate={{ rotate: [-3, 3, -3], y: [0, 2, 0] }} 
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}>
+        whileHover={{ scale: 1.3, y: 5 }}
+        whileTap={{ scale: 0.9 }}
+        animate={{ y: [0, 2, 0] }} 
+        transition={{ 
+          duration: 2, 
+          repeat: Infinity, 
+          ease: "easeInOut",
+          scale: { type: "spring", stiffness: 300 }
+        }}>
         <img 
             src={reactionAssets.sad} 
             alt="Sad" 
@@ -116,56 +147,5 @@ export const FireReaction = () => (
     </motion.div>
 );
 
-export const RocketReaction = () => (
-    <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.4, y: -20, transition: bounceTransition }}
-        animate={{ y: [0, -3, 1, -2, 0], x: [-1, 1, -1, 0] }} // Engine rumble
-        transition={{ duration: 0.3, repeat: Infinity }}>
-        <img 
-            src={reactionAssets.rocket} 
-            alt="Rocket" 
-            className="w-full h-full object-contain"
-        />
-    </motion.div>
-);
-
-export const FlowerReaction = () => (
-    <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.3, rotate: 180, transition: { duration: 1 } }}
-        animate={{ scale: [1, 1.15, 1], rotate: [0, 5, -5, 0] }} // Gentle bloom sway
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}>
-        <img 
-            src={reactionAssets.flower} 
-            alt="Thankful" 
-            className="w-full h-full object-contain"
-        />
-    </motion.div>
-);
-
-export const PrideReaction = () => (
-    <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ scale: 1.3, transition: bounceTransition }}
-        animate={{ scale: [1, 1.25, 0.95, 1.1, 1] }} // Strong, proud heartbeat
-        transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}>
-        <img 
-            src={reactionAssets.pride} 
-            alt="Pride" 
-            className="w-full h-full object-contain"
-        />
-    </motion.div>
-);
-
-export const PlaneReaction = () => (
-    <motion.div className="w-full h-full p-0 flex items-center justify-center" 
-        whileHover={{ x: 200, opacity: 0, transition: { duration: 0.5 } }} // Fly away on hover!
-        animate={{ x: [-2, 2, -1, 3, 0], y: [1, -1, 2, -2, 0] }} // The famous GLITCH effect
-        transition={{ duration: 0.2, repeat: Infinity }}>
-        <img 
-            src={reactionAssets.plane} 
-            alt="Plane" 
-            className="w-full h-full object-contain"
-        />
-    </motion.div>
-);
 
 // Metadata moved to ReactionMetadata.tsx to fix Fast Refresh warning

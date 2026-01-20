@@ -8,12 +8,11 @@ import { Button } from '../../components/ui/Button';
 import { loginSchema, LoginFormData } from '../../lib/schemas';
 import { RegisterModal } from '../../components/auth/RegisterModal';
 import { motion } from 'framer-motion';
-import { LikeReaction, LoveReaction, CareReaction, HahaReaction, WowReaction, SadReaction, AngryReaction } from '../../components/ui/Reactions';
+import { LikeReaction, LoveReaction, HahaReaction, WowReaction, AngryReaction, FireReaction, CareReaction, SadReaction } from '../../components/ui/Reactions';
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [hoveredReaction, setHoveredReaction] = useState<number | null>(null);
   const navigate = useNavigate();
 
   /* Load saved email on mount handled by defaultValues */
@@ -57,7 +56,7 @@ export default function LoginPage() {
         localStorage.removeItem('hubbax_remembered_email');
       }
     } catch {
-      // Ignore security errors in private mode
+      // Ignore storage errors in private mode/restricted environments
     }
 
     setTimeout(() => {
@@ -74,6 +73,7 @@ export default function LoginPage() {
     { name: 'Me asombra', Component: WowReaction },
     { name: 'Me entristece', Component: SadReaction },
     { name: 'Me enoja', Component: AngryReaction },
+    { name: 'Fuego', Component: FireReaction },
   ];
 
   return (
@@ -166,41 +166,24 @@ export default function LoginPage() {
             >
               <WowReaction />
             </motion.div>
+            <motion.div
+              animate={{ y: [0, -5, 0], x: [0, 5, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute bottom-32 -left-12 w-14 h-14 drop-shadow-2xl"
+            >
+              <CareReaction />
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, 7, 0] }}
+              transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-2 -left-4 w-12 h-12 drop-shadow-2xl"
+            >
+              <SadReaction />
+            </motion.div>
           </motion.div>
 
-          {/* Reactions Bar - Advanced SVG Animations */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-10"
-          >
-            <div className="flex items-center gap-4 py-4">
-              {reactions.map((reaction, i) => (
-                <div key={i} className="relative group">
-                  <motion.div
-                    onHoverStart={() => setHoveredReaction(i)}
-                    onHoverEnd={() => setHoveredReaction(null)}
-                    animate={hoveredReaction === i ? { scale: 1.5, y: -20, zIndex: 10 } : { scale: 1, y: 0, zIndex: 0 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    className="w-12 h-12 cursor-pointer relative"
-                  >
-                    <reaction.Component />
-                  </motion.div>
-                  {/* Tooltip */}
-                  {hoveredReaction === i && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                      animate={{ opacity: 1, y: -45, scale: 1 }}
-                      className="absolute left-1/2 -translate-x-1/2 top-0 whitespace-nowrap bg-black/90 text-white text-xs font-bold px-3 py-1.5 rounded-full pointer-events-none"
-                    >
-                      {reaction.name}
-                    </motion.div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </motion.div>
+          {/* Tagline Animation Delay Fix */}
+          <div className="h-10" />
         </div>
       </div>
 
@@ -323,9 +306,9 @@ export default function LoginPage() {
 
           {/* Footer */}
           <div className="mt-4 text-center text-neutral-500 text-xs flex items-center justify-center gap-3">
-            <a href="#" className="hover:text-white">Términos</a>
+            <Link to="/legal/terms" className="hover:text-white">Términos</Link>
             <span>•</span>
-            <a href="#" className="hover:text-white">Privacidad</a>
+            <Link to="/legal/privacy" className="hover:text-white">Privacidad</Link>
             <span>•</span>
             <span>© 2025 Hubbax <span className="text-neutral-700 ml-1">v0.0.3</span></span>
           </div>

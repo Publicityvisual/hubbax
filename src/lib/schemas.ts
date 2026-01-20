@@ -45,6 +45,14 @@ export const registerSchema = z
       .min(8, "La contraseña debe tener al menos 8 caracteres")
       .regex(/[A-Z]/, "Debe contener al menos una mayúscula")
       .regex(/[0-9]/, "Debe contener al menos un número"),
+    pronoun: z.string().optional(),
+    customGender: z.string().optional(),
+  }).refine((data) => {
+    if (data.gender === 'other' && !data.pronoun) return false;
+    return true;
+  }, {
+    message: "Selecciona un pronombre",
+    path: ["pronoun"]
   });
 
 export type RegisterFormData = z.infer<typeof registerSchema>;

@@ -6,11 +6,7 @@ import {
     WowReaction, 
     SadReaction, 
     AngryReaction,
-    FireReaction,
-    RocketReaction,
-    FlowerReaction,
-    PrideReaction,
-    PlaneReaction
+    FireReaction
 } from './Reactions';
 
 // --- EXPORTABLE REACTION LIST (For Dock/Selector) ---
@@ -22,11 +18,5 @@ export const REACTION_METADATA = [
   { id: 'wow', name: 'Me asombra', Component: WowReaction, color: '#fbc02d' },
   { id: 'sad', name: 'Me entristece', Component: SadReaction, color: '#fbc02d' },
   { id: 'angry', name: 'Me enoja', Component: AngryReaction, color: '#e64a19' },
-  // Special History
-  { id: 'flower', name: 'Me enorgullece', Component: FlowerReaction, color: '#ba68c8' },
-  { id: 'pride', name: 'Orgullo', Component: PrideReaction, color: '#e91e63' },
-  { id: 'plane', name: 'Reacción Avión', Component: PlaneReaction, color: '#90caf9' },
-  // Hubbax Exclusives
   { id: 'fire', name: '¡Está que arde!', Component: FireReaction, color: '#ff5722' },
-  { id: 'rocket', name: '¡Despegando!', Component: RocketReaction, color: '#2979ff' },
 ];

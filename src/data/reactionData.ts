@@ -9,11 +9,7 @@ export const reactionAssets = {
   sad: "/assets/reactions/sad_premium.png",
   angry: "/assets/reactions/angry_premium.png",
   // Secret / Premium Reactions
-  fire: "/assets/reactions/fire_premium.png",
-  rocket: "/assets/reactions/rocket_premium.png",
-  flower: "/assets/reactions/flower_premium.png",
-  pride: "/assets/reactions/pride_premium.png",
-  plane: "/assets/reactions/plane_premium.png"
+  fire: "/assets/reactions/fire_premium.png"
 };
 
 // --- PHYSICS CONFIGURATION ---

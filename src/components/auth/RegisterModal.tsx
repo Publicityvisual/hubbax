@@ -1,17 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { X, ChevronDown, HelpCircle } from 'lucide-react';
 import { registerSchema, RegisterFormData } from '../../lib/schemas';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 interface RegisterModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+// Month mapping for the Date constructor
+const monthMap: Record<string, number> = {
+  'ene': 0, 'feb': 1, 'mar': 2, 'abr': 3, 'may': 4, 'jun': 5,
+  'jul': 6, 'ago': 7, 'sep': 8, 'oct': 9, 'nov': 10, 'dic': 11
+};
 
 export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,10 +26,43 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      gender: 'female',
+    }
   });
+
+  const selectedGender = watch('gender');
+  const [birthDay, setBirthDay] = useState('1');
+  const [birthMonth, setBirthMonth] = useState('ene');
+  const [birthYear, setBirthYear] = useState(new Date().getFullYear().toString());
+  const [daysInMonth, setDaysInMonth] = useState(31);
+
+  // Sync Birthdate to the hidden field for validation
+  useEffect(() => {
+    const month = monthMap[birthMonth] || 0;
+    const year = parseInt(birthYear);
+    
+    // Calculate days in month
+    const d = new Date(year, month + 1, 0).getDate();
+    setDaysInMonth(d);
+    
+    // If current selected day > d, reset to d
+    if (parseInt(birthDay) > d) {
+      setBirthDay(d.toString());
+    }
+
+    const date = new Date(year, month, parseInt(birthDay));
+    
+    // Safety check for valid date
+    if (!isNaN(date.getTime())) {
+      setValue('birthDate', date.toISOString().split('T')[0], { shouldValidate: true });
+    }
+  }, [birthDay, birthMonth, birthYear, setValue]);
 
   const onSubmit = async () => {
     setIsLoading(true);
@@ -106,24 +145,37 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                     <div className="relative">
-                        <select className="w-full h-9 bg-white dark:bg-[#242526] border border-[#ccd0d5] dark:border-white/10 rounded-md px-2 text-[15px] dark:text-white appearance-none cursor-pointer">
-                            {Array.from({ length: 31 }, (_, i) => i + 1).map(d => <option key={d}>{d}</option>)}
+                        <select 
+                            value={birthDay}
+                            onChange={(e) => setBirthDay(e.target.value)}
+                            className="w-full h-9 bg-white dark:bg-[#242526] border border-[#ccd0d5] dark:border-white/10 rounded-md px-2 text-[15px] dark:text-white appearance-none cursor-pointer focus:border-[#d93025] outline-none transition-colors shadow-sm"
+                        >
+                            {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(d => <option key={d} value={d}>{d}</option>)}
                         </select>
                         <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-[#606770] pointer-events-none" />
                     </div>
                     <div className="relative">
-                        <select className="w-full h-9 bg-white dark:bg-[#242526] border border-[#ccd0d5] dark:border-white/10 rounded-md px-2 text-[15px] dark:text-white appearance-none cursor-pointer">
-                            {['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'].map(m => <option key={m}>{m}</option>)}
+                        <select 
+                            value={birthMonth}
+                            onChange={(e) => setBirthMonth(e.target.value)}
+                            className="w-full h-9 bg-white dark:bg-[#242526] border border-[#ccd0d5] dark:border-white/10 rounded-md px-2 text-[15px] dark:text-white appearance-none cursor-pointer"
+                        >
+                            {['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'].map(m => <option key={m} value={m}>{m}</option>)}
                         </select>
                         <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-[#606770] pointer-events-none" />
                     </div>
                     <div className="relative">
-                        <select className="w-full h-9 bg-white dark:bg-[#242526] border border-[#ccd0d5] dark:border-white/10 rounded-md px-2 text-[15px] dark:text-white appearance-none cursor-pointer">
-                            {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(y => <option key={y}>{y}</option>)}
+                        <select 
+                            value={birthYear}
+                            onChange={(e) => setBirthYear(e.target.value)}
+                            className="w-full h-9 bg-white dark:bg-[#242526] border border-[#ccd0d5] dark:border-white/10 rounded-md px-2 text-[15px] dark:text-white appearance-none cursor-pointer"
+                        >
+                            {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(y => <option key={y} value={y}>{y}</option>)}
                         </select>
                         <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-[#606770] pointer-events-none" />
                     </div>
                 </div>
+                {errors.birthDate && <p className="text-[#d93025] text-[11px] mt-1">{errors.birthDate.message}</p>}
             </div>
 
             {/* Gender Section */}
@@ -133,33 +185,75 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                    <HelpCircle className="w-3 h-3 text-[#606770] dark:text-[#B0B3B8] cursor-help" />
                 </div>
                 <div className="grid grid-cols-3 gap-3">
-                    <label className="flex items-center justify-between px-3 h-9 bg-white dark:bg-[#242526] border border-[#ccd0d5] dark:border-white/10 rounded-md cursor-pointer">
+                    <label className={`flex items-center justify-between px-3 h-9 bg-white dark:bg-[#242526] border ${selectedGender === 'female' ? 'border-[#d93025]' : 'border-[#ccd0d5] dark:border-white/10'} rounded-md cursor-pointer transition-colors`}>
                         <span className="text-[15px] dark:text-white">Mujer</span>
                         <input type="radio" value="female" {...register('gender')} className="accent-[#d93025]" />
                     </label>
-                    <label className="flex items-center justify-between px-3 h-9 bg-white dark:bg-[#242526] border border-[#ccd0d5] dark:border-white/10 rounded-md cursor-pointer">
+                    <label className={`flex items-center justify-between px-3 h-9 bg-white dark:bg-[#242526] border ${selectedGender === 'male' ? 'border-[#d93025]' : 'border-[#ccd0d5] dark:border-white/10'} rounded-md cursor-pointer transition-colors`}>
                         <span className="text-[15px] dark:text-white">Hombre</span>
                         <input type="radio" value="male" {...register('gender')} className="accent-[#d93025]" />
                     </label>
-                    <label className="flex items-center justify-between px-3 h-9 bg-white dark:bg-[#242526] border border-[#ccd0d5] dark:border-white/10 rounded-md cursor-pointer">
+                    <label className={`flex items-center justify-between px-3 h-9 bg-white dark:bg-[#242526] border ${selectedGender === 'other' ? 'border-[#d93025]' : 'border-[#ccd0d5] dark:border-white/10'} rounded-md cursor-pointer transition-colors`}>
                         <span className="text-[15px] dark:text-white">Otro</span>
                         <input type="radio" value="other" {...register('gender')} className="accent-[#d93025]" />
                     </label>
                 </div>
+                {errors.gender && <p className="text-[#d93025] text-[11px] mt-1">{errors.gender.message}</p>}
+
+                {/* Conditional Gender Info (Facebook Standard) */}
+                <AnimatePresence>
+                  {selectedGender === 'other' && (
+                    <motion.div 
+                      key="other-gender"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-3 space-y-3 overflow-hidden"
+                    >
+                      <div className="relative">
+                        <select 
+                          {...register('pronoun')}
+                          className="w-full h-9 bg-white dark:bg-[#242526] border border-[#ccd0d5] dark:border-white/10 rounded-md px-2 text-[15px] dark:text-white appearance-none cursor-pointer focus:border-[#d93025] outline-none"
+                        >
+                          <option value="" disabled>Selecciona tu pronombre</option>
+                          <option value="she">Ella: "Felicítala por su cumpleaños"</option>
+                          <option value="he">Él: "Felicítalo por su cumpleaños"</option>
+                          <option value="they">Ellos: "Felicítalos por su cumpleaños"</option>
+                        </select>
+                        <ChevronDown className="absolute right-2 top-2.5 w-4 h-4 text-[#606770] pointer-events-none" />
+                      </div>
+                      {errors.pronoun && <p className="text-[#d93025] text-[11px] mt-1">{errors.pronoun.message}</p>}
+                      <p className="text-[11px] text-[#777] dark:text-[#B0B3B8]">Tu pronombre es visible para todos.</p>
+                      <Input 
+                        type="text"
+                        placeholder="Género (opcional)"
+                        {...register('customGender')}
+                        className="h-9 bg-[#f5f6f7] dark:bg-[#1c1e21] border-[#dddfe2] dark:border-white/10 text-black dark:text-white placeholder:text-[#8d949e] px-3 rounded-lg text-base"
+                        hideLabel
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
             </div>
 
             {/* Disclaimer */}
-            <div className="text-[11px] text-[#777] dark:text-[#B0B3B8] leading-tight space-y-2 py-2">
-                <p>Es posible que las personas que usan nuestro servicio hayan subido tu información de contacto a Hubbax. <span className="text-[#385898] dark:text-[#42b72a] cursor-pointer hover:underline">Obtén más información</span>.</p>
-                <p>Al hacer clic en "Registrarte", aceptas nuestras <span className="text-[#385898] dark:text-[#42b72a] cursor-pointer hover:underline">Condiciones</span>, la <span className="text-[#385898] dark:text-[#42b72a] cursor-pointer hover:underline">Política de privacidad</span> y la <span className="text-[#385898] dark:text-[#42b72a] cursor-pointer hover:underline">Política de cookies</span>.</p>
+            <div className="text-[11px] text-[#777] dark:text-[#B0B3B8] leading-tight space-y-2 pt-2">
+                <p>
+                    Las personas que usan nuestro servicio pueden haber subido tu información de contacto a Hubbax. <a href="/help/contact-upload" className="text-[#385898] dark:text-[#4599FF] hover:underline">Obtén más información</a>.
+                </p>
+                <p>
+                    Al hacer clic en "Registrarte", aceptas nuestras <a href="/legal/terms" className="text-[#385898] dark:text-[#4599FF] hover:underline">Condiciones</a>, la <a href="/legal/privacy" className="text-[#385898] dark:text-[#4599FF] hover:underline">Política de privacidad</a> y la <a href="/legal/cookies" className="text-[#385898] dark:text-[#4599FF] hover:underline">Política de cookies</a>. Es posible que te enviemos notificaciones por SMS, que puedes desactivar cuando quieras.
+                </p>
             </div>
 
-            {/* Submit */}
-            <div className="flex justify-center pt-2">
+            {/* Submit Button */}
+            <div className="flex justify-center pt-2 pb-4">
                 <Button 
                     type="submit" 
-                    className="w-[194px] h-9 bg-[#00a400] hover:bg-[#008d00] text-white font-bold text-[18px] rounded-md transition-all active:scale-[0.98]"
                     isLoading={isLoading}
+                    className="w-[194px] h-9 bg-[#00a400] hover:bg-[#008a00] text-white text-[18px] font-bold rounded-md shadow-[0_2px_4px_rgba(0,0,0,0.1)] transition-all hover:scale-[1.02] active:scale-[0.98]"
+                    animate={Object.keys(errors).length > 0 ? { x: [0, -10, 10, -10, 10, 0] } : undefined}
+                    transition={{ duration: 0.5 }}
                 >
                     Registrarte
                 </Button>
