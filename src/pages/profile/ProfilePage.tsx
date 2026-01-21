@@ -1,22 +1,36 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
 import { AppLayout } from '../../layouts/AppLayout';
 import { Button } from '../../components/ui/Button';
 import { Avatar } from '../../components/ui/Avatar';
-import { MapPin, Calendar, Briefcase, Camera, MessageCircle, UserPlus, MoreHorizontal, CheckCircle2 } from 'lucide-react';
+import { Camera, MessageCircle, UserPlus, MoreHorizontal, CheckCircle2 } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { MASTER_USERS } from '../../data/masterUsers';
 
+// GSAP Imports
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Widget Imports
+import { IntroWidget } from '../../components/social/IntroWidget';
+import { PhotoWidget } from '../../components/social/PhotoWidget';
+import { FriendWidget } from '../../components/social/FriendWidget';
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default function ProfilePage() {
-  const [activeTab, setActiveTab] = useState('posts'); // Used for tab switching
+  const [activeTab, setActiveTab] = useState('posts');
   const { username } = useParams();
   
-  // Default to "Founder" if no username or "/me", otherwise look up in master users
   const profileKey = (username && username in MASTER_USERS) ? username as keyof typeof MASTER_USERS : 'founder';
   const user = MASTER_USERS[profileKey];
 
-  // Friend Button Logic
   const [friendStatus, setFriendStatus] = useState<'none' | 'pending' | 'friends'>('none');
+  
+  // Refs for GSAP
+  const containerRef = useRef<HTMLDivElement>(null);
+  const coverRef = useRef<HTMLImageElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   
   const handleFriendAction = () => {
     if (friendStatus === 'none') setFriendStatus('pending');
@@ -24,48 +38,95 @@ export default function ProfilePage() {
     else if (friendStatus === 'friends') setFriendStatus('none');
   };
 
+  // GSAP Animations
+  useGSAP(() => {
+    // Parallax Effect
+    if (coverRef.current) {
+      gsap.to(coverRef.current, {
+        yPercent: 30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: coverRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true
+        }
+      });
+    }
+
+    // Content Entrance
+    gsap.from('.profile-entrance', {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power3.out'
+    });
+  }, { scope: containerRef });
+
+  // Tab Transition Animation
+  useGSAP(() => {
+    if (contentRef.current) {
+        gsap.fromTo(contentRef.current, 
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
+        );
+    }
+  }, [activeTab]);
+
+  // Mock Data for Widgets
+  const mockPhotos = Array.from({ length: 9 }, (_, i) => `https://picsum.photos/400/400?random=${i + 50}`);
+  const mockFriends = [
+    { name: 'Elon Musk', avatar: 'https://i.pravatar.cc/150?u=elon', mutualFriends: 12 },
+    { name: 'Mark Zuckerberg', avatar: 'https://i.pravatar.cc/150?u=mark', mutualFriends: 5 },
+    { name: 'Jeff Bezos', avatar: 'https://i.pravatar.cc/150?u=jeff', mutualFriends: 2 },
+    { name: 'Bill Gates', avatar: 'https://i.pravatar.cc/150?u=bill', mutualFriends: 8 },
+    { name: 'Satya Nadella', avatar: 'https://i.pravatar.cc/150?u=satya', mutualFriends: 3 },
+    { name: 'Sundar Pichai', avatar: 'https://i.pravatar.cc/150?u=sundar', mutualFriends: 1 },
+    { name: 'Tim Cook', avatar: 'https://i.pravatar.cc/150?u=tim', mutualFriends: 4 },
+    { name: 'Jensen Huang', avatar: 'https://i.pravatar.cc/150?u=jensen', mutualFriends: 9 },
+    { name: 'Sam Altman', avatar: 'https://i.pravatar.cc/150?u=sam', mutualFriends: 15 },
+  ];
+
   return (
     <AppLayout>
-      <div className="min-h-screen bg-[#0a0a0a] text-white">
+      <div ref={containerRef} className="min-h-screen bg-[#0a0a0a] text-white overflow-x-hidden">
         
-        {/* Scrollable Container */}
         <div className="pb-20">
         
-        {/* Cover Photo Area - Immersive & Premium */}
-        <div className="relative w-full h-[35vh] md:h-[400px] bg-neutral-800 overflow-hidden group">
-            <motion.img 
-              initial={{ scale: 1.1 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 1.5 }}
+        {/* Cover Photo Area */}
+        <div className="relative w-full h-[35vh] md:h-[400px] bg-[#1a1b1c] overflow-hidden group">
+            <img 
+              ref={coverRef}
               src={user.coverImage} 
               alt="Cover" 
-              className="w-full h-full object-cover"
+              className="w-full h-[140%] object-cover absolute top-0 left-0"
             />
-            {/* Gradient Overlay for Text Readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-black/20" />
             
-            {/* Edit Cover Button (Desktop) */}
-            <button className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-black/80 transition-colors opacity-0 group-hover:opacity-100 md:opacity-100">
+            <button className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-black/80 transition-all border border-white/10 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0">
                 <Camera className="w-5 h-5" />
                 <span className="hidden md:inline">Editar portada</span>
             </button>
         </div>
 
-        {/* Profile Info Section - Constrained Width */}
+        {/* Profile Info Section */}
         <div className="max-w-6xl mx-auto px-4 sm:px-8 relative">
             
-            {/* Desktop: Flex Row | Mobile: Flex Col */}
-            <div className="flex flex-col md:flex-row items-center md:items-end -mt-20 md:-mt-12 relative z-10 mb-6">
+            <div className="flex flex-col md:flex-row items-center md:items-end -mt-20 md:-mt-12 relative z-10 mb-6 profile-entrance">
                 
                 {/* Avatar */}
-                <div className="relative">
-                    <div className="w-40 h-40 md:w-44 md:h-44 rounded-full p-1.5 bg-[#0a0a0a]">
+                <div className="relative group cursor-pointer">
+                    <div className="w-40 h-40 md:w-44 md:h-44 rounded-full p-1.5 bg-[#0a0a0a] ring-1 ring-white/10">
                         <Avatar 
                             src={user.avatarImage} 
                             alt={user.fullName}
-                            isBusiness={user.username === 'hubbax_ai'} // Simple check for now
-                            className="w-full h-full rounded-full border-4 border-[#242526]"
+                            isBusiness={user.username === 'hubbax_ai'}
+                            className="w-full h-full rounded-full border-4 border-[#18191a] group-hover:brightness-90 transition-all"
                         />
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <Camera className="w-8 h-8 text-white drop-shadow-lg" />
+                        </div>
                     </div>
                 </div>
 
@@ -83,20 +144,21 @@ export default function ProfilePage() {
                           />
                         )}
                     </div>
-                    <p className="text-neutral-400 font-medium text-lg">{user.headline}</p>
+                    <p className="text-neutral-400 font-medium text-lg mt-0.5">{user.headline}</p>
                     
-                    {/* Quick Stats - Friends/Mutuals */}
-                    <div className="flex items-center justify-center md:justify-start gap-4 mt-2 text-neutral-400 text-sm">
+                    <div className="flex items-center justify-center md:justify-start gap-4 mt-2.5 text-neutral-400 text-sm">
                         <span className="hover:underline cursor-pointer"><strong className="text-white">{user.friendsCount}</strong> amigos</span>
                         <span className="w-1 h-1 bg-neutral-600 rounded-full" />
                         <span className="hover:underline cursor-pointer">{user.mutualFriends} amigos en común</span>
                     </div>
 
-                    {/* Friend Row Preview */}
-                    <div className="flex items-center justify-center md:justify-start -space-x-2 mt-3 pl-2">
-                        {[1,2,3,4].map(i => (
-                            <img key={i} src={`https://i.pravatar.cc/100?img=${i+10}`} className="w-8 h-8 rounded-full border-2 border-[#0a0a0a]" />
+                    <div className="flex items-center justify-center md:justify-start -space-x-2 mt-3.5 pl-1">
+                        {mockFriends.slice(0, 5).map((f, i) => (
+                            <img key={i} src={f.avatar} className="w-8 h-8 rounded-full border-2 border-[#0a0a0a] ring-1 ring-white/5" alt={f.name} title={f.name} />
                         ))}
+                        <div className="w-8 h-8 rounded-full border-2 border-[#0a0a0a] bg-[#242526] flex items-center justify-center text-[10px] font-bold text-white ring-1 ring-white/5">
+                            +{user.friendsCount}
+                        </div>
                     </div>
                 </div>
 
@@ -104,151 +166,131 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-3 mt-6 md:mt-0 md:mb-4">
                     <Button 
                         onClick={handleFriendAction}
-                        className={`px-6 h-10 rounded-lg font-bold flex items-center gap-2 transition-all ${
+                        className={`px-6 h-10 rounded-lg font-bold flex items-center gap-2 transition-all shadow-lg ${
                             friendStatus === 'friends' ? 'bg-[#242526] text-white hover:bg-[#3a3b3c]' :
                             friendStatus === 'pending' ? 'bg-[#242526] text-[#d93025] hover:bg-[#3a3b3c]' :
-                            'bg-[#d93025] hover:bg-[#b01e15] text-white'
+                            'bg-[#d93025] hover:bg-[#b01e15] text-white shadow-[#d93025]/20'
                         }`}
                     >
-                        {friendStatus === 'friends' ? <CheckCircle2 className="w-5 h-5" /> : 
-                         friendStatus === 'pending' ? <UserPlus className="w-5 h-5" /> : 
-                         <UserPlus className="w-5 h-5" />}
-                        
+                        <UserPlus className="w-5 h-5" />
                         {friendStatus === 'friends' ? 'Amigos' : 
                          friendStatus === 'pending' ? 'Solicitud enviada' : 
                          'Agregar'}
                     </Button>
-                    <Button className="bg-[#242526] hover:bg-[#3a3b3c] text-white px-6 h-10 rounded-lg font-bold flex items-center gap-2">
+                    <Button className="bg-[#242526] hover:bg-[#3a3b3c] text-white px-6 h-10 rounded-lg font-bold flex items-center gap-2 border border-white/5">
                         <MessageCircle className="w-5 h-5" />
                         Mensaje
                     </Button>
-                    <Button className="bg-[#242526] hover:bg-[#3a3b3c] text-white w-10 h-10 rounded-lg flex items-center justify-center">
+                    <Button className="bg-[#242526] hover:bg-[#3a3b3c] text-white w-10 h-10 rounded-lg flex items-center justify-center border border-white/5">
                         <MoreHorizontal className="w-5 h-5" />
                     </Button>
                 </div>
 
             </div>
 
-            {/* Divider */}
-            <div className="h-px bg-white/10 w-full my-4" />
+            <div className="h-px bg-white/10 w-full my-1 opacity-50" />
 
             {/* Profile Navigation Tabs (Sticky) */}
-            <div className="flex items-center gap-1 overflow-x-auto no-scrollbar sticky top-[60px] bg-[#0a0a0a]/95 backdrop-blur-xl z-20 py-2">
-                {['Publicaciones', 'Información', 'Amigos', 'Fotos', 'Videos', 'Reels'].map((tab) => (
-                    <button 
-                        key={tab}
-                        onClick={() => setActiveTab(tab === 'Publicaciones' ? 'posts' : tab.toLowerCase())}
-                        className={`px-4 py-3 rounded-lg font-medium transition-colors whitespace-nowrap ${
-                            (activeTab === 'posts' && tab === 'Publicaciones') || activeTab === tab.toLowerCase()
-                            ? 'text-[#d93025] bg-[#d93025]/10' 
-                            : 'text-neutral-400 hover:bg-[#242526] hover:text-white'
-                        }`}
-                    >
-                        {tab}
-                    </button>
-                ))}
+            <div className="flex items-center gap-1 overflow-x-auto no-scrollbar sticky top-[60px] bg-[#0a0a0a]/90 backdrop-blur-md z-20 py-1.5 profile-entrance">
+                {['Publicaciones', 'Información', 'Amigos', 'Fotos', 'Videos', 'Reels'].map((tab) => {
+                    const id = tab === 'Publicaciones' ? 'posts' : tab.toLowerCase();
+                    const isActive = activeTab === id || (activeTab === 'informacion' && id === 'información');
+                    return (
+                        <button 
+                            key={tab}
+                            onClick={() => setActiveTab(id === 'información' ? 'informacion' : id)}
+                            className={`px-4 py-2.5 rounded-lg font-bold transition-all whitespace-nowrap relative group ${
+                                isActive ? 'text-[#d93025]' : 'text-neutral-400 hover:bg-white/5 hover:text-white'
+                            }`}
+                        >
+                            {tab}
+                            {isActive && (
+                                <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-[#d93025] rounded-full shadow-[0_0_8px_rgba(217,48,37,0.5)]" />
+                            )}
+                        </button>
+                    );
+                })}
             </div>
 
         </div>
 
         {/* Dynamic Content Area */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 mt-6">
+        <div ref={contentRef} className="max-w-6xl mx-auto px-4 sm:px-8 mt-6">
             
-            {/* View: POSTS (Default) */}
             {activeTab === 'posts' && (
                 <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-6">
-                    {/* Left Column */}
                     <div className="space-y-6">
-                        {/* Intro Card */}
-                        <div className="bg-[#18191a] rounded-xl p-4 border border-white/5">
-                            <h3 className="text-xl font-bold text-white mb-4">Detalles</h3>
-                            <div className="space-y-4">
-                                <div className="flex items-center gap-3 text-neutral-300">
-                                    <Briefcase className="w-5 h-5 text-neutral-500" />
-                                    <span>{user.headline} en <strong>Hubbax Inc.</strong></span>
-                                </div>
-                                <div className="flex items-center gap-3 text-neutral-300">
-                                    <MapPin className="w-5 h-5 text-neutral-500" />
-                                    <span>Vive en <strong>{user.location}</strong></span>
-                                </div>
-                                <div className="flex items-center gap-3 text-neutral-300">
-                                    <Calendar className="w-5 h-5 text-neutral-500" />
-                                    <span>Se unió en {user.joinDate}</span>
-                                </div>
-                            </div>
-                            <Button className="w-full mt-4 bg-[#242526] hover:bg-[#3a3b3c] text-white">Editar detalles</Button>
-                        </div>
-
-                        {/* Photos Preview Card */}
-                        <div className="bg-[#18191a] rounded-xl p-4 border border-white/5">
-                             <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-xl font-bold text-white">Fotos</h3>
-                                <span className="text-[#d93025] text-sm cursor-pointer hover:underline" onClick={() => setActiveTab('fotos')}>Ver todas</span>
-                            </div>
-                            <div className="grid grid-cols-3 gap-1 rounded-lg overflow-hidden">
-                                {[1,2,3,4,5,6,7,8,9].map(i => (
-                                    <img key={i} src={`https://picsum.photos/300/300?random=${i}`} className="w-full aspect-square object-cover hover:opacity-90 cursor-pointer" />
-                                ))}
-                            </div>
-                        </div>
+                        <IntroWidget 
+                          headline={user.headline} 
+                          location={user.location} 
+                          joinDate={user.joinDate} 
+                        />
+                        <PhotoWidget 
+                          photos={mockPhotos} 
+                          onSeeAll={() => setActiveTab('fotos')} 
+                        />
+                        <FriendWidget 
+                          friends={mockFriends} 
+                          totalCount={user.friendsCount.toString()} 
+                          onSeeAll={() => setActiveTab('amigos')} 
+                        />
                     </div>
 
-                    {/* Right Column: Feed */}
                     <div className="space-y-6">
-                         {/* Create Post Input (Using the existing component logic placeholder) */}
-                         <div className="bg-[#18191a] rounded-xl p-4 border border-white/5 flex gap-3 items-center">
-                            <Avatar src={user.avatarImage} className="w-10 h-10 rounded-full bg-neutral-700" />
-                            <div className="flex-1 bg-[#242526] hover:bg-[#303031] rounded-full h-10 px-4 flex items-center cursor-pointer transition-colors text-neutral-400">
+                         {/* Create Post Input */}
+                         <div className="bg-[#18191a] rounded-xl p-4 border border-white/5 flex gap-3 shadow-md">
+                            <Avatar src={user.avatarImage} className="w-10 h-10 rounded-full bg-neutral-700 ring-1 ring-white/5" />
+                            <div className="flex-1 bg-[#242526] hover:bg-[#303031] rounded-full h-10 px-4 flex items-center cursor-pointer transition-colors text-neutral-400 font-medium">
                                 <span>¿Qué estás pensando, {user.fullName.split(' ')[0]}?</span>
                             </div>
                          </div>
 
-                         {/* Filters */}
-                         <div className="bg-[#18191a] rounded-xl p-3 border border-white/5 flex items-center justify-between">
+                         {/* Filters / Utility Bar */}
+                         <div className="bg-[#18191a] rounded-xl p-3 border border-white/5 flex items-center justify-between shadow-sm">
                             <h4 className="font-bold text-lg px-2">Publicaciones</h4>
                             <div className="flex gap-2">
-                                 <Button className="bg-[#242526] h-8 text-sm px-3">Filtros</Button>
-                                 <Button className="bg-[#242526] h-8 text-sm px-3">Administrar</Button>
+                                 <Button className="bg-[#242526] h-8 text-sm px-3 hover:bg-[#3a3b3c] border border-white/5">Filtros</Button>
+                                 <Button className="bg-[#242526] h-8 text-sm px-3 hover:bg-[#3a3b3c] border border-white/5">Administrar</Button>
                             </div>
                          </div>
 
-                         {/* No Posts Placeholder */}
-                         <div className="flex flex-col items-center justify-center py-10 bg-[#18191a] rounded-xl border border-white/5 text-neutral-500">
-                            <div className="w-16 h-16 bg-[#242526] rounded-full flex items-center justify-center mb-3">
-                                <Camera className="w-8 h-8" />
+                         {/* Empty Feed Context */}
+                         <div className="flex flex-col items-center justify-center py-20 bg-[#18191a] rounded-xl border border-white/5 shadow-inner text-neutral-500">
+                            <div className="w-20 h-20 bg-[#242526] rounded-full flex items-center justify-center mb-4 ring-1 ring-white/10 shadow-lg">
+                                <Camera className="w-10 h-10 text-neutral-400" />
                             </div>
-                            <h3 className="text-white font-bold text-lg">Aún no hay publicaciones</h3>
-                            <p>Las publicaciones que compartas aparecerán aquí.</p>
+                            <h3 className="text-white font-bold text-xl mb-1">Aún no hay publicaciones</h3>
+                            <p className="max-w-[280px] text-center text-sm">Las publicaciones que {user.fullName.split(' ')[0]} comparta aparecerán aquí.</p>
                          </div>
                     </div>
                 </div>
             )}
 
-            {/* View: PHOTOS */}
             {activeTab === 'fotos' && (
-                <div className="bg-[#18191a] rounded-xl p-4 border border-white/5 min-h-[500px]">
+                <div className="bg-[#18191a] rounded-xl p-6 border border-white/5 min-h-[500px] shadow-xl">
                     <h3 className="text-2xl font-bold text-white mb-6">Fotos</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                        {[...Array(12)].map((_, i) => (
-                            <img key={i} src={`https://picsum.photos/400/400?random=${i+20}`} className="w-full aspect-square object-cover rounded-lg hover:opacity-90 cursor-pointer" />
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                        {Array.from({ length: 20 }).map((_, i) => (
+                            <img key={i} src={`https://picsum.photos/400/400?random=${i+100}`} className="w-full aspect-square object-cover rounded-xl hover:brightness-110 cursor-pointer shadow-md transition-all hover:scale-[1.02]" alt="Gallery" />
                         ))}
                     </div>
                 </div>
             )}
 
-            {/* View: FRIENDS */}
             {activeTab === 'amigos' && (
-                <div className="bg-[#18191a] rounded-xl p-4 border border-white/5 min-h-[500px]">
+                <div className="bg-[#18191a] rounded-xl p-6 border border-white/5 min-h-[500px] shadow-xl">
                     <h3 className="text-2xl font-bold text-white mb-6">Amigos</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {[...Array(8)].map((_, i) => (
-                            <div key={i} className="bg-[#242526] rounded-xl overflow-hidden border border-white/5">
-                                <div className="aspect-square bg-neutral-800">
-                                   <img src={`https://i.pravatar.cc/300?img=${i+20}`} className="w-full h-full object-cover" />
-                                </div>
-                                <div className="p-3">
-                                    <h4 className="font-bold text-white text-sm">Amigo {i+1}</h4>
-                                    <span className="text-xs text-neutral-400">12 amigos en común</span>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {Array.from({ length: 12 }).map((_, i) => (
+                            <div key={i} className="bg-[#242526] rounded-xl p-4 border border-white/5 flex items-center gap-4 hover:bg-[#2c2d2e] transition-colors cursor-pointer group">
+                                <img src={`https://i.pravatar.cc/150?img=${i+30}`} className="w-20 h-20 rounded-xl object-cover ring-1 ring-white/10" alt="Friend" />
+                                <div className="flex-1 min-w-0">
+                                    <h4 className="font-bold text-white group-hover:underline">Conexión {i+1}</h4>
+                                    <span className="text-xs text-neutral-400 block mb-2">12 amigos en común</span>
+                                    <div className="flex gap-2">
+                                        <Button className="h-8 grow bg-[#3a3b3c] hover:bg-[#4a4b4c] text-white text-xs font-bold transition-all">Perfil</Button>
+                                        <Button className="h-8 bg-[#3a3b3c] hover:bg-[#4a4b4c] text-white text-xs font-bold px-3">...</Button>
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -256,32 +298,46 @@ export default function ProfilePage() {
                 </div>
             )}
 
-             {/* View: ABOUT */}
-             {(activeTab === 'información' || activeTab === 'informacion') && (
-                <div className="bg-[#18191a] rounded-xl p-8 border border-white/5 min-h-[300px]">
-                    <h3 className="text-2xl font-bold text-white mb-6">Información</h3>
-                    <div className="space-y-6 max-w-2xl">
-                        <div>
-                            <span className="text-neutral-500 text-sm uppercase font-bold tracking-wider">Bio</span>
-                            <p className="text-white text-lg mt-1">{user.bio}</p>
+             {activeTab === 'informacion' && (
+                <div className="bg-[#18191a] rounded-xl p-8 border border-white/5 min-h-[400px] shadow-xl">
+                    <h3 className="text-2xl font-bold text-white mb-8">Información</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-x-12">
+                        <div className="space-y-4 mb-8 md:mb-0">
+                            {['Resumen', 'Empleo y educación', 'Ubicación', 'Contacto', 'Información básica'].map(item => (
+                                <p key={item} className="text-[#B0B3B8] font-bold text-[15px] cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors">{item}</p>
+                            ))}
                         </div>
-                        <div className="h-px bg-white/10" />
-                         <div>
-                            <span className="text-neutral-500 text-sm uppercase font-bold tracking-wider">Detalles de Empleo</span>
-                            <p className="text-white text-lg mt-1">{user.headline}</p>
-                        </div>
-                         <div className="h-px bg-white/10" />
-                         <div>
-                            <span className="text-neutral-500 text-sm uppercase font-bold tracking-wider">Ubicación</span>
-                            <p className="text-white text-lg mt-1">{user.location}</p>
+                        <div className="space-y-10">
+                            <div>
+                                <h4 className="text-neutral-500 uppercase text-xs font-black tracking-widest mb-4">Presentación</h4>
+                                <p className="text-white text-xl font-medium leading-relaxed">{user.bio}</p>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 className="text-neutral-500 uppercase text-xs font-black tracking-widest mb-2">Especialidad</h4>
+                                    <p className="text-white text-lg font-bold">{user.headline}</p>
+                                </div>
+                                <div>
+                                    <h4 className="text-neutral-500 uppercase text-xs font-black tracking-widest mb-2">Residencia</h4>
+                                    <p className="text-white text-lg font-bold">{user.location}</p>
+                                </div>
+                                <div>
+                                    <h4 className="text-neutral-500 uppercase text-xs font-black tracking-widest mb-2">Aniversario Hubbax</h4>
+                                    <p className="text-white text-lg font-bold">{user.joinDate}</p>
+                                </div>
+                                <div>
+                                    <h4 className="text-neutral-500 uppercase text-xs font-black tracking-widest mb-2">Nivel de Confianza</h4>
+                                    <p className="text-[#d93025] text-lg font-black uppercase italic">Verificado Diamond</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             )}
         
-        </div> {/* End of Dynamic Content Area */}
-      </div> {/* End of Scrollable Container */}
-      </div> {/* End of Root Container */}
+        </div>
+        </div>
+      </div>
     </AppLayout>
   );
 }

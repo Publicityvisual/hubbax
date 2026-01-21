@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,14 +8,71 @@ import { Button } from '../../components/ui/Button';
 import { loginSchema, LoginFormData } from '../../lib/schemas';
 import { RegisterModal } from '../../components/auth/RegisterModal';
 import { motion } from 'framer-motion';
-import { LikeReaction, LoveReaction, HahaReaction, WowReaction, AngryReaction, FireReaction, CareReaction, SadReaction } from '../../components/ui/Reactions';
+
+// GSAP Imports
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+
+const EnergyBackground = () => {
+    const meshRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        if (!meshRef.current) return;
+
+        // Create fluid background movement
+        const moveBg = (e: MouseEvent) => {
+            const { clientX, clientY } = e;
+            const xPos = (clientX / window.innerWidth - 0.5) * 40;
+            const yPos = (clientY / window.innerHeight - 0.5) * 40;
+
+            gsap.to('.energy-blob', {
+                x: xPos,
+                y: yPos,
+                duration: 2,
+                ease: 'power2.out',
+                stagger: 0.1
+            });
+        };
+
+        window.addEventListener('mousemove', moveBg);
+
+        // Infinite Pulse Animations
+        gsap.to('.blob-1', {
+            scale: 1.2,
+            duration: 8,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+        
+        gsap.to('.blob-2', {
+            scale: 1.3,
+            duration: 12,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: 2
+        });
+
+        return () => window.removeEventListener('mousemove', moveBg);
+    }, { scope: meshRef });
+
+    return (
+        <div ref={meshRef} className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="energy-blob blob-1 absolute -top-1/4 -left-1/4 w-[80%] h-[80%] bg-[#d93025]/20 rounded-full blur-[160px] opacity-40" />
+            <div className="energy-blob blob-2 absolute -bottom-1/4 -right-1/4 w-[70%] h-[70%] bg-purple-600/20 rounded-full blur-[140px] opacity-30" />
+            <div className="absolute inset-0 bg-[#18191a]/40" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#18191a_80%)]" />
+        </div>
+    );
+};
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const navigate = useNavigate();
-
-  /* Load saved email on mount handled by defaultValues */
+  const cardRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
 
   const {
       register,
@@ -30,25 +87,24 @@ export default function LoginPage() {
       }
     });
 
-  // Safe hydration of saved email
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     try {
       const savedEmail = localStorage.getItem('hubbax_remembered_email');
-      
       if (savedEmail) {
-        // Use reset to update all values cleanly once mounted
-        setValue('email', savedEmail);
-        setValue('remember', true);
+        const timer = setTimeout(() => {
+          setValue('email', savedEmail, { shouldDirty: true });
+          setValue('remember', true, { shouldDirty: true });
+        }, 100);
+        return () => clearTimeout(timer);
       }
-    } catch {
-      // Ignore security errors in private mode
+    } catch (e) {
+      console.warn('Hydration error:', e);
     }
   }, [setValue]);
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    
-    // Remember Me Logic - Wrapped in try/catch for safety
     try {
       if (data.remember) {
         localStorage.setItem('hubbax_remembered_email', data.email);
@@ -56,7 +112,7 @@ export default function LoginPage() {
         localStorage.removeItem('hubbax_remembered_email');
       }
     } catch {
-      // Ignore storage errors in private mode/restricted environments
+      // Ignore storage errors
     }
 
     setTimeout(() => {
@@ -65,158 +121,117 @@ export default function LoginPage() {
     }, 2000);
   };
 
-  const reactions = [
-    { name: 'Me gusta', Component: LikeReaction },
-    { name: 'Me encanta', Component: LoveReaction },
-    { name: 'Me importa', Component: CareReaction },
-    { name: 'Me divierte', Component: HahaReaction },
-    { name: 'Me asombra', Component: WowReaction },
-    { name: 'Me entristece', Component: SadReaction },
-    { name: 'Me enoja', Component: AngryReaction },
-    { name: 'Fuego', Component: FireReaction },
-  ];
+  // GSAP Entrance & Pulse
+  useGSAP(() => {
+    // Hero breathing
+    if (heroRef.current) {
+        gsap.to(heroRef.current, {
+            y: -10,
+            duration: 4,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+    }
+
+    // Login Card Entrance
+    gsap.from(cardRef.current, {
+        x: 50,
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        delay: 0.2
+    });
+
+    // Glass Shine Loop
+    const shineTimeline = gsap.timeline({ repeat: -1, repeatDelay: 5 });
+    shineTimeline.to('.glass-shine', {
+        left: '200%',
+        duration: 1.5,
+        ease: 'power2.inOut'
+    });
+  }, { scope: cardRef });
 
   return (
-    <div className="min-h-screen bg-[#18191a] flex font-sans overflow-y-auto">
-      {/* Left Panel - Hero (Desktop only) */}
-      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center bg-[#18191a]">
-        {/* Animated Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-20 w-80 h-80 bg-[#d93025]/10 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-20 right-20 w-72 h-72 bg-purple-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
-        </div>
-        
-        {/* Content */}
+    <div className="min-h-screen bg-[#18191a] flex font-sans overflow-hidden select-none">
+      
+      {/* Cinematic Energy Background */}
+      <EnergyBackground />
+
+      {/* Left Panel - Hero */}
+      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
         <div className="relative z-10 flex flex-col items-center text-center px-8">
-          {/* Logo */}
+          
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="relative mb-6"
+            transition={{ duration: 0.8 }}
+            className="relative mb-8"
           >
-            <div className="absolute -inset-3 bg-gradient-to-r from-[#d93025] to-purple-600 rounded-full blur-xl opacity-20" />
-            <img src="/assets/logo.png" alt="Hubbax" className="relative h-28 object-contain" />
+            <div className="absolute -inset-4 bg-gradient-to-r from-[#d93025] to-purple-600 rounded-full blur-2xl opacity-30 animate-pulse" />
+            <img src="/assets/logo.png" alt="Hubbax" className="relative h-32 object-contain" />
           </motion.div>
           
-          {/* Tagline */}
           <motion.h1
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl font-bold text-white leading-tight mb-3"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-5xl font-black text-white leading-tight mb-4 tracking-tighter"
           >
-            La red social del
+            LA RED SOCIAL DEL
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d93025] to-purple-500">futuro</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d93025] via-[#ff3b2f] to-purple-500">FUTURO</span>
           </motion.h1>
           
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-[#B0B3B8] text-base mb-8 max-w-sm"
+            transition={{ duration: 1, delay: 0.4 }}
+            className="text-neutral-400 text-lg mb-10 max-w-sm font-medium"
           >
-            Conecta, comparte y descubre con millones de personas.
+            Conecta con el mundo a través de la inteligencia y el diseño.
           </motion.p>
 
-          {/* Hero Image with Floating Reactions */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="relative"
-          >
-            <div className="absolute -inset-2 bg-gradient-to-tr from-[#d93025] to-purple-600 rounded-2xl blur-lg opacity-20" />
-            <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/5">
+          {/* Hero Image */}
+          <div ref={heroRef} className="relative group">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-[#d93025] to-purple-600 rounded-3xl blur-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-700" />
+            <div className="relative rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5 bg-[#1a1b1c]">
               <img 
                 src="/assets/hero_people.png" 
                 alt="Social" 
-                className="w-80 h-auto"
+                className="w-96 h-auto opacity-90 group-hover:scale-105 transition-transform duration-1000"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#18191a]/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#18191a] via-transparent to-transparent opacity-60" />
             </div>
-
-            {/* Floating Reactions with Advanced SVG Animation */}
-            <motion.div
-              animate={{ y: [0, -8, 0], rotate: [0, 5, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-6 -right-6 w-20 h-20 drop-shadow-2xl"
-            >
-              <LoveReaction />
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, 10, 0], rotate: [0, -5, 0] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-16 -left-8 w-16 h-16 drop-shadow-2xl"
-            >
-              <LikeReaction />
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, -6, 0], rotate: [0, 8, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-20 -right-8 w-14 h-14 drop-shadow-2xl"
-            >
-              <HahaReaction />
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-4 left-12 w-16 h-16 drop-shadow-2xl"
-            >
-              <WowReaction />
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, -5, 0], x: [0, 5, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-32 -left-12 w-14 h-14 drop-shadow-2xl"
-            >
-              <CareReaction />
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, 7, 0] }}
-              transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-2 -left-4 w-12 h-12 drop-shadow-2xl"
-            >
-              <SadReaction />
-            </motion.div>
-          </motion.div>
-
-          {/* Tagline Animation Delay Fix */}
-          <div className="h-10" />
+          </div>
         </div>
       </div>
 
       {/* Right Panel - Login Form */}
-      <div className="flex-1 flex items-center justify-center px-6 lg:px-12 bg-[#18191a]">
-        <div className="w-full max-w-[420px]">
+      <div className="flex-1 flex items-center justify-center px-6 lg:px-12 relative z-20">
+        <div ref={cardRef} className="w-full max-w-[440px] relative">
+          
           {/* Mobile Logo */}
-          <div className="lg:hidden text-center mb-6">
-            <img src="/assets/logo.png" alt="Hubbax" className="h-14 mx-auto mb-2" />
-            <p className="text-[#B0B3B8] text-sm">La red social del futuro</p>
-            
-            {/* Mobile Animated Reactions */}
-            <div className="flex justify-center gap-4 mt-6">
-              {reactions.slice(0, 5).map((reaction, i) => (
-                <div key={i} className="w-10 h-10 drop-shadow-lg">
-                  <reaction.Component />
-                </div>
-              ))}
-            </div>
+          <div className="lg:hidden text-center mb-8">
+            <img src="/assets/logo.png" alt="Hubbax" className="h-16 mx-auto mb-3" />
+            <h2 className="text-white text-xl font-bold tracking-tight">Bienvenido a Hubbax</h2>
           </div>
 
-          {/* Login Card */}
-          <div className="bg-[#242526] border border-white/10 rounded-2xl p-7 shadow-2xl">
-            <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-white mb-1">¡Bienvenido!</h2>
-              <p className="text-[#B0B3B8] text-sm">Ingresa a tu cuenta</p>
+          {/* Glass Login Card */}
+          <div className="bg-[#242526]/80 backdrop-blur-2xl border border-white/10 rounded-[32px] p-8 md:p-10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] relative overflow-hidden group">
+            
+            {/* Glass Shine Effect */}
+            <div className="glass-shine absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-[-25deg] pointer-events-none" />
+
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Iniciar sesión</h2>
+              <p className="text-neutral-400 font-medium">Accede a tu cuenta profesional</p>
             </div>
 
-            {/* Social Buttons - Premium Glass */}
-            <div className="flex gap-3 mb-5">
-              <button className="flex-1 flex items-center justify-center gap-2 h-12 bg-white hover:bg-neutral-100 rounded-xl text-gray-900 font-bold transition-all text-sm shadow-[0_4px_12px_rgba(255,255,255,0.1)] hover:shadow-[0_4px_16px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-white/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <svg className="w-5 h-5 relative z-10" viewBox="0 0 24 24">
+            {/* Social Buttons */}
+            <div className="flex gap-4 mb-8">
+              <button className="flex-1 flex items-center justify-center gap-2 h-14 bg-white hover:bg-neutral-100 rounded-2xl text-gray-900 font-black transition-all text-sm shadow-xl hover:-translate-y-1 active:translate-y-0">
+                <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                   <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                   <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -224,9 +239,8 @@ export default function LoginPage() {
                 </svg>
                 Google
               </button>
-              <button className="flex-1 flex items-center justify-center gap-2 h-12 bg-[#050505] border border-white/10 rounded-xl text-white font-bold transition-all text-sm hover:bg-black hover:border-white/30 shadow-lg hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:-translate-y-0.5 group relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <svg className="w-5 h-5 relative z-10" viewBox="0 0 24 24" fill="currentColor">
+              <button className="flex-1 flex items-center justify-center gap-2 h-14 bg-black border border-white/10 rounded-2xl text-white font-black transition-all text-sm hover:border-white/20 hover:-translate-y-1 active:translate-y-0 shadow-xl">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                 </svg>
                 Apple
@@ -234,84 +248,84 @@ export default function LoginPage() {
             </div>
 
             {/* Divider */}
-            <div className="flex items-center gap-3 mb-5">
-              <div className="flex-1 h-px bg-white/10"></div>
-              <span className="text-neutral-500 text-xs">o usa tu email</span>
-              <div className="flex-1 h-px bg-white/10"></div>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="flex-1 h-px bg-white/5"></div>
+              <span className="text-neutral-500 text-[11px] font-black uppercase tracking-widest">O usa tu email</span>
+              <div className="flex-1 h-px bg-white/5"></div>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="relative group">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              <div className="relative">
                 <Input 
                   type="email" 
-                  placeholder="Correo electrónico"
+                  placeholder="email@hubbax.com"
                   error={errors.email?.message}
                   {...register('email')}
-                  className="h-14 bg-[#0a0a0a]/50 border-white/10 text-white placeholder:text-neutral-500 focus:border-[#d93025] focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-base transition-all group-hover:border-white/20"
+                  className="h-16 bg-[#0a0a0a]/40 border-white/5 text-white placeholder:text-neutral-600 focus:border-[#d93025] focus:ring-4 focus:ring-[#d93025]/5 rounded-2xl px-5 text-base transition-all font-medium"
                   hideLabel
                 />
               </div>
-              <div className="relative group">
+              <div className="relative">
                 <Input 
                   type="password" 
-                  placeholder="Contraseña"
+                  placeholder="••••••••"
                   error={errors.password?.message}
                   {...register('password')}
-                  className="h-14 bg-[#0a0a0a]/50 border-white/10 text-white placeholder:text-neutral-500 focus:border-[#d93025] focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-base transition-all group-hover:border-white/20"
+                  className="h-16 bg-[#0a0a0a]/40 border-white/5 text-white placeholder:text-neutral-600 focus:border-[#d93025] focus:ring-4 focus:ring-[#d93025]/5 rounded-2xl px-5 text-base transition-all font-medium"
                   hideLabel
                 />
               </div>
 
-              <div className="flex items-center justify-between text-xs pt-2">
-                <label className="flex items-center gap-2 text-neutral-400 cursor-pointer hover:text-white select-none group">
-                  <div className="relative">
-                      <input 
-                        type="checkbox" 
-                        className="peer sr-only"
-                        {...register('remember')} 
-                      />
-                      <div className="w-4 h-4 rounded border border-white/20 bg-transparent peer-checked:bg-[#d93025] peer-checked:border-[#d93025] transition-all" />
-                      <svg className="w-2.5 h-2.5 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 peer-checked:opacity-100 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </div>
-                  <span className="group-hover:text-[#d93025] transition-colors">Recordarme</span>
+              <div className="flex items-center justify-between text-xs pt-1">
+                <label className="flex items-center gap-2 text-neutral-400 cursor-pointer hover:text-white transition-colors group">
+                  <input 
+                    type="checkbox" 
+                    className="w-4 h-4 rounded border-white/10 bg-transparent text-[#d93025] focus:ring-0 checked:bg-[#d93025]"
+                    {...register('remember')} 
+                  />
+                  <span className="font-bold">Recordarme</span>
                 </label>
-                <Link to="/forgot-password" className="text-[#d93025] hover:text-[#ff6b5b] transition-colors hover:underline">
+                <Link 
+                  to="/forgot-password" 
+                  className="text-[#d93025] font-black hover:underline tracking-tight"
+                >
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
 
               <Button 
                 type="submit" 
-                className="w-full h-14 text-lg font-bold rounded-xl bg-gradient-to-r from-[#d93025] to-[#ff3b2f] hover:brightness-110 text-white transition-all shadow-lg shadow-[#d93025]/30 hover:shadow-[#d93025]/50 hover:scale-[1.01] active:scale-[0.99] relative overflow-hidden" 
+                className="w-full h-16 text-xl font-black rounded-2xl bg-gradient-to-r from-[#d93025] to-[#ff3b2f] text-white transition-all shadow-2xl shadow-[#d93025]/30 hover:scale-[1.02] active:scale-[0.98] mt-4 relative overflow-hidden" 
                 size="lg" 
                 isLoading={isLoading}
               >
-                {/* Shine Effect */}
-                <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
-                <span className="relative z-20">{isLoading ? "Iniciando..." : "Iniciar sesión"}</span>
+                <span className="relative z-20 uppercase tracking-widest">{isLoading ? "Cargando..." : "Iniciar sesión"}</span>
               </Button>
             </form>
 
-            <div className="mt-5 pt-5 border-t border-white/10 text-center">
-              <p className="text-neutral-400 text-sm mb-3">¿No tienes cuenta?</p>
+            <div className="mt-8 pt-6 border-t border-white/5 text-center">
               <button 
                 onClick={() => setIsRegisterOpen(true)}
-                className="w-full h-12 text-base font-bold rounded-xl border border-white/10 hover:bg-white/5 text-white transition-all hover:scale-[1.02] active:scale-95"
+                className="text-white font-black text-sm hover:text-[#d93025] transition-colors"
               >
-                Crear cuenta nueva
+                ¿No tienes cuenta? <span className="underline ml-1">Regístrate gratis</span>
               </button>
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="mt-4 text-center text-neutral-500 text-xs flex items-center justify-center gap-3">
-            <Link to="/legal/terms" className="hover:text-white">Términos</Link>
-            <span>•</span>
-            <Link to="/legal/privacy" className="hover:text-white">Privacidad</Link>
-            <span>•</span>
-            <span>© 2025 Hubbax <span className="text-neutral-700 ml-1">v0.0.3</span></span>
+          {/* New Legitimacy Badge */}
+          <div className="mt-8 flex items-center justify-center gap-6 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+             <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-[10px] text-white font-black uppercase tracking-widest">Hubbax AI Cloud Secured</span>
+             </div>
+             <div className="w-px h-4 bg-white/10" />
+             <div className="flex items-center gap-2">
+                <span className="text-[10px] text-white font-black uppercase tracking-widest">v0.0.4 Diamond</span>
+             </div>
           </div>
+
         </div>
       </div>
 

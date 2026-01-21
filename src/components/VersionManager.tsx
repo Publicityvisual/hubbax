@@ -1,34 +1,41 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 // Check for updates every 30 seconds
 const CHECK_INTERVAL = 30 * 1000; 
 
 export function VersionManager() {
-  const [currentVersion, setCurrentVersion] = useState<string | null>(null);
+  const versionRef = useRef<string | null>(null);
 
   useEffect(() => {
-    // 1. Get initial version on mount
-    fetch('/version.json?t=' + Date.now())
-      .then(res => res.json())
-      .then(data => {
-        setCurrentVersion(data.version);
-      })
-      .catch(() => {});
+    let active = true;
 
-    // 2. Poll for updates
-    const interval = setInterval(() => {
-      fetch('/version.json?t=' + Date.now())
-        .then(res => res.json())
-        .then(serverData => {
-          if (currentVersion && serverData.version !== currentVersion) {
-            // Future feature: Background silent sync
-          }
-        })
-        .catch(() => {});
-    }, CHECK_INTERVAL);
+    const checkVersion = async (isInitial = false) => {
+      try {
+        const res = await fetch('/version.json?t=' + Date.now());
+        const data = await res.json();
+        
+        if (!active) return;
 
-    return () => clearInterval(interval);
-  }, [currentVersion]);
+        if (isInitial) {
+          versionRef.current = data.version;
+        } else if (versionRef.current && data.version !== versionRef.current) {
+          console.log('Hubbax Sync: New version detected');
+          versionRef.current = data.version; 
+          // Silent refresh logic could go here
+        }
+      } catch {
+        // Silent fail
+      }
+    };
 
-  return null; // Invisible logic component
+    checkVersion(true);
+    const interval = setInterval(() => checkVersion(), CHECK_INTERVAL);
+
+    return () => {
+      active = false;
+      clearInterval(interval);
+    };
+  }, []);
+
+  return null;
 }
