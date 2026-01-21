@@ -12,6 +12,7 @@ import { motion } from 'framer-motion';
 // GSAP Imports
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { REACTION_METADATA } from '../../components/ui/ReactionMetadata';
 
 const EnergyBackground = () => {
     const meshRef = useRef<HTMLDivElement>(null);
@@ -202,6 +203,24 @@ export default function LoginPage() {
                 className="w-96 h-auto opacity-90 group-hover:scale-105 transition-transform duration-1000"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#18191a] via-transparent to-transparent opacity-60" />
+            </div>
+
+            {/* WoWonder Style Floating Reactions */}
+            <div className="absolute -bottom-8 -right-8 z-30 transform hover:scale-110 transition-transform duration-300">
+               <div className="bg-[#18191a]/80 backdrop-blur-xl p-2 rounded-full border border-white/10 shadow-[0_0_30px_rgba(217,48,37,0.4)] flex items-center gap-2">
+                  {/* Mock Interactive Reactions */}
+                  <div className="flex -space-x-2 overflow-hidden px-2">
+                       {REACTION_METADATA.slice(0, 3).map((r, i) => (
+                           <div key={i} className="w-8 h-8 rounded-full border-2 border-[#18191a] relative z-10 bg-[#242526] flex items-center justify-center">
+                               <r.Component />
+                           </div>
+                       ))}
+                  </div>
+                  <div className="pr-4 pl-2">
+                      <p className="text-xs text-white font-bold">12.5k</p>
+                      <p className="text-[9px] text-gray-400">Interacciones</p>
+                  </div>
+               </div>
             </div>
           </div>
         </div>
