@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { AppLayout } from '../../layouts/AppLayout';
 import { Button } from '../../components/ui/Button';
 import { Avatar } from '../../components/ui/Avatar';
-import { Camera, MessageCircle, UserPlus, MoreHorizontal, CheckCircle2 } from 'lucide-react';
+import { Camera, MessageCircle, UserPlus, MoreHorizontal, CheckCircle2, Users } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { MASTER_USERS } from '../../data/masterUsers';
 
@@ -76,17 +76,7 @@ export default function ProfilePage() {
 
   // Mock Data for Widgets
   const mockPhotos = Array.from({ length: 9 }, (_, i) => `https://picsum.photos/400/400?random=${i + 50}`);
-  const mockFriends = [
-    { name: 'Elon Musk', avatar: 'https://i.pravatar.cc/150?u=elon', mutualFriends: 12 },
-    { name: 'Mark Zuckerberg', avatar: 'https://i.pravatar.cc/150?u=mark', mutualFriends: 5 },
-    { name: 'Jeff Bezos', avatar: 'https://i.pravatar.cc/150?u=jeff', mutualFriends: 2 },
-    { name: 'Bill Gates', avatar: 'https://i.pravatar.cc/150?u=bill', mutualFriends: 8 },
-    { name: 'Satya Nadella', avatar: 'https://i.pravatar.cc/150?u=satya', mutualFriends: 3 },
-    { name: 'Sundar Pichai', avatar: 'https://i.pravatar.cc/150?u=sundar', mutualFriends: 1 },
-    { name: 'Tim Cook', avatar: 'https://i.pravatar.cc/150?u=tim', mutualFriends: 4 },
-    { name: 'Jensen Huang', avatar: 'https://i.pravatar.cc/150?u=jensen', mutualFriends: 9 },
-    { name: 'Sam Altman', avatar: 'https://i.pravatar.cc/150?u=sam', mutualFriends: 15 },
-  ];
+  const mockFriends: { name: string; avatar: string; mutualFriends: number }[] = [];
 
   return (
     <AppLayout>
@@ -152,13 +142,19 @@ export default function ProfilePage() {
                         <span className="hover:underline cursor-pointer">{user.mutualFriends} amigos en común</span>
                     </div>
 
-                    <div className="flex items-center justify-center md:justify-start -space-x-2 mt-3.5 pl-1">
-                        {mockFriends.slice(0, 5).map((f, i) => (
-                            <img key={i} src={f.avatar} className="w-8 h-8 rounded-full border-2 border-[#0a0a0a] ring-1 ring-white/5" alt={f.name} title={f.name} />
-                        ))}
-                        <div className="w-8 h-8 rounded-full border-2 border-[#0a0a0a] bg-[#242526] flex items-center justify-center text-[10px] font-bold text-white ring-1 ring-white/5">
-                            +{user.friendsCount}
-                        </div>
+                    <div className="flex items-center justify-center md:justify-start -space-x-2 mt-3.5 pl-1 min-h-[32px]">
+                        {mockFriends.length > 0 ? (
+                           <>
+                                {mockFriends.slice(0, 5).map((f, i) => (
+                                    <img key={i} src={f.avatar} className="w-8 h-8 rounded-full border-2 border-[#0a0a0a] ring-1 ring-white/5" alt={f.name} title={f.name} />
+                                ))}
+                                <div className="w-8 h-8 rounded-full border-2 border-[#0a0a0a] bg-[#242526] flex items-center justify-center text-[10px] font-bold text-white ring-1 ring-white/5">
+                                    +{user.friendsCount}
+                                </div>
+                           </>
+                        ) : (
+                            <span className="text-xs text-neutral-500 italic">Sin conexiones recientes</span>
+                        )}
                     </div>
                 </div>
 
@@ -280,21 +276,30 @@ export default function ProfilePage() {
             {activeTab === 'amigos' && (
                 <div className="bg-[#18191a] rounded-xl p-6 border border-white/5 min-h-[500px] shadow-xl">
                     <h3 className="text-2xl font-bold text-white mb-6">Amigos</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {Array.from({ length: 12 }).map((_, i) => (
-                            <div key={i} className="bg-[#242526] rounded-xl p-4 border border-white/5 flex items-center gap-4 hover:bg-[#2c2d2e] transition-colors cursor-pointer group">
-                                <img src={`https://i.pravatar.cc/150?img=${i+30}`} className="w-20 h-20 rounded-xl object-cover ring-1 ring-white/10" alt="Friend" />
-                                <div className="flex-1 min-w-0">
-                                    <h4 className="font-bold text-white group-hover:underline">Conexión {i+1}</h4>
-                                    <span className="text-xs text-neutral-400 block mb-2">12 amigos en común</span>
-                                    <div className="flex gap-2">
-                                        <Button className="h-8 grow bg-[#3a3b3c] hover:bg-[#4a4b4c] text-white text-xs font-bold transition-all">Perfil</Button>
-                                        <Button className="h-8 bg-[#3a3b3c] hover:bg-[#4a4b4c] text-white text-xs font-bold px-3">...</Button>
+                    {mockFriends.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {mockFriends.map((f, i) => (
+                                <div key={i} className="bg-[#242526] rounded-xl p-4 border border-white/5 flex items-center gap-4 hover:bg-[#2c2d2e] transition-colors cursor-pointer group">
+                                    <img src={f.avatar} className="w-20 h-20 rounded-xl object-cover ring-1 ring-white/10" alt="Friend" />
+                                    <div className="flex-1 min-w-0">
+                                        <h4 className="font-bold text-white group-hover:underline">{f.name}</h4>
+                                        <span className="text-xs text-neutral-400 block mb-2">{f.mutualFriends} amigos en común</span>
+                                        <div className="flex gap-2">
+                                            <Button className="h-8 grow bg-[#3a3b3c] hover:bg-[#4a4b4c] text-white text-xs font-bold transition-all">Perfil</Button>
+                                            <Button className="h-8 bg-[#3a3b3c] hover:bg-[#4a4b4c] text-white text-xs font-bold px-3">...</Button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center h-full py-20 text-neutral-500">
+                             <div className="w-20 h-20 bg-[#242526] rounded-full flex items-center justify-center mb-4 ring-1 ring-white/10 border border-white/5">
+                                <Users className="w-10 h-10 opacity-50" />
+                             </div>
+                             <p className="font-medium">No hay amigos para mostrar</p>
+                        </div>
+                    )}
                 </div>
             )}
 

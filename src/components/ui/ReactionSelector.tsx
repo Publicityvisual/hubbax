@@ -39,7 +39,11 @@ export function ReactionSelector({ onSelect }: ReactionSelectorProps) {
               whileTap={{ scale: 0.85 }}
             >
               <div className="w-full h-full pointer-events-none p-0.5">
-                <reaction.Component />
+                {reaction.imagePath ? (
+                  <img src={reaction.imagePath} alt={reaction.name} className="w-full h-full object-contain drop-shadow-md" />
+                ) : (
+                  <reaction.Component />
+                )}
               </div>
             </motion.button>
 

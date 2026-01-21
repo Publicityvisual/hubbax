@@ -26,22 +26,30 @@ export function FriendWidget({ friends, totalCount, onSeeAll }: FriendWidgetProp
         </button>
       </div>
       
-      <div className="grid grid-cols-3 gap-x-2 gap-y-4 mt-4">
-        {friends.slice(0, 9).map((friend, i) => (
-          <div key={i} className="flex flex-col gap-1.5 cursor-pointer group">
-            <div className="aspect-square rounded-lg overflow-hidden border border-white/5 relative">
-              <img 
-                src={friend.avatar} 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                alt={friend.name}
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-            </div>
-            <p className="text-white text-xs font-semibold leading-tight group-hover:underline truncate">
-              {friend.name}
-            </p>
+      <div className="mt-4">
+        {friends.length > 0 ? (
+          <div className="grid grid-cols-3 gap-x-2 gap-y-4">
+            {friends.slice(0, 9).map((friend, i) => (
+              <div key={i} className="flex flex-col gap-1.5 cursor-pointer group">
+                <div className="aspect-square rounded-lg overflow-hidden border border-white/5 relative">
+                  <img 
+                    src={friend.avatar} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                    alt={friend.name}
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                </div>
+                <p className="text-white text-xs font-semibold leading-tight group-hover:underline truncate">
+                  {friend.name}
+                </p>
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <div className="text-center py-8 text-neutral-500">
+            <p className="text-sm">No hay amigos para mostrar</p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -22,12 +22,7 @@ export default function FriendsPage() {
   }, { scope: containerRef });
 
   const categories = ['Todos los amigos', 'Sugerencias', 'Solicitudes'];
-  const mockFriends = Array.from({ length: 12 }, (_, i) => ({
-    id: i,
-    name: `Usuario ${i + 1}`,
-    avatar: `https://i.pravatar.cc/150?img=${i + 10}`,
-    mutualFriends: Math.floor(Math.random() * 20)
-  }));
+  const mockFriends: { id: number; name: string; avatar: string; mutualFriends: number }[] = []; // No mock friends by default
 
   return (
     <AppLayout>
@@ -68,44 +63,60 @@ export default function FriendsPage() {
         </div>
 
         {/* Friends Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {mockFriends.map((friend) => (
-            <div 
-              key={friend.id} 
-              className="friend-card bg-[#18191a] border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-all group shadow-sm hover:shadow-xl hover:-translate-y-1"
-            >
-              <div className="h-24 bg-gradient-to-br from-[#d93025]/20 to-purple-600/10" />
-              <div className="p-4 pt-0 -mt-12 text-center flex flex-col items-center">
-                <div className="relative">
-                  <img 
-                    src={friend.avatar} 
-                    className="w-24 h-24 rounded-2xl border-4 border-[#18191a] object-cover ring-1 ring-white/10 group-hover:scale-105 transition-transform" 
-                    alt={friend.name} 
-                  />
-                  <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-[#18191a] rounded-full" />
+        {mockFriends.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {mockFriends.map((friend) => (
+              <div 
+                key={friend.id} 
+                className="friend-card bg-[#18191a] border border-white/5 rounded-2xl overflow-hidden hover:border-white/10 transition-all group shadow-sm hover:shadow-xl hover:-translate-y-1"
+              >
+                <div className="h-24 bg-gradient-to-br from-[#d93025]/20 to-purple-600/10" />
+                <div className="p-4 pt-0 -mt-12 text-center flex flex-col items-center">
+                  <div className="relative">
+                    <img 
+                      src={friend.avatar} 
+                      className="w-24 h-24 rounded-2xl border-4 border-[#18191a] object-cover ring-1 ring-white/10 group-hover:scale-105 transition-transform" 
+                      alt={friend.name} 
+                    />
+                    <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-[#18191a] rounded-full" />
+                  </div>
+                  
+                  <h3 className="mt-3 font-bold text-white text-lg group-hover:text-[#d93025] transition-colors">{friend.name}</h3>
+                  <p className="text-neutral-400 text-sm mb-4">{friend.mutualFriends} amigos en común</p>
+                  
+                  <div className="grid grid-cols-2 gap-2 w-full">
+                    <Button className="h-9 bg-[#242526] hover:bg-[#303031] text-white border border-white/5 flex items-center justify-center gap-2 text-sm font-bold transition-all">
+                      <MessageCircle className="w-4 h-4" />
+                      Chat
+                    </Button>
+                    <Button className="h-9 bg-[#d93025]/10 hover:bg-[#d93025]/20 text-[#d93025] border border-[#d93025]/20 flex items-center justify-center gap-2 text-sm font-bold transition-all">
+                      <UserPlus className="w-4 h-4" />
+                      Amigos
+                    </Button>
+                  </div>
+                  
+                  <button className="mt-3 w-full h-8 flex items-center justify-center rounded-lg hover:bg-white/5 text-neutral-500 transition-colors">
+                    <MoreHorizontal className="w-5 h-5" />
+                  </button>
                 </div>
-                
-                <h3 className="mt-3 font-bold text-white text-lg group-hover:text-[#d93025] transition-colors">{friend.name}</h3>
-                <p className="text-neutral-400 text-sm mb-4">{friend.mutualFriends} amigos en común</p>
-                
-                <div className="grid grid-cols-2 gap-2 w-full">
-                  <Button className="h-9 bg-[#242526] hover:bg-[#303031] text-white border border-white/5 flex items-center justify-center gap-2 text-sm font-bold transition-all">
-                    <MessageCircle className="w-4 h-4" />
-                    Chat
-                  </Button>
-                  <Button className="h-9 bg-[#d93025]/10 hover:bg-[#d93025]/20 text-[#d93025] border border-[#d93025]/20 flex items-center justify-center gap-2 text-sm font-bold transition-all">
-                    <UserPlus className="w-4 h-4" />
-                    Amigos
-                  </Button>
-                </div>
-                
-                <button className="mt-3 w-full h-8 flex items-center justify-center rounded-lg hover:bg-white/5 text-neutral-500 transition-colors">
-                  <MoreHorizontal className="w-5 h-5" />
-                </button>
               </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-20 text-center">
+            <div className="w-24 h-24 bg-[#18191a] rounded-full flex items-center justify-center border border-white/5 mb-6 shadow-xl">
+              <Users className="w-10 h-10 text-neutral-500" />
             </div>
-          ))}
-        </div>
+            <h3 className="text-2xl font-bold text-white mb-2">Sin amigos aún</h3>
+            <p className="text-neutral-400 max-w-sm mx-auto mb-8">
+              Aún no has agregado a nadie a tu lista de amigos. Busca personas que conozcas para conectar con ellas.
+            </p>
+            <Button className="bg-[#d93025] hover:bg-[#b01e15] text-white px-8 h-12 rounded-xl font-bold shadow-lg shadow-[#d93025]/20 flex items-center gap-2 transition-all">
+              <Search className="w-5 h-5" />
+              Buscar personas
+            </Button>
+          </div>
+        )}
       </div>
     </AppLayout>
   );

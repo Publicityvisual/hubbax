@@ -45,6 +45,10 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
         setSelectedReaction(null); 
     } else {
         setSelectedReaction(reaction);
+        // Play sound if not unselecting
+        const audio = new Audio('/assets/sounds/notification.mp3');
+        audio.volume = 0.5;
+        audio.play().catch(e => console.log('Audio play failed', e));
     }
     setIsHoveringLike(false);
   };
@@ -200,7 +204,11 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
                 >
                     {selectedReaction ? (
                         <div className="w-[20px] h-[20px] relative">
-                            <selectedReaction.Component /> 
+                            {selectedReaction.imagePath ? (
+                                <img src={selectedReaction.imagePath} alt={selectedReaction.name} className="w-full h-full object-contain" />
+                            ) : (
+                                <selectedReaction.Component /> 
+                            )}
                         </div>
                     ) : (
                         <ThumbsUp className="w-5 h-5" />
