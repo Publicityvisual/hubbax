@@ -342,7 +342,7 @@ export default function LoginPage() {
                       <span className="font-bold">Recordarme</span>
                     </label>
                     <Link 
-                      to="/forgot-password" 
+                      to="/recovery" 
                       className="text-[#d93025] font-black hover:underline tracking-tight"
                     >
                       ¿Olvidaste tu contraseña?
@@ -360,12 +360,36 @@ export default function LoginPage() {
                 </form>
 
                 <div className="mt-8 pt-6 border-t border-white/5 text-center relative z-10">
+                   {/* Desktop: Simple Link */}
                   <button 
                     onClick={() => setIsRegisterOpen(true)}
-                    className="text-white font-black text-sm hover:text-[#d93025] transition-colors"
+                    className="hidden lg:inline-block text-white font-black text-sm hover:text-[#d93025] transition-colors"
                   >
                     ¿No tienes cuenta? <span className="underline ml-1">Regístrate gratis</span>
                   </button>
+
+                  {/* Mobile: Facebook Style "Join" Section */}
+                  <div className="lg:hidden flex flex-col items-center">
+                      <div className="w-full h-px bg-white/10 mb-6" />
+                      
+                      <button 
+                        onClick={() => setIsRegisterOpen(true)}
+                        className="w-full h-12 bg-[#30a24b] hover:bg-[#2b9243] text-white font-bold rounded-xl transition-all shadow-lg active:scale-[0.98] mb-6 flex items-center justify-center gap-2"
+                      >
+                         Crear cuenta nueva
+                      </button>
+
+                      <div className="flex items-center gap-2 opacity-80 mb-2">
+                         <div className="flex -space-x-2">
+                             {[1, 2, 3].map(i => (
+                                 <div key={i} className="w-6 h-6 rounded-full border border-[#18191a] bg-neutral-700 overflow-hidden">
+                                     <img src={`https://i.pravatar.cc/150?img=${10+i}`} alt="User" className="w-full h-full object-cover" />
+                                 </div>
+                             ))}
+                         </div>
+                         <span className="text-neutral-400 text-xs font-medium">Únete a la comunidad</span>
+                      </div>
+                  </div>
                 </div>
               </div>
 
