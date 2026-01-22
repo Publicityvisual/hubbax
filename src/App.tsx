@@ -9,6 +9,8 @@ import SettingsPage from './pages/settings/SettingsPage';
 
 import { VersionManager } from './components/VersionManager';
 
+import RecoveryPage from './pages/auth/RecoveryPage';
+
 function App() {
   return (
     <Router>
@@ -25,8 +27,8 @@ function App() {
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         
-        {/* Stub routes for professional links */}
-        <Route path="/recovery" element={<LoginPage />} />
+        {/* Auth Pages */}
+        <Route path="/recovery" element={<RecoveryPage />} />
         <Route path="/legal/*" element={<LoginPage />} />
         <Route path="/help/*" element={<LoginPage />} />
       </Routes>
