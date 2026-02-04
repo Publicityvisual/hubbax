@@ -81,6 +81,30 @@ export function AppLayout({ children }: AppLayoutProps) {
                 })}
             </nav>
 
+            <div className="mt-8 mb-6">
+                 <h3 className="font-black text-neutral-500 text-xs uppercase tracking-widest px-4 mb-2">Tus Accesos Directos</h3>
+                 <div className="space-y-1">
+                     {[
+                         { name: "Diseñadores UI/UX", img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=100&h=100&auto=format&fit=crop" },
+                         { name: "React Developers", img: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=100&h=100&auto=format&fit=crop" },
+                         { name: "Gaming Hub", img: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=100&h=100&auto=format&fit=crop" },
+                         { name: "Mercado Digital", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=100&h=100&auto=format&fit=crop" },
+                     ].map((item, i) => (
+                         <div key={i} className="flex items-center gap-3 px-4 py-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition-all cursor-pointer group">
+                             <img src={item.img} className="w-9 h-9 rounded-lg object-cover ring-1 ring-white/10 group-hover:ring-white/30 transition-all" alt={item.name} />
+                             <span className="font-bold text-[14px] truncate">{item.name}</span>
+                         </div>
+                     ))}
+                     
+                     <div className="flex items-center gap-3 px-4 py-2 rounded-xl text-neutral-500 hover:text-white hover:bg-white/5 transition-all cursor-pointer">
+                         <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center">
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 9l-7 7-7-7"/></svg>
+                         </div>
+                         <span className="font-bold text-[13px]">Ver más</span>
+                     </div>
+                 </div>
+            </div>
+
             <div className="pt-6 border-t border-white/5 space-y-2">
                 <Link to="/settings" className="flex items-center gap-4 px-4 py-3 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition-all">
                     <Settings className="w-[22px] h-[22px]" />
@@ -114,6 +138,30 @@ export function AppLayout({ children }: AppLayoutProps) {
         {/* Right Sidebar - Social Graph */}
         <aside className="hidden xl:flex w-[340px] h-screen sticky top-0 flex-col p-6 space-y-8 overflow-y-auto no-scrollbar bg-[#050505]/30">
             
+            {/* Birthdays Widget */}
+            <div className="space-y-4">
+                <h3 className="font-black text-neutral-500 text-xs uppercase tracking-widest px-1">Cumpleaños</h3>
+                <div className="flex items-center gap-4 p-3 rounded-2xl bg-gradient-to-br from-[#18191a] to-[#0a0a0a] border border-white/5 hover:border-white/10 transition-all cursor-pointer group shadow-lg">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#d93025] to-purple-600 flex items-center justify-center shadow-[0_0_15px_rgba(217,48,37,0.3)] group-hover:scale-110 transition-transform">
+                        <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/>
+                            <path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/>
+                            <path d="M2 21h20"/>
+                            <path d="M7 8v2"/>
+                            <path d="M12 8v2"/>
+                            <path d="M17 8v2"/>
+                            <path d="M7 4h.01"/>
+                            <path d="M12 4h.01"/>
+                            <path d="M17 4h.01"/>
+                        </svg>
+                    </div>
+                    <div className="flex flex-col">
+                         <span className="text-white font-bold text-sm leading-tight">Sarah Connor</span>
+                         <span className="text-neutral-400 text-xs mt-0.5">y 2 amigos más cumplen hoy.</span>
+                    </div>
+                </div>
+            </div>
+
             {/* Sponsored - Premium Cards */}
             <div className="space-y-4">
                 <h3 className="font-black text-neutral-500 text-xs uppercase tracking-widest px-1">Publicidad</h3>
@@ -174,8 +222,8 @@ export function AppLayout({ children }: AppLayoutProps) {
                                 )}
                             </div>
                             <div className="flex flex-col min-w-0">
-                                <span className="text-white font-bold text-[14px] truncate">{user.name}</span>
-                                <span className="text-neutral-500 text-xs truncate group-hover:text-neutral-400">{user.status}</span>
+                                <span className="text-white font-bold text-sm truncate">{user.name}</span>
+                                <span className="text-neutral-500 text-[11px] truncate group-hover:text-neutral-400">{user.status}</span>
                             </div>
                         </div>
                     ))}

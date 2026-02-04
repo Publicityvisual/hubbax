@@ -33,7 +33,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <motion.button
-        ref={ref}
+        ref={ref as any}
         whileHover={{ scale: props.disabled || isLoading ? 1 : 1.05 }}
         whileTap={{ scale: props.disabled || isLoading ? 1 : 0.95 }}
         className={cn(

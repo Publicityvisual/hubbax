@@ -128,7 +128,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                         placeholder="Nombre"
                         error={errors.firstName?.message}
                         {...register('firstName')}
-                        className="h-12 bg-[#0a0a0a]/40 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[16px] transition-all font-medium backdrop-blur-sm hover:bg-[#0a0a0a]/60"
+                        className="h-12 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
                         hideLabel
                     />
                 </motion.div>
@@ -138,7 +138,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                         placeholder="Apellido"
                         error={errors.lastName?.message}
                         {...register('lastName')}
-                        className="h-12 bg-[#0a0a0a]/40 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[16px] transition-all font-medium backdrop-blur-sm hover:bg-[#0a0a0a]/60"
+                        className="h-12 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
                         hideLabel
                     />
                 </motion.div>
@@ -151,7 +151,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                     placeholder="Número de celular o correo electrónico"
                     error={errors.email?.message}
                     {...register('email')}
-                    className="h-12 bg-[#0a0a0a]/40 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[16px] transition-all font-medium backdrop-blur-sm hover:bg-[#0a0a0a]/60"
+                    className="h-12 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
                     hideLabel
                 />
             </motion.div>
@@ -162,7 +162,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                     placeholder="Contraseña nueva"
                     error={errors.password?.message}
                     {...register('password')}
-                    className="h-12 bg-[#0a0a0a]/40 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[16px] transition-all font-medium backdrop-blur-sm hover:bg-[#0a0a0a]/60"
+                    className="h-12 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
                     hideLabel
                 />
             </motion.div>
@@ -180,9 +180,9 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                         <select 
                             value={birthDay}
                             onChange={(e) => setBirthDay(e.target.value)}
-                            className="w-full h-11 bg-[#0a0a0a]/40 border border-white/5 rounded-xl px-3 text-[15px] text-white appearance-none cursor-pointer focus:border-[#d93025]/50 outline-none transition-all hover:bg-white/5 hover:border-white/10"
+                            className="w-full h-11 bg-[#0a0a0a]/60 border border-white/5 rounded-xl px-3 text-[14px] text-white appearance-none cursor-pointer focus:border-[#d93025]/50 outline-none transition-all hover:bg-white/5 hover:border-white/20"
                         >
-                            {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(d => <option key={d} value={d} className="bg-[#242526]">{d}</option>)}
+                            {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(d => <option key={d} value={d} className="bg-[#121212] text-white">{d}</option>)}
                         </select>
                         <ChevronDown className="absolute right-3 top-3.5 w-4 h-4 text-neutral-500 pointer-events-none group-hover:text-white transition-colors" />
                     </div>
@@ -190,9 +190,9 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                         <select 
                             value={birthMonth}
                             onChange={(e) => setBirthMonth(e.target.value)}
-                            className="w-full h-11 bg-[#0a0a0a]/40 border border-white/5 rounded-xl px-3 text-[15px] text-white appearance-none cursor-pointer focus:border-[#d93025]/50 outline-none transition-all hover:bg-white/5 hover:border-white/10"
+                            className="w-full h-11 bg-[#0a0a0a]/60 border border-white/5 rounded-xl px-3 text-[14px] text-white appearance-none cursor-pointer focus:border-[#d93025]/50 outline-none transition-all hover:bg-white/5 hover:border-white/20"
                         >
-                            {['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'].map(m => <option key={m} value={m} className="bg-[#242526]">{m}</option>)}
+                            {['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'].map(m => <option key={m} value={m} className="bg-[#121212] text-white">{m}</option>)}
                         </select>
                         <ChevronDown className="absolute right-3 top-3.5 w-4 h-4 text-neutral-500 pointer-events-none group-hover:text-white transition-colors" />
                     </div>
@@ -200,9 +200,9 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                         <select 
                             value={birthYear}
                             onChange={(e) => setBirthYear(e.target.value)}
-                            className="w-full h-11 bg-[#0a0a0a]/40 border border-white/5 rounded-xl px-3 text-[15px] text-white appearance-none cursor-pointer focus:border-[#d93025]/50 outline-none transition-all hover:bg-white/5 hover:border-white/10"
+                            className="w-full h-11 bg-[#0a0a0a]/60 border border-white/5 rounded-xl px-3 text-[14px] text-white appearance-none cursor-pointer focus:border-[#d93025]/50 outline-none transition-all hover:bg-white/5 hover:border-white/20"
                         >
-                            {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(y => <option key={y} value={y} className="bg-[#242526]">{y}</option>)}
+                            {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(y => <option key={y} value={y} className="bg-[#121212] text-white">{y}</option>)}
                         </select>
                         <ChevronDown className="absolute right-3 top-3.5 w-4 h-4 text-neutral-500 pointer-events-none group-hover:text-white transition-colors" />
                     </div>
@@ -222,9 +222,9 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                     {['female', 'male', 'other'].map((g) => (
                         <label 
                             key={g} 
-                            className={`flex items-center justify-between px-3 h-11 bg-[#0a0a0a]/40 border ${selectedGender === g ? 'border-[#d93025] bg-[#d93025]/10 shadow-[0_0_15px_rgba(217,48,37,0.15)]' : 'border-white/5'} rounded-xl cursor-pointer transition-all hover:bg-white/5 hover:border-white/10 group`}
+                            className={`flex items-center justify-between px-3 h-11 bg-[#0a0a0a]/60 border ${selectedGender === g ? 'border-[#d93025] bg-[#d93025]/10 shadow-[0_0_15px_rgba(217,48,37,0.15)]' : 'border-white/5'} rounded-xl cursor-pointer transition-all hover:bg-white/5 hover:border-white/10 group`}
                         >
-                            <span className={`text-[15px] font-medium transition-colors ${selectedGender === g ? 'text-white' : 'text-neutral-400 group-hover:text-white'}`}>
+                            <span className={`text-[14px] font-medium transition-colors ${selectedGender === g ? 'text-white' : 'text-neutral-400 group-hover:text-white'}`}>
                                 {g === 'female' ? 'Mujer' : g === 'male' ? 'Hombre' : 'Otro'}
                             </span>
                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${selectedGender === g ? 'border-[#d93025]' : 'border-neutral-600 group-hover:border-neutral-400'}`}>
@@ -249,12 +249,12 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                       <div className="relative group">
                         <select 
                           {...register('pronoun')}
-                          className="w-full h-11 bg-[#0a0a0a]/40 border border-white/5 rounded-xl px-3 text-[15px] text-white appearance-none cursor-pointer focus:border-[#d93025]/50 outline-none transition-all hover:bg-white/5"
+                          className="w-full h-11 bg-[#0a0a0a]/60 border border-white/5 rounded-xl px-3 text-[14px] text-white appearance-none cursor-pointer focus:border-[#d93025]/50 outline-none transition-all hover:bg-white/5 hover:border-white/20"
                         >
-                          <option value="" disabled className="bg-[#242526]">Selecciona tu pronombre</option>
-                          <option value="she" className="bg-[#242526]">Ella: "Felicítala por su cumpleaños"</option>
-                          <option value="he" className="bg-[#242526]">Él: "Felicítalo por su cumpleaños"</option>
-                          <option value="they" className="bg-[#242526]">Ellos: "Felicítalos por su cumpleaños"</option>
+                          <option value="" disabled className="bg-[#121212] text-neutral-500">Selecciona tu pronombre</option>
+                          <option value="she" className="bg-[#121212] text-white">Ella: "Felicítala por su cumpleaños"</option>
+                          <option value="he" className="bg-[#121212] text-white">Él: "Felicítalo por su cumpleaños"</option>
+                          <option value="they" className="bg-[#121212] text-white">Ellos: "Felicítalos por su cumpleaños"</option>
                         </select>
                         <ChevronDown className="absolute right-3 top-3.5 w-4 h-4 text-neutral-500 pointer-events-none group-hover:text-white transition-colors" />
                       </div>
@@ -262,7 +262,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                         type="text"
                         placeholder="Género (opcional)"
                         {...register('customGender')}
-                        className="h-11 bg-[#0a0a0a]/40 border-white/5 text-white placeholder:text-neutral-500 px-4 rounded-xl text-base focus:border-[#d93025]/50 transition-all hover:bg-white/5"
+                        className="h-11 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 px-4 rounded-xl text-base focus:border-[#d93025]/50 transition-all hover:bg-white/5 hover:border-white/20"
                         hideLabel
                       />
                     </motion.div>
@@ -282,7 +282,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                 <Button 
                     type="submit" 
                     isLoading={isLoading}
-                    className="w-[240px] h-12 bg-gradient-to-r from-[#00a400] via-[#00c200] to-[#008a00] hover:to-[#007000] text-white text-[18px] font-black tracking-wide rounded-xl shadow-[0_10px_30px_-5px_rgba(34,197,94,0.4)] transition-all hover:scale-[1.05] active:scale-[0.98] relative overflow-hidden group/btn"
+                    className="w-[240px] h-14 bg-gradient-to-r from-[#d93025] to-[#ff3b2f] hover:to-[#ff5b4f] text-white text-[16px] font-black tracking-widest rounded-xl shadow-[0_10px_30px_-5px_rgba(217,48,37,0.4)] transition-all hover:scale-[1.05] active:scale-[0.98] relative overflow-hidden group/btn ring-1 ring-white/10"
                 >
                     <span className="relative z-10">REGISTRARTE</span>
                     <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 ease-in-out transform skew-x-12" />

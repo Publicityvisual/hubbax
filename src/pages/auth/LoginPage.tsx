@@ -275,10 +275,10 @@ export default function LoginPage() {
               </div>
 
               {/* Glass Login Card */}
-              <div className="bg-[#242526]/80 backdrop-blur-3xl border border-white/10 rounded-[32px] p-8 md:p-10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] relative overflow-hidden group">
+              <div className="bg-[#0a0a0a]/60 backdrop-blur-3xl border border-white/10 rounded-[32px] p-8 md:p-10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.8)] relative overflow-hidden group">
                 
                 {/* Noise Texture Overlay */}
-                <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none mix-blend-overlay" />
+                <div className="absolute inset-0 bg-noise opacity-[0.05] pointer-events-none mix-blend-overlay" />
 
                 {/* Glass Shine Effect */}
                 <div className="glass-shine absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-[-25deg] pointer-events-none" />
@@ -290,8 +290,8 @@ export default function LoginPage() {
 
                 {/* Social Buttons */}
                 <div className="flex gap-4 mb-8 relative z-10">
-                  <button className="flex-1 flex items-center justify-center gap-2 h-14 bg-white hover:bg-neutral-100 rounded-2xl text-gray-900 font-black transition-all text-sm shadow-xl hover:-translate-y-1 active:translate-y-0">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24">
+                  <button className="flex-1 flex items-center justify-center gap-2 h-14 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 rounded-2xl text-white font-bold transition-all text-sm shadow-lg hover:-translate-y-1 active:translate-y-0 backdrop-blur-md group/social">
+                    <svg className="w-5 h-5 group-hover/social:scale-110 transition-transform" viewBox="0 0 24 24">
                       <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                       <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                       <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -299,8 +299,8 @@ export default function LoginPage() {
                     </svg>
                     Google
                   </button>
-                  <button className="flex-1 flex items-center justify-center gap-2 h-14 bg-black border border-white/10 rounded-2xl text-white font-black transition-all text-sm hover:border-white/20 hover:-translate-y-1 active:translate-y-0 shadow-xl">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <button className="flex-1 flex items-center justify-center gap-2 h-14 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 rounded-2xl text-white font-bold transition-all text-sm shadow-lg hover:-translate-y-1 active:translate-y-0 backdrop-blur-md group/social">
+                    <svg className="w-5 h-5 fill-white group-hover/social:scale-110 transition-transform" viewBox="0 0 24 24" >
                       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                     </svg>
                     Apple
@@ -323,7 +323,7 @@ export default function LoginPage() {
                       placeholder="email@hubbax.com"
                       error={errors.email?.message}
                       {...register('email')}
-                      className="relative h-16 bg-[#0a0a0a]/50 border-white/5 text-white placeholder:text-neutral-600 focus:border-[#d93025]/50 focus:ring-0 rounded-2xl px-5 text-base transition-all font-medium backdrop-blur-sm"
+                      className="relative h-14 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-600 focus:border-[#d93025]/50 focus:ring-0 rounded-2xl px-5 text-base transition-all font-medium backdrop-blur-md"
                       hideLabel
                     />
                   </div>
@@ -334,7 +334,7 @@ export default function LoginPage() {
                       placeholder="••••••••"
                       error={errors.password?.message}
                       {...register('password')}
-                      className="relative h-16 bg-[#0a0a0a]/50 border-white/5 text-white placeholder:text-neutral-600 focus:border-[#d93025]/50 focus:ring-0 rounded-2xl px-5 text-base transition-all font-medium backdrop-blur-sm"
+                      className="relative h-14 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-600 focus:border-[#d93025]/50 focus:ring-0 rounded-2xl px-5 text-base transition-all font-medium backdrop-blur-md"
                       hideLabel
                     />
                   </div>
@@ -343,14 +343,14 @@ export default function LoginPage() {
                     <label className="flex items-center gap-2 text-neutral-400 cursor-pointer hover:text-white transition-colors group">
                       <input 
                         type="checkbox" 
-                        className="w-4 h-4 rounded border-white/10 bg-transparent text-[#d93025] focus:ring-0 checked:bg-[#d93025]"
+                        className="w-4 h-4 rounded border-white/10 bg-transparent text-[#d93025] focus:ring-0 checked:bg-[#d93025] checked:border-transparent transition-all"
                         {...register('remember')} 
                       />
-                      <span className="font-bold">Recordarme</span>
+                      <span className="font-bold group-hover:text-[#d93025] transition-colors">Recordarme</span>
                     </label>
                     <Link 
                       to="/recovery" 
-                      className="text-[#d93025] font-black hover:underline tracking-tight"
+                      className="text-neutral-400 font-bold hover:text-[#d93025] hover:underline tracking-tight transition-colors"
                     >
                       ¿Olvidaste tu contraseña?
                     </Link>
@@ -358,7 +358,7 @@ export default function LoginPage() {
 
                   <Button 
                     type="submit" 
-                    className="w-full h-16 text-xl font-black rounded-2xl bg-gradient-to-r from-[#d93025] to-[#ff3b2f] text-white transition-all shadow-2xl shadow-[#d93025]/30 hover:scale-[1.02] active:scale-[0.98] mt-4 relative overflow-hidden" 
+                    className="w-full h-14 text-lg font-black rounded-2xl bg-gradient-to-r from-[#d93025] to-[#ff3b2f] text-white transition-all shadow-[0_0_30px_rgba(217,48,37,0.3)] hover:shadow-[0_0_40px_rgba(217,48,37,0.5)] hover:scale-[1.02] active:scale-[0.98] mt-4 relative overflow-hidden ring-1 ring-white/10" 
                     size="lg" 
                     isLoading={isLoading}
                   >
@@ -370,18 +370,17 @@ export default function LoginPage() {
                    {/* Desktop: Simple Link */}
                   <button 
                     onClick={() => setIsRegisterOpen(true)}
-                    className="hidden lg:inline-block text-white font-black text-sm hover:text-[#d93025] transition-colors"
+                    className="hidden lg:inline-block text-white font-bold text-sm hover:text-[#d93025] transition-colors"
                   >
                     ¿No tienes cuenta? <span className="underline ml-1">Regístrate gratis</span>
                   </button>
 
-                  {/* Mobile: Facebook Style "Join" Section */}
+                  {/* Mobile: Premium "Join" Section */}
                   <div className="lg:hidden flex flex-col items-center">
-                      <div className="w-full h-px bg-white/10 mb-6" />
                       
                       <button 
                         onClick={() => setIsRegisterOpen(true)}
-                        className="w-full h-12 bg-[#30a24b] hover:bg-[#2b9243] text-white font-bold rounded-xl transition-all shadow-lg active:scale-[0.98] mb-6 flex items-center justify-center gap-2"
+                        className="w-full h-12 bg-transparent border border-[#d93025]/50 text-[#d93025] font-bold rounded-xl transition-all active:scale-[0.98] mb-6 flex items-center justify-center gap-2 hover:bg-[#d93025]/5"
                       >
                          Crear cuenta nueva
                       </button>
