@@ -22,14 +22,14 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #18191A; 
+    background: #18191a;
     border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #555; 
+    background: #555;
     border-radius: 5px;
-    border: 2px solid #18191A;
+    border: 2px solid #18191a;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -39,12 +39,22 @@
   /* Specific Red Thumb for active scroll areas */
   .overflow-y-auto::-webkit-scrollbar-thumb,
   select::-webkit-scrollbar-thumb {
-     background: #d93025;
+    background: #d93025;
   }
 }
 
 @layer utilities {
   .bg-noise {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  /* Autofill Overrides for Dark Glass */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #0f0f0f inset !important;
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
   }
 }

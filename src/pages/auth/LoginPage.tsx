@@ -59,15 +59,11 @@ const EnergyBackground = () => {
     }, { scope: meshRef });
 
     return (
-        <div ref={meshRef} className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div ref={meshRef} className="absolute inset-0 overflow-hidden pointer-events-none w-full h-full">
             <div className="energy-blob blob-1 absolute -top-1/4 -left-1/4 w-[80%] h-[80%] bg-[#d93025]/20 rounded-full blur-[160px] opacity-40" />
             <div className="energy-blob blob-2 absolute -bottom-1/4 -right-1/4 w-[70%] h-[70%] bg-purple-600/20 rounded-full blur-[140px] opacity-30" />
             
-            {/* WoWonder Legacy Pattern Overlay */}
-            <div 
-                className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay"
-                style={{ backgroundImage: 'url(/assets/legacy_wowonder/pattern.png)', backgroundRepeat: 'repeat' }}
-            />
+
             
             <div className="absolute inset-0 bg-[#18191a]/40" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#18191a_80%)]" />
@@ -176,10 +172,12 @@ export default function LoginPage() {
   }, { scope: cardRef });
 
   return (
-    <div className="min-h-screen bg-[#18191a] flex flex-col font-sans overflow-hidden select-none relative">
+    <div className="min-h-screen bg-[#18191a] flex flex-col font-sans overflow-x-hidden select-none relative">
       
       {/* Cinematic Energy Background */}
-      <EnergyBackground />
+      <div className="fixed inset-0 z-0">
+         <EnergyBackground />
+      </div>
 
       {/* Main Content Area */}
       <div className="flex-1 flex w-full">

@@ -128,7 +128,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                         placeholder="Nombre"
                         error={errors.firstName?.message}
                         {...register('firstName')}
-                        className="h-12 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
+                        className="h-14 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
                         hideLabel
                     />
                 </motion.div>
@@ -138,7 +138,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                         placeholder="Apellido"
                         error={errors.lastName?.message}
                         {...register('lastName')}
-                        className="h-12 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
+                        className="h-14 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
                         hideLabel
                     />
                 </motion.div>
@@ -151,7 +151,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                     placeholder="Número de celular o correo electrónico"
                     error={errors.email?.message}
                     {...register('email')}
-                    className="h-12 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
+                    className="h-14 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
                     hideLabel
                 />
             </motion.div>
@@ -162,13 +162,14 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                     placeholder="Contraseña nueva"
                     error={errors.password?.message}
                     {...register('password')}
-                    className="h-12 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
+                    className="h-14 bg-[#0a0a0a]/60 border-white/5 text-white placeholder:text-neutral-500 focus:border-[#d93025]/50 focus:ring-4 focus:ring-[#d93025]/10 rounded-xl px-4 text-[15px] transition-all font-medium backdrop-blur-md hover:bg-[#0a0a0a]/80"
                     hideLabel
                 />
             </motion.div>
 
             {/* Birthdate Section */}
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="pt-2">
+                <input type="hidden" {...register('birthDate')} />
                 <div className="flex items-center gap-1.5 mb-2.5">
                    <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider flex items-center gap-2">
                       <span className="w-1 h-1 bg-neutral-600 rounded-full" />
@@ -230,7 +231,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${selectedGender === g ? 'border-[#d93025]' : 'border-neutral-600 group-hover:border-neutral-400'}`}>
                                 {selectedGender === g && <div className="w-2 h-2 rounded-full bg-[#d93025]" />}
                             </div>
-                            <input type="radio" value={g} {...register('gender')} className="hidden" />
+                            <input type="radio" value={g} {...register('gender')} className="sr-only" />
                         </label>
                     ))}
                 </div>
