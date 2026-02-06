@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 import { motion } from "framer-motion";
-import { CURRENT_USER, MASTER_USERS } from "../../data/masterUsers";
+import { CURRENT_USER, MASTER_USERS } from "../../data/users";
 
 interface StoryUser {
   username: string;

@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/Button';
 import { Avatar } from '../../components/ui/Avatar';
 import { Camera, MessageCircle, UserPlus, MoreHorizontal, CheckCircle2, Users } from 'lucide-react';
 import { useParams } from 'react-router-dom';
-import { MASTER_USERS } from '../../data/masterUsers';
+import { MASTER_USERS } from '../../data/users';
 
 // GSAP Imports
 import gsap from 'gsap';
