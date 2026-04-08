@@ -8,6 +8,7 @@ import { loginSchema, LoginFormData } from '../../lib/schemas';
 import { RegisterModal } from '../../components/auth/RegisterModal';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
+import { useFirebase } from '../../contexts/FirebaseContext';
 
 // GSAP Imports
 import gsap from 'gsap';
@@ -71,6 +72,7 @@ const EnergyBackground = () => {
 };
 
 export default function LoginPage() {
+  const { isAuthenticated } = useFirebase();
   const [isLoading, setIsLoading] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const navigate = useNavigate();
@@ -117,20 +119,10 @@ export default function LoginPage() {
     });
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    try {
-      const savedEmail = localStorage.getItem('hubbax_remembered_email');
-      if (savedEmail) {
-        const timer = setTimeout(() => {
-          setValue('email', savedEmail, { shouldDirty: true });
-          setValue('remember', true, { shouldDirty: true });
-        }, 100);
-        return () => clearTimeout(timer);
-      }
-    } catch (e) {
-      console.warn('Hydration error:', e);
+    if (isAuthenticated) {
+      navigate('/feed', { replace: true });
     }
-  }, [setValue]);
+  }, [isAuthenticated, navigate]);
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
