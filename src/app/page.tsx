@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { ArrowRight, Globe, ShieldCheck, Zap, Building2, Users, Briefcase, CheckCircle2 } from "lucide-react"
+import { ArrowRight, Globe, ShieldCheck, Zap, Building2, Users, Briefcase, CheckCircle2, MessageSquare, Bell, Search, Home, User as UserIcon, LayoutGrid, LogOut } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function LandingPage() {
@@ -28,7 +28,6 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
-        {/* Background Decor */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-100 rounded-full blur-3xl opacity-40" />
           <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-cyan-100 rounded-full blur-3xl opacity-40" />
@@ -41,7 +40,7 @@ export default function LandingPage() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-xs font-bold mb-8 shadow-sm border border-blue-100"
           >
-            <Zap size={14} fill="currentColor" /> <span>SISTEMA HUBBAX V2.0 - ACTIVADO</span>
+            <Zap size={14} fill="currentColor" /> <span className="uppercase tracking-wider">SISTEMA HUBBAX V2.0 - ACTIVADO</span>
           </motion.div>
 
           <motion.h1 
@@ -80,21 +79,81 @@ export default function LandingPage() {
             </Link>
           </motion.div>
 
-          {/* Visual Mockup */}
+          {/* Simulated App Interface Mockup */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="mt-24 relative max-w-5xl mx-auto px-4"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mt-24 relative max-w-6xl mx-auto px-4"
           >
-            <div className="relative bg-slate-900 rounded-[2.5rem] p-3 shadow-[0_100px_150px_-30px_rgba(0,0,0,0.3)] border border-slate-800 group overflow-hidden">
-              <div className="bg-slate-800 rounded-[2rem] aspect-video flex items-center justify-center text-slate-400 italic font-medium relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />
-                <div className="flex flex-col items-center gap-6 relative z-10">
-                  <div className="w-20 h-20 bg-blue-600/20 rounded-3xl flex items-center justify-center text-blue-500 animate-pulse shadow-inner">
-                    <Building2 size={40} />
+            <div className="relative bg-slate-200 rounded-[3rem] p-4 shadow-[0_100px_150px_-30px_rgba(0,0,0,0.2)] border-[12px] border-slate-900 overflow-hidden aspect-video">
+              <div className="bg-white w-full h-full rounded-[2rem] overflow-hidden flex flex-col shadow-inner">
+                {/* App Header */}
+                <div className="h-16 border-b border-slate-100 flex items-center justify-between px-6 bg-white">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-blue-600 rounded-lg" />
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                      <div className="bg-slate-100 rounded-full pl-10 pr-4 py-2 text-xs text-slate-400 w-64">Buscar profesionales...</div>
+                    </div>
                   </div>
-                  <span className="text-lg font-semibold tracking-wide opacity-70 uppercase">Interface de Hubbax Elite Preview</span>
+                  <div className="flex items-center gap-4">
+                    <Bell size={20} className="text-slate-400" />
+                    <MessageSquare size={20} className="text-slate-400" />
+                    <div className="w-8 h-8 bg-slate-200 rounded-full" />
+                  </div>
+                </div>
+                {/* App Body */}
+                <div className="flex flex-1 overflow-hidden">
+                  {/* Sidebar */}
+                  <div className="w-64 border-r border-slate-100 p-4 flex flex-col gap-2 bg-slate-50/50">
+                    <SidebarItem icon={<Home size={18} />} label="Feed Principal" active />
+                    <SidebarItem icon={<Users size={18} />} label="Conexiones" />
+                    <SidebarItem icon={<Briefcase size={18} />} label="Empleos" />
+                    <SidebarItem icon={<LayoutGrid size={18} />} label="Marketplace" />
+                    <div className="mt-auto">
+                       <SidebarItem icon={<UserIcon size={18} />} label="Mi Perfil" />
+                       <SidebarItem icon={<LogOut size={18} />} label="Cerrar Sesión" />
+                    </div>
+                  </div>
+                  {/* Main Feed */}
+                  <div className="flex-1 p-6 bg-white overflow-y-auto space-y-6">
+                    {/* Create Post */}
+                    <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex gap-4">
+                      <div className="w-10 h-10 bg-slate-200 rounded-full shrink-0" />
+                      <div className="bg-white rounded-full px-4 py-2 text-sm text-slate-400 w-full border border-slate-200">¿Qué hay de nuevo en tu carrera?</div>
+                    </div>
+                    {/* Feed Post 1 */}
+                    <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm space-y-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-100 rounded-full" />
+                        <div>
+                          <div className="text-sm font-bold">Carlos Alberto</div>
+                          <div className="text-xs text-slate-400 font-medium">Senior Architect @ Hubbax</div>
+                        </div>
+                      </div>
+                      <div className="text-sm text-slate-600 leading-relaxed">
+                        Acabo de terminar la implementación de la V2 de Hubbax. El rendimiento es increíble y la experiencia de usuario ha subido a otro nivel. ¡Súper emocionado por lo que viene! 🚀
+                      </div>
+                      <div className="h-48 bg-slate-100 rounded-xl overflow-hidden relative">
+                        <div className="absolute inset-0 flex items-center justify-center text-slate-300 font-bold uppercase tracking-widest text-xs">Visual Content Preview</div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Suggestions */}
+                  <div className="w-72 p-4 bg-slate-50/50 space-y-6">
+                    <div className="font-bold text-sm text-slate-900 mb-4">Sugerencias para ti</div>
+                    {[1,2,3].map(i => (
+                      <div key={i} className="flex items-center gap-3 p-2 hover:bg-white rounded-xl transition-colors cursor-pointer group">
+                        <div className="w-10 h-10 bg-slate-200 rounded-full" />
+                        <div className="flex-1 overflow-hidden">
+                          <div className="text-xs font-bold truncate">Profesional Elite {i}</div>
+                          <div className="text-[10px] text-slate-400 truncate">Expert in AI & Big Data</div>
+                        </div>
+                        <Button size="sm" className="h-7 px-3 text-[10px] bg-blue-600">Sugerido</Button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -102,7 +161,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Features Section */}
       <section id="features" className="bg-slate-50 py-32 px-6 border-y border-slate-100">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24">
@@ -132,7 +191,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Ecosystem */}
+      {/* Ecosystem Section */}
       <section id="ecosystem" className="py-32 px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <motion.div 
@@ -141,10 +200,11 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="space-y-12"
           >
-            <div>
-              <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 leading-tight">
+            <div className="relative">
+              <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 leading-tight relative z-10">
                 Más que una red, <br /> <span className="text-blue-600">la infraestructura de tu éxito.</span>
               </h2>
+              <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-100 rounded-full blur-2xl opacity-50 -z-10" />
             </div>
             <div className="space-y-6">
               <EcoItem icon={<Users />} title="Comunidades de Industria" desc="Grupos especializados donde el conocimiento fluye entre los mejores." />
@@ -209,6 +269,15 @@ function EcoItem({ icon, title, desc }: { icon: React.ReactNode, title: string, 
         <h4 className="font-black text-slate-900 text-lg group-hover:text-blue-600 transition-colors">{title}</h4>
         <p className="text-slate-500 text-sm font-medium line-clamp-2">{desc}</p>
       </div>
+    </div>
+  )
+}
+
+function SidebarItem({ icon, label, active = false }: { icon: React.ReactNode, label: string, active?: boolean }) {
+  return (
+    <div className={`flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all ${active ? 'bg-blue-600 text-white shadow-md shadow-blue-200' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'}`}>
+      {icon}
+      <span className="text-xs font-bold">{label}</span>
     </div>
   )
 }
