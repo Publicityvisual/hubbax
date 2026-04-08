@@ -53,7 +53,7 @@ export default function HomePage() {
             <div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center text-white font-black text-3xl shadow-lg">H</div>
             <span className="text-5xl font-black tracking-tighter text-black uppercase italic">
               Hubbax <span className="text-red-600">Inc</span>
-            </span]
+            </span>
           </motion.div>
 
           <motion.div 
