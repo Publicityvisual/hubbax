@@ -19,9 +19,10 @@ export function VersionManager() {
         if (isInitial) {
           versionRef.current = data.version;
         } else if (versionRef.current && data.version !== versionRef.current) {
-          console.log('Hubbax Sync: New version detected');
-          versionRef.current = data.version; 
-          // Silent refresh logic could go here
+          console.log('🚀 Hubbax Sync: New version detected. Refreshing for latest updates...');
+          
+          // Force a hard reload to clear cache and get latest assets
+          window.location.reload();
         }
       } catch {
         // Silent fail
