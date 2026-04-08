@@ -10,6 +10,7 @@ import FriendsPage from './pages/social/FriendsPage';
 import NotificationsPage from './pages/social/NotificationsPage';
 import SettingsPage from './pages/settings/SettingsPage';
 import AboutPage from './pages/about/AboutPage';
+import FanPageManager from './pages/social/FanPageManager';
 
 import { VersionManager } from './components/VersionManager';
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/notifications" element={<NotificationsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/fanpages" element={<FanPageManager />} />
             
             {/* Auth Pages */}
             <Route path="/supreme-admin" element={<SupremeAdminLogin onSupremeLogin={() => console.log('Supreme admin login attempted')} />} />
