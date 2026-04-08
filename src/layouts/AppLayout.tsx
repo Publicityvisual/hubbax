@@ -10,7 +10,7 @@ interface AppLayoutProps {
 
 export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
-  const { user, profile } = useFirebase();
+  const { profile } = useFirebase();
 
   // Reemplazo temporal mientras la autenticación se completa
   const currentUser = profile || {
