@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Home, Users, Bell, Settings, Search, LogOut, User, MessageSquare, Zap, Compass, Shield } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useFirebase } from '../contexts/FirebaseContext';
+import { useAppStore } from '../store/appStore';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -11,9 +12,10 @@ interface AppLayoutProps {
 export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
   const { profile } = useFirebase();
+  const { userProfile } = useAppStore();
 
-  // Reemplazo temporal mientras la autenticación se completa
-  const currentUser = profile || {
+  // Prioritize real profile, then zod/store, then fallback
+  const currentUser = profile || userProfile || {
     username: 'freedom',
     avatar: '/assets/avatars/freedom.png',
     fullName: 'Freedom Defender'

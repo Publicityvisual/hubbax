@@ -1,6 +1,6 @@
 import { Plus } from "lucide-react";
 import { motion } from "framer-motion";
-import { CURRENT_USER, MASTER_USERS } from "../../data/users";
+import { useFirebase } from "../../contexts/FirebaseContext";
 
 interface StoryUser {
   username: string;
@@ -11,7 +11,12 @@ interface StoryUser {
 }
 
 const STORY_USERS: StoryUser[] = [
-  MASTER_USERS.ai_assistant,
+  {
+    username: "hubbax_ai",
+    fullName: "Hubbax AI",
+    avatarImage: "https://images.unsplash.com/photo-1675252269966-261944510b65?w=500&auto=format&fit=crop&q=80",
+    storyImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=500&auto=format&fit=crop&q=60",
+  },
   {
     username: "sarah_c",
     fullName: "Sarah Connor",
@@ -39,6 +44,13 @@ const STORY_USERS: StoryUser[] = [
 ];
 
 export function Stories() {
+  const { profile } = useFirebase();
+  const currentUser = profile || {
+    fullName: 'Admin',
+    avatarImage: 'https://ui-avatars.com/api/?name=Admin',
+    username: 'admin'
+  };
+
   return (
     <div className="relative w-full py-4">
       <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-0">
@@ -46,7 +58,7 @@ export function Stories() {
         <div className="relative flex-shrink-0 w-[112px] h-[200px] bg-[#242526] rounded-xl overflow-hidden cursor-pointer group shadow-lg hover:shadow-xl transition-all border border-white/5">
           <div className="h-full w-full overflow-hidden relative">
             <img
-              src={CURRENT_USER.avatarImage}
+              src={currentUser.avatarImage || currentUser.avatar}
               alt="My Story"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60 group-hover:opacity-80"
             />
