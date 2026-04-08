@@ -1,7 +1,9 @@
 import { Image, Smile, Video } from 'lucide-react';
-import { CURRENT_USER } from '../../data/masterUsers';
+import { currentUser } from '../../data/masterUsers';
 
-export function CreatePost() {
+export function CreatePost({ currentUser: propsUser }: { currentUser?: any }) {
+  // Use the imported master user if no props provided
+  const user = propsUser || currentUser;
   // Logic for a real input would go here, currently using as a simplified trigger
 
   return (
@@ -12,8 +14,8 @@ export function CreatePost() {
         <div className="flex-shrink-0 relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#d93025] to-purple-500 rounded-full blur-[2px] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
             <img 
-                src={CURRENT_USER.avatarImage} 
-                alt={CURRENT_USER.fullName} 
+                src={user.avatarImage} 
+                alt={user.fullName} 
                 className="w-11 h-11 rounded-full object-cover cursor-pointer hover:scale-105 transition-all relative z-10 border-2 border-transparent"
             />
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-black z-20"></div>
@@ -23,7 +25,7 @@ export function CreatePost() {
                 onClick={() => {}} 
                 className="w-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white/80 text-left px-5 py-3 rounded-full transition-all duration-200 font-light flex items-center h-11 border border-white/5 hover:border-white/20 backdrop-blur-sm"
             >
-                ¿Qué estás pensando, <span className="text-white/90 font-medium ml-1">{CURRENT_USER.fullName.split(' ')[0]}</span>?
+                ¿Qué estás pensando, <span className="text-white/90 font-medium ml-1">{user.fullName.split(' ')[0]}</span>?
             </button>
         </div>
       </div>

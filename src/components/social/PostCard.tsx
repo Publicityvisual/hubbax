@@ -4,45 +4,77 @@ import { ReactionSelector } from '../ui/ReactionSelector';
 import { REACTION_METADATA } from '../ui/ReactionMetadata';
 import { motion, AnimatePresence } from 'framer-motion';
 
-interface PostProps {
-  author: {
-    name: string;
-    username: string;
-    avatar: string;
-  };
+export interface PostProps {
+  // Core post data
+  authorName: string;
+  authorUsername: string;
+  authorAvatar?: string;
   content: string;
   image?: string;
-  timestamp: string;
-  stats: {
-    likes: number;
-    comments: number;
-    shares: number;
-  };
+  timestamp: any;
+  likes: string[];
+  comments: any[];
+  shares: string[]; 
+  
+  // UI/UX props
+  isHubbaxVerified?: boolean;
 }
 
-export function PostCard({ author, content, image, timestamp, stats }: PostProps) {
+export function PostCard({
+  authorName,
+  authorUsername,
+  authorAvatar,
+  content,
+  image,
+  timestamp,
+  likes = [],
+  comments = [],
+  shares = [],
+  isHubbaxVerified = false
+}: PostProps) {
+  // Estado del componente - optimized for production
   const [selectedReaction, setSelectedReaction] = useState<typeof REACTION_METADATA[0] | null>(null);
   const [isHoveringLike, setIsHoveringLike] = useState(false);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const leaveTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
+  // Stats calculados desde Firebase
+  const stats = {
+    likes: likes?.length || 0,
+    comments: comments?.length || 0,
+    shares: shares?.length || 0
+  };
+
+  // Avatar fallback con IA
+  const finalAuthorAvatar = authorAvatar ||
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(authorName)}&background=random&size=200`;
+
+  // Timestamp humano
+  const humanTimestamp = timestamp?.toDate ?
+    timestamp.toDate().toLocaleString() :
+    (typeof timestamp === 'string' ? timestamp : 'Ahora mismo');
+
+  // Estado overlay corazón
+  const [showHeartOverlay, setShowHeartOverlay] = useState(false);
+  const lastTap = useRef<number>(0);
+
   const handleMouseEnter = () => {
     if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
     hoverTimeoutRef.current = setTimeout(() => {
         setIsHoveringLike(true);
-    }, 400); 
+    }, 400);
   };
 
   const handleMouseLeave = () => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
     leaveTimeoutRef.current = setTimeout(() => {
          setIsHoveringLike(false);
-    }, 500); 
+    }, 500);
   };
 
   const handleSelectReaction = (reaction: typeof REACTION_METADATA[0]) => {
     if (selectedReaction?.id === reaction.id) {
-        setSelectedReaction(null); 
+        setSelectedReaction(null);
     } else {
         setSelectedReaction(reaction);
         // Play sound if not unselecting
@@ -63,9 +95,7 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
     icon: <ThumbsUp className="w-5 h-5" />
   };
 
-  const [showHeartOverlay, setShowHeartOverlay] = useState(false);
-  const lastTap = useRef<number>(0);
-
+  // Heart overlay fix - useRef import
   const handleDoubleTap = () => {
     const now = Date.now();
     const DOUBLE_TAP_DELAY = 300;
@@ -77,61 +107,69 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
         setShowHeartOverlay(true);
         setTimeout(() => setShowHeartOverlay(false), 800);
     }
-    lastTap.current = now;
+    lastTap.current = now; 
   };
 
   return (
-    <motion.article 
+    <motion.article
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="bg-black/40 backdrop-blur-md rounded-2xl mb-6 border border-white/5 overflow-hidden font-sans group hover:border-white/10 transition-colors duration-500"
     >
-      
+
       {/* Social Header */}
       <div className="px-5 pt-4 pb-3 flex items-start justify-between">
         <div className="flex gap-3">
             <div className="cursor-pointer relative">
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#d93025] to-purple-500 rounded-full blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <img 
-                    src={author.avatar} 
-                    alt={author.name} 
+                <img
+                    src={finalAuthorAvatar}
+                    alt={authorName}
                     className="w-11 h-11 rounded-full object-cover border-2 border-transparent relative z-10"
                 />
             </div>
             <div>
-                <h3 className="text-[15px] font-semibold text-white/95 hover:text-white cursor-pointer leading-5 tracking-wide">
-                    {author.name}
+                <h3 className="text-[15px] font-semibold text-white hover:text-white cursor-pointer leading-5 tracking-wide">
+                    {authorName}
                 </h3>
-                <div className="flex items-center gap-1.5 text-[12px] text-white/50 leading-4 mt-1">
-                    <span className="hover:underline cursor-pointer hover:text-white/70 transition-colors">{timestamp}</span>
+                <div className="flex items-center gap-1.5 text-[12px] text-gray-300 leading-4 mt-1">
+                    <span className="hover:underline cursor-pointer hover:text-gray-200 transition-colors">{authorUsername}</span>
                     <span className="text-[10px]">•</span>
-                    <Globe className="w-3 h-3" />
+                    <span className="hover:underline cursor-pointer hover:text-gray-200 transition-colors">{humanTimestamp}</span>
+                    {isHubbaxVerified && (
+                      <div className="w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
+                        <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                    )}
+                    <Globe className="w-3 h-3 text-gray-400" />
                 </div>
             </div>
         </div>
-        <button className="text-white/40 hover:text-white hover:bg-white/10 p-2 rounded-full transition-all -mr-2">
+        <button className="text-gray-400 hover:text-white hover:bg-gray-700 p-2 rounded-full transition-all -mr-2">
             <MoreHorizontal className="w-5 h-5" />
         </button>
       </div>
 
       {/* Post Text */}
       <div className="px-5 pb-4">
-         <p className="text-[15px] text-white/90 leading-relaxed whitespace-pre-wrap font-light tracking-wide">{content}</p>
+         <p className="text-[15px] text-white leading-relaxed whitespace-pre-wrap font-light tracking-wide"><span className="inline-block">{content}</span></p>
       </div>
 
       {/* Media Attachment */}
       {image && (
-          <div 
+          <div
             className="w-full bg-black relative select-none cursor-pointer group/image"
             onClick={handleDoubleTap}
           >
               <img src={image} alt="Post content" className="w-full h-auto object-cover max-h-[700px] opacity-90 group-hover/image:opacity-100 transition-opacity duration-500" />
-              
+
               <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
 
               <AnimatePresence>
                 {showHeartOverlay && (
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1.2 }}
                         exit={{ opacity: 0, scale: 0.8 }}
@@ -146,8 +184,8 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
       )}
 
       {/* Social Stats */}
-      <div className="mx-5 py-3 flex items-center justify-between border-b border-white/5 text-white/50 text-[13px]">
-          <div className="flex items-center gap-1.5 cursor-pointer hover:text-white/80 transition-colors">
+      <div className="mx-5 py-3 flex items-center justify-between border-b border-gray-700 text-gray-400 text-[13px]">
+          <div className="flex items-center gap-1.5 cursor-pointer hover:text-gray-200 transition-colors">
               {selectedReaction ? (
                   <div className="flex items-center gap-1.5">
                       <div className="w-[18px] h-[18px]">
@@ -165,8 +203,8 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
               )}
           </div>
           <div className="flex gap-4">
-              <span className="hover:underline cursor-pointer">{stats.comments} comentarios</span>
-              <span className="hover:underline cursor-pointer">{stats.shares} compartidos</span>
+              <span className="hover:underline cursor-pointer hover:text-gray-200">{stats.comments} comentarios</span>
+              <span className="hover:underline cursor-pointer hover:text-gray-200">{stats.shares} compartidos</span>
           </div>
       </div>
 
@@ -174,7 +212,7 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
       <div className="px-3 py-1.5">
         <div className="flex items-center gap-1">
             {/* Like Button & Dock */}
-            <div 
+            <div
                 className="relative flex-1"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
@@ -182,22 +220,22 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
             >
                 <AnimatePresence>
                     {isHoveringLike && (
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0, y: 10, scale: 0.95 }}
                             animate={{ opacity: 1, y: -10, scale: 1 }}
                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
                             transition={{ duration: 0.2 }}
                             className="absolute bottom-full left-0 z-50 w-full flex pl-4 pointer-events-auto pb-2"
-                            onClick={(e) => e.stopPropagation()} 
+                            onClick={(e) => e.stopPropagation()}
                         >
                             <ReactionSelector onSelect={handleSelectReaction} />
                         </motion.div>
                     )}
                 </AnimatePresence>
 
-                <button 
+                <button
                     onClick={(e) => {
-                        e.stopPropagation(); 
+                        e.stopPropagation();
                         if (isHoveringLike) {
                             setIsHoveringLike(false);
                         } else {
@@ -210,14 +248,14 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
                     style={{ color: selectedReaction?.color }}
                 >
                     <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
-                    
+
                     <div className="relative z-10 flex items-center gap-2">
                         {selectedReaction ? (
                             <div className="w-5 h-5 relative">
                                 {selectedReaction.imagePath ? (
                                     <img src={selectedReaction.imagePath} alt={selectedReaction.name} className="w-full h-full object-contain" />
                                 ) : (
-                                    <selectedReaction.Component /> 
+                                    <selectedReaction.Component />
                                 )}
                             </div>
                         ) : (
@@ -235,7 +273,7 @@ export function PostCard({ author, content, image, timestamp, stats }: PostProps
                     <span>Comentar</span>
                 </div>
             </button>
-            
+
             <button className="flex-1 group flex items-center justify-center gap-2 text-white/60 hover:text-white/90 hover:bg-white/5 font-medium text-[14px] h-10 rounded-lg transition-all duration-300 relative overflow-hidden">
                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
                 <div className="relative z-10 flex items-center gap-2">

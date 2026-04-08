@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { Home, Users, Bell, Settings, Search, LogOut, User, MessageSquare, Zap, Compass, Shield } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { CURRENT_USER } from '../data/masterUsers';
+import { useFirebase } from '../contexts/FirebaseContext';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -10,6 +10,14 @@ interface AppLayoutProps {
 
 export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
+  const { user, profile } = useFirebase();
+
+  // Reemplazo temporal mientras la autenticación se completa
+  const currentUser = profile || {
+    username: 'freedom',
+    avatar: '/assets/avatars/freedom.png',
+    fullName: 'Freedom Defender'
+  };
 
   const navItems = [
     { icon: <Home className="w-[22px] h-[22px]" />, label: "Inicio", path: "/feed" },
@@ -17,7 +25,7 @@ export function AppLayout({ children }: AppLayoutProps) {
     { icon: <Users className="w-[22px] h-[22px]" />, label: "Amigos", path: "/friends" },
     { icon: <MessageSquare className="w-[22px] h-[22px]" />, label: "Mensajes", path: "/messages" },
     { icon: <Bell className="w-[22px] h-[22px]" />, label: "Notificaciones", path: "/notifications" },
-    { icon: <User className="w-[22px] h-[22px]" />, label: "Perfil", path: `/profile/${CURRENT_USER.username}` },
+    { icon: <User className="w-[22px] h-[22px]" />, label: "Perfil", path: `/profile/${currentUser.username}` },
   ];
 
   return (
@@ -35,8 +43,8 @@ export function AppLayout({ children }: AppLayoutProps) {
              <button className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/70 active:scale-90 transition-all">
                 <Search className="w-5 h-5" />
              </button>
-             <Link to={`/profile/${CURRENT_USER.username}`} className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-white/10 active:scale-90 transition-all">
-                <img src={CURRENT_USER.avatarImage} alt="Profile" className="w-full h-full object-cover" />
+             <Link to={`/profile/${currentUser.username}`} className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-white/10 active:scale-90 transition-all">
+                <img src={currentUser.avatar} alt="Profile" className="w-full h-full object-cover" />
              </Link>
         </div>
       </nav>
@@ -122,10 +130,10 @@ export function AppLayout({ children }: AppLayoutProps) {
             
              {/* Mini Profile */}
             <div className="mt-6 flex items-center gap-3 p-3 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
-                 <img src={CURRENT_USER.avatarImage} className="w-10 h-10 rounded-full object-cover ring-2 ring-transparent group-hover:ring-[#d93025] transition-all" alt="Me" />
+                 <img src={currentUser.avatar} className="w-10 h-10 rounded-full object-cover ring-2 ring-transparent group-hover:ring-[#d93025] transition-all" alt="Me" />
                  <div className="flex-1 min-w-0">
-                     <p className="font-bold text-white text-sm truncate">{CURRENT_USER.fullName}</p>
-                     <p className="text-xs text-neutral-500 truncate">@{CURRENT_USER.username}</p>
+                     <p className="font-bold text-white text-sm truncate">{currentUser.fullName}</p>
+                     <p className="text-xs text-neutral-500 truncate">@{currentUser.username}</p>
                  </div>
             </div>
         </aside>
@@ -262,7 +270,7 @@ export function AppLayout({ children }: AppLayoutProps) {
                 className="relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300"
             >
                 <div className={`relative z-10 ${location.pathname === '/settings' ? 'text-white' : 'text-neutral-400'}`}>
-                    <img src={CURRENT_USER.avatarImage} className="w-7 h-7 rounded-full object-cover border border-white/20" alt="Me" />
+                    <img src={currentUser.avatar} className="w-7 h-7 rounded-full object-cover border border-white/20" alt="Me" />
                 </div>
             </Link>
         </div>
