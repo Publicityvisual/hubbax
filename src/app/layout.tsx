@@ -1,5 +1,6 @@
 "use client"
 
+import "./globals.css" // Importación CRÍTICA del diseño
 import { useEffect } from "react"
 import { Toaster } from "@/components/ui/sonner"
 import { APP_VERSION } from "@/lib/version"
