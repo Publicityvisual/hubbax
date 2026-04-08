@@ -356,18 +356,6 @@ export default function LoginPage() {
                   </Button>
                 </form>
 
-                {/* Supreme Admin Access */}
-                <div className="mt-6 text-center">
-                  <button
-                    onClick={() => navigate('/supreme-admin')}
-                    className="text-purple-400 hover:text-purple-300 text-sm font-medium opacity-70 hover:opacity-100 transition-all flex items-center justify-center gap-2 hover:gap-3 group"
-                  >
-                    <span className="group-hover:animate-pulse">🔱</span>
-                    <span className="group-hover:text-purple-200">Supreme Administration</span>
-                    <span className="group-hover:animate-pulse">🔱</span>
-                  </button>
-                </div>
-
                 <div className="mt-8 pt-6 border-t border-white/5 text-center relative z-10">
                    {/* Desktop: Simple Link */}
                   <button 
