@@ -10,10 +10,12 @@ export function CreatePost({ currentUser: propsUser }: { currentUser?: any }) {
   
   // Prioritize profile over propsUser (Firebase User) or fallbacks
   const user = profile || (propsUser ? {
+    uid: propsUser.uid,
     fullName: propsUser.displayName || 'Admin',
     avatar: propsUser.photoURL || 'https://ui-avatars.com/api/?name=Admin',
     username: propsUser.email?.split('@')[0] || 'admin'
   } : { 
+    uid: 'admin-system',
     fullName: 'Admin', 
     avatar: 'https://ui-avatars.com/api/?name=Admin', 
     username: 'admin' 
@@ -25,6 +27,11 @@ export function CreatePost({ currentUser: propsUser }: { currentUser?: any }) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isPosting, setIsPosting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Defensive avatar source
+  const userAvatar = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.fullName || 'Admin')}`;
+  const displayName = user.fullName || 'Admin';
+  const firstSurnamed = (displayName.split(' ')[0]) || 'Admin';
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
