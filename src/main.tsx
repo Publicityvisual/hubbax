@@ -7,8 +7,6 @@ import { FirebaseProvider } from './contexts/FirebaseContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <FirebaseProvider>
-      <App />
-    </FirebaseProvider>
+    <App />
   </StrictMode>,
 )
