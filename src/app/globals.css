@@ -1,58 +1,76 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #2563eb;
+  --color-primary: #2196f3;
   --color-primary-foreground: #ffffff;
-  --color-background: #f8fafc;
-  --color-foreground: #0f172a;
+  --color-background: #f9f9f9;
+  --color-foreground: #050505;
   --color-card: #ffffff;
-  --color-card-foreground: #0f172a;
-  --color-border: #e2e8f0;
-  --color-input: #e2e8f0;
-  --color-ring: #2563eb;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
-  --radius-3xl: 2rem;
+  --color-card-foreground: #050505;
+  --color-border: #ededed;
+  --color-input: #f0f2f5;
+  --color-ring: #2196f3;
+  --radius-xl: 8px;
+  --radius-2xl: 12px;
+  --radius-3xl: 16px;
 }
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #f9f9f9;
+  --foreground: #050505;
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #050505;
   --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --primary: #2563eb;
+  --popover-foreground: #050505;
+  --primary: #2196f3;
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
-  --destructive: #ef4444;
+  --secondary: #f0f2f5;
+  --secondary-foreground: #050505;
+  --muted: #f1f1f1;
+  --muted-foreground: #777777;
+  --accent: #f0f2f5;
+  --accent-foreground: #050505;
+  --destructive: #f44336;
   --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #2563eb;
-  --radius: 0.625rem;
+  --border: #ededed;
+  --input: #f0f2f5;
+  --ring: #2196f3;
+  --radius: 8px;
 }
 
 @layer base {
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: sans-serif;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 }
 
-/* Estilo de emergencia para verificar que el CSS carga */
+/* WoWonder Signature Styles */
+.wow-card {
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.wow-btn-primary {
+  background-color: #2196f3;
+  color: white;
+  transition: background 0.4s cubic-bezier(.25,.8,.25,1);
+}
+
+.wow-btn-primary:hover {
+  background-color: #1976d2;
+}
+
+/* Design verification check */
 .design-check {
-  background-color: #2563eb !important;
+  background-color: #2196f3 !important;
   color: white !important;
   padding: 20px !important;
   border-radius: 20px !important;
   text-align: center !important;
   font-weight: bold !important;
-  border: 5px solid gold !important;
+  border: 5px solid #fdba2c !important;
 }
