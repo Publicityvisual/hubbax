@@ -25,8 +25,8 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-44 pb-32 px-6 overflow-hidden">
-        <div className="max-w-6xl mx-auto text-center relative z-10">
+      <section className="relative pt-44 pb-32 px-6">
+        <div className="max-w-6xl mx-auto text-center">
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -50,7 +50,7 @@ export default function LandingPage() {
             transition={{ delay: 0.3 }}
             className="text-xl text-slate-500 max-w-2xl mx-auto mb-16 font-medium leading-relaxed"
           >
-            By Publicity Visual. La infraestructura digital donde la élite profesional conecta y domina su mercado. No es una red social, es el estándar del éxito.
+            By Publicity Visual. La infraestructura digital donde la élite profesional conecta y domina su mercado. No es una red social, la vanguardia del éxito.
           </motion.p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
@@ -62,15 +62,25 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          {/* Design Proof Box - For verification */}
-          <div className="mt-32 p-10 bg-white rounded-[3rem] shadow-2xl border border-slate-100 relative overflow-hidden animate-float">
-             <div className="absolute top-0 left-0 w-full h-2 bg-blue-600" />
-             <h2 className="text-3xl font-black text-slate-900 mb-4">🎨 Prueba de Diseño Activa</h2>
-             <p className="text-slate-500 font-medium">Si puedes ver este cuadro con sombras, bordes redondeados y colores azules, significa que el motor de diseño de Hubbax está funcionando perfectamente.</p>
-             <div className="flex justify-center gap-4 mt-8">
-                <div className="w-12 h-12 bg-blue-600 rounded-full shadow-lg shadow-blue-200" />
-                <div className="w-12 h-12 bg-blue-400 rounded-full shadow-lg shadow-blue-100" />
-                <div className="w-12 h-12 bg-blue-200 rounded-full shadow-lg shadow-blue-50" />
+          {/* DESIGN VERIFICATION BOX - CRITICAL */}
+          <div className="mt-32 p-12 bg-white rounded-[3rem] shadow-2xl border-4 border-blue-500 ring-8 ring-blue-100 relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-4">
+                <span className="text-[10px] font-black text-blue-500 uppercase tracking-widest">Sello de Diseño Hubbax</span>
+             </div>
+             <h2 className="text-4xl font-black text-slate-900 mb-6 text-center">🎨 Verificación de Diseño</h2>
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="p-6 bg-blue-50 rounded-2xl border-2 border-blue-200 flex flex-col items-center gap-4 shadow-sm">
+                   <div className="w-16 h-16 bg-blue-600 rounded-full shadow-xl shadow-blue-300" />
+                   <span className="text-sm font-bold text-blue-700 uppercase">Color Primario</span>
+                </div>
+                <div className="p-6 bg-slate-100 rounded-2xl border-2 border-slate-200 flex flex-col items-center gap-4 shadow-sm">
+                   <div className="w-16 h-16 bg-slate-900 rounded-full shadow-xl shadow-slate-300" />
+                   <span className="text-sm font-bold text-slate-600 uppercase">Contraste Elite</span>
+                </div>
+                <div className="p-6 bg-cyan-50 rounded-2xl border-2 border-cyan-200 flex flex-col items-center gap-4 shadow-sm la</div>
+                   <div className="w-16 h-16 bg-cyan-500 rounded-full shadow-xl shadow-cyan-300" />
+                   <span className="text-sm font-bold text-cyan-700 uppercase">Sombra Dinámica</span>
+                </div>
              </div>
           </div>
         </div>
