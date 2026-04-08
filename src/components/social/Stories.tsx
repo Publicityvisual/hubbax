@@ -45,11 +45,16 @@ const STORY_USERS: StoryUser[] = [
 
 export function Stories() {
   const { profile } = useFirebase();
+  
+  // Defensive Fallback for Profile
   const currentUser = profile || {
     fullName: 'Admin',
-    avatarImage: 'https://ui-avatars.com/api/?name=Admin',
+    avatar: 'https://ui-avatars.com/api/?name=Admin',
     username: 'admin'
   };
+
+  // Guarantee avatar source
+  const userAvatar = currentUser.avatar || currentUser.avatarImage || `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.fullName || 'Usuario')}`;
 
   return (
     <div className="relative w-full py-4">
@@ -58,7 +63,7 @@ export function Stories() {
         <div className="relative flex-shrink-0 w-[112px] h-[200px] bg-[#242526] rounded-xl overflow-hidden cursor-pointer group shadow-lg hover:shadow-xl transition-all border border-white/5">
           <div className="h-full w-full overflow-hidden relative">
             <img
-              src={currentUser.avatarImage || currentUser.avatar}
+              src={userAvatar}
               alt="My Story"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60 group-hover:opacity-80"
             />
@@ -76,15 +81,15 @@ export function Stories() {
         </div>
 
         {/* Friends Stories */}
-        {STORY_USERS.map((user, i) => (
+        {STORY_USERS?.map((user, i) => (
           <motion.div
             key={i}
             whileHover={{ scale: 1.02, y: -2 }}
             className="relative flex-shrink-0 w-[112px] h-[200px] rounded-xl overflow-hidden cursor-pointer group bg-[#0a0a0a]/40 border border-white/5 shadow-md backdrop-blur-md"
           >
             <img
-              src={user.storyImage || user.coverImage}
-              alt={user.fullName}
+              src={user.storyImage || user.coverImage || "https://images.unsplash.com/photo-1557683316-973673b16875?w=500"}
+              alt={user.fullName || 'User'}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/80" />
@@ -92,14 +97,14 @@ export function Stories() {
             {/* Avatar Ring - Premium Gradient */}
             <div className="absolute top-3 left-3 w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-[#d93025] to-purple-600 ring-2 ring-black/20 shadow-lg">
               <img
-                src={user.avatarImage}
-                alt={user.fullName}
+                src={user.avatarImage || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.fullName || 'User')}`}
+                alt={user.fullName || 'User'}
                 className="w-full h-full rounded-full object-cover border-2 border-[#18191a]"
               />
             </div>
 
             <span className="absolute bottom-3 left-3 right-3 text-white text-[13px] font-bold truncate leading-tight drop-shadow-md">
-              {user.fullName}
+              {user.fullName || 'Usuario'}
             </span>
           </motion.div>
         ))}
