@@ -1,40 +1,40 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #2196f3;
+  --color-primary: #e53935; 
   --color-primary-foreground: #ffffff;
-  --color-background: #f9f9f9;
-  --color-foreground: #050505;
+  --color-background: #ffffff;
+  --color-foreground: #000000;
   --color-card: #ffffff;
-  --color-card-foreground: #050505;
-  --color-border: #ededed;
-  --color-input: #f0f2f5;
-  --color-ring: #2196f3;
+  --color-card-foreground: #000000;
+  --color-border: #dfdfdf;
+  --color-input: #f5f5f5;
+  --color-ring: #e53935;
   --radius-xl: 8px;
   --radius-2xl: 12px;
   --radius-3xl: 16px;
 }
 
 :root {
-  --background: #f9f9f9;
-  --foreground: #050505;
+  --background: #ffffff;
+  --foreground: #000000;
   --card: #ffffff;
-  --card-foreground: #050505;
+  --card-foreground: #000000;
   --popover: #ffffff;
-  --popover-foreground: #050505;
-  --primary: #2196f3;
+  --popover-foreground: #000000;
+  --primary: #e53935;
   --primary-foreground: #ffffff;
   --secondary: #f0f2f5;
-  --secondary-foreground: #050505;
-  --muted: #f1f1f1;
-  --muted-foreground: #777777;
+  --secondary-foreground: #000000;
+  --muted: #f5f5f5;
+  --muted-foreground: #65676b;
   --accent: #f0f2f5;
-  --accent-foreground: #050505;
-  --destructive: #f44336;
+  --accent-foreground: #000000;
+  --destructive: #ff1744;
   --destructive-foreground: #ffffff;
-  --border: #ededed;
-  --input: #f0f2f5;
-  --ring: #2196f3;
+  --border: #dddfe2;
+  --input: #f5f5f5;
+  --ring: #e53935;
   --radius: 8px;
 }
 
@@ -46,31 +46,16 @@
   }
 }
 
-/* WoWonder Signature Styles */
-.wow-card {
-  background-color: #fff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  padding: 15px;
+.wow-luxury-shadow {
+  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.05);
 }
 
-.wow-btn-primary {
-  background-color: #2196f3;
-  color: white;
-  transition: background 0.4s cubic-bezier(.25,.8,.25,1);
-}
-
-.wow-btn-primary:hover {
-  background-color: #1976d2;
-}
-
-/* Design verification check */
 .design-check {
-  background-color: #2196f3 !important;
+  background-color: #e53935 !important;
   color: white !important;
   padding: 20px !important;
   border-radius: 20px !important;
   text-align: center !important;
   font-weight: bold !important;
-  border: 5px solid #fdba2c !important;
+  border: 5px solid #000 !important;
 }
