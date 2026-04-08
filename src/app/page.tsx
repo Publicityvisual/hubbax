@@ -77,7 +77,7 @@ export default function LandingPage() {
                    <div className="w-16 h-16 bg-slate-900 rounded-full shadow-xl shadow-slate-300" />
                    <span className="text-sm font-bold text-slate-600 uppercase">Contraste Elite</span>
                 </div>
-                <div className="p-6 bg-cyan-50 rounded-2xl border-2 border-cyan-200 flex flex-col items-center gap-4 shadow-sm la</div>
+                <div className="p-6 bg-cyan-50 rounded-2xl border-2 border-cyan-200 flex flex-col items-center gap-4 shadow-sm">
                    <div className="w-16 h-16 bg-cyan-500 rounded-full shadow-xl shadow-cyan-300" />
                    <span className="text-sm font-bold text-cyan-700 uppercase">Sombra Dinámica</span>
                 </div>
