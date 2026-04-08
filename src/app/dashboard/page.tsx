@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { auth, db } from "@/lib/firebase"
 import { onAuthStateChanged, signOut } from "firebase/auth"
-import { collection, query, orderBy, onSnapshot, addDoc, serverTimestamp, doc, getDoc } from "firebase/firestore"
+import { collection, query, orderBy, onSnapshot, addDoc, serverTimestamp, doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -13,7 +13,7 @@ import {
   Home, Users, Briefcase, Bell, MessageSquare, LogOut, Search, 
   User as UserIcon, LayoutGrid, Image as ImageIcon, Send, 
   MoreHorizontal, ThumbsUp, MessageCircle, PlusCircle, Settings,
-  Globe, ShieldCheck, Zap, Star
+  Globe, ShieldCheck, Zap, Star, Heart, Flame, Lightbulb, Rocket
 } from "lucide-react"
 import { toast } from "sonner"
 import { motion, AnimatePresence } from "framer-motion"
@@ -25,6 +25,7 @@ export default function Dashboard() {
   const [posts, setPosts] = useState<any[]>([])
   const [newPost, setNewPost] = useState("")
   const [loading, setLoading] = useState(true)
+  const [reactingPost, setReactingPost] = useState<string | null>(null)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -32,7 +33,6 @@ export default function Dashboard() {
         router.push("/")
       } else {
         setUser(currentUser)
-        // Fetch professional profile
         try {
           const docRef = doc(db, "users", currentUser.uid)
           const docSnap = await getDoc(docRef)
@@ -69,12 +69,26 @@ export default function Dashboard() {
         headline: profile?.headline || "Member",
         createdAt: serverTimestamp(),
         likes: 0,
+        reactions: {},
         comments: 0
       })
       setNewPost("")
       toast.success("Publicación compartida")
     } catch (err) {
       toast.error("Error al publicar")
+    }
+  }
+
+  const handleReaction = async (postId: string, type: string) => {
+    try {
+      const postRef = doc(db, "posts", postId)
+      await updateDoc(postRef, {
+        reactions: arrayUnion({ uid: user.uid, type })
+      })
+      toast.success(`Reacción ${type} enviada`)
+      setReactingPost(null)
+    } catch (err) {
+      toast.error("Error al reaccionar")
     }
   }
 
@@ -94,7 +108,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#f0f2f5] text-[#1c1e21] font-sans">
-      {/* TOP NAV - Facebook Modern Style */}
+      {/* TOP NAV */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-slate-200 h-14 flex items-center justify-between px-4">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push("/")}>
@@ -177,6 +191,31 @@ export default function Dashboard() {
 
         {/* CENTER FEED */}
         <main className="lg:col-span-6 space-y-6 pb-12">
+          {/* STORIES BAR - Facebook Style */}
+          <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+            <div className="flex-shrink-0 cursor-pointer group relative">
+              <div className="w-20 h-28 rounded-2xl border-2 border-red-600 p-1 relative overflow-hidden">
+                <div className="w-full h-full rounded-xl bg-slate-100 overflow-hidden relative">
+                   <AvatarImage src={profile?.avatar || `https://i.pravatar.cc/150?u=${user?.uid}`} className="w-full h-full object-cover" />
+                   <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-[10px] p-1 text-center font-bold">Añadir Story</div>
+                </div>
+              </div>
+              <div className="absolute top-[-8px] left-1/2 -translate-x-1/2 w-6 h-6 bg-red-600 rounded-full border-2 border-white flex items-center justify-center text-white">
+                <PlusCircle size={12} />
+              </div>
+            </div>
+            {[1,2,3,4,5].map(i => (
+              <div key={i} className="flex-shrink-0 cursor-pointer group relative">
+                <div className="w-20 h-28 rounded-2xl border-2 border-red-600 p-1 relative overflow-hidden">
+                  <div className="w-full h-full rounded-xl bg-slate-100 overflow-hidden relative">
+                    <Image src={`https://i.pravatar.cc/150?u=story${i}`} alt="User" width={80} height={112} className="w-full h-full object-cover" />
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-[10px] p-1 text-center font-bold">Elite {i}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
           {/* Post Composer */}
           <Card className="premium-card border-none shadow-sm ring-1 ring-slate-200 bg-white">
             <CardContent className="p-4">
@@ -256,9 +295,29 @@ export default function Dashboard() {
                         </div>
                         <div className="flex items-center justify-between pt-3 border-t border-slate-100">
                           <div className="flex gap-3">
-                            <Button variant="ghost" size="sm" className="text-slate-500 hover:text-red-600 gap-2 rounded-full h-8 px-4 font-bold text-xs transition-all">
-                              <ThumbsUp size={16} /> Like
-                            </Button>
+                            <div className="relative">
+                              <Button 
+                                onMouseEnter={() => setReactingPost(post.id)}
+                                variant="ghost" size="sm" className="text-slate-500 hover:text-red-600 gap-2 rounded-full h-8 px-4 font-bold text-xs transition-all"
+                              >
+                                <ThumbsUp size={16} /> Like
+                              </Button>
+                              <AnimatePresence>
+                                {reactingPost === post.id && (
+                                  <motion.div 
+                                    initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                                    animate={{ opacity: 1, y: -40, scale: 1 }}
+                                    exit={{ opacity: 0, y: 10, scale: 0.8 }}
+                                    className="absolute bottom-full left-0 bg-white shadow-xl border border-slate-100 rounded-full p-2 flex gap-2 z-50"
+                                  >
+                                    <ReactionBtn icon={<Heart className="text-red-500" size={16}/>} label="Súper" onClick={() => handleReaction(post.id, 'heart')} />
+                                    <ReactionBtn icon={<Flame className="text-orange-500" size={16}/>} label="Fuego" onClick={() => handleReaction(post.id, 'fire')} />
+                                    <ReactionBtn icon={<Lightbulb className="text-yellow-500" size={16}/>} label="Brillante" onClick={() => handleReaction(post.id, 'idea')} />
+                                    <ReactionBtn icon={<Rocket className="text-blue-500" size={16}/>} label="Boost" onClick={() => handleReaction(post.id, 'boost')} />
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </div>
                             <Button variant="ghost" size="sm" className="text-slate-500 hover:text-red-600 gap-2 rounded-full h-8 px-4 font-bold text-xs transition-all">
                               <MessageCircle size={16} /> Comentar
                             </Button>
@@ -350,6 +409,22 @@ function ModuleItem({ icon, label }: { icon: React.ReactNode, label: string }) {
         {icon}
       </div>
       <span className="text-sm font-medium text-slate-700 group-hover:text-red-600 transition-colors">{label}</span>
+    </div>
+  )
+}
+
+function ReactionBtn({ icon, label, onClick }: { icon: React.ReactNode, label: string, onClick: () => void }) {
+  return (
+    <div 
+      onClick={onClick}
+      className="flex flex-col items-center justify-center p-2 rounded-full cursor-pointer hover:bg-slate-100 transition-all group relative"
+    >
+      <div className="transform group-hover:scale-125 transition-transform">
+        {icon}
+      </div>
+      <span className="absolute -bottom-6 text-[8px] font-bold text-slate-400 group-hover:text-black opacity-0 group-hover:opacity-100 transition-opacity">
+        {label}
+      </span>
     </div>
   )
 }
