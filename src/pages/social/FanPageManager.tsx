@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Globe, Shield, Star, Trash2, Edit3, User, CheckCircle } from 'lucide-react';
-import { collection, addDoc, serverTimestamp, query, getDocs, onSnapshot } from 'firebase/firestore';
+import { Plus, Trash2, Edit3, CheckCircle, X, Users } from 'lucide-react';
+import { collection, addDoc, serverTimestamp, query, onSnapshot } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { usePageStore } from '../../store/pageStore';
 import { useFirebase } from '../../contexts/FirebaseContext';
@@ -21,7 +21,7 @@ interface FanPage {
 }
 
 export function FanPageManager() {
-  const { pages, setPages, setActivePage } = usePageStore();
+  const { pages, setPages } = usePageStore();
   const { user } = useFirebase();
   const [isCreating, setIsCreating] = useState(false);
   const [newPage, setNewPage] = useState({
@@ -49,7 +49,7 @@ export function FanPageManager() {
   const handleCreatePage = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const docRef = await addDoc(collection(db, 'fanpages'), {
+      await addDoc(collection(db, 'fanpages'), {
         ...newPage,
         adminId: user?.uid || 'admin-system',
         followersCount: 0,

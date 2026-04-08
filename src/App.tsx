@@ -10,7 +10,7 @@ import FriendsPage from './pages/social/FriendsPage';
 import NotificationsPage from './pages/social/NotificationsPage';
 import SettingsPage from './pages/settings/SettingsPage';
 import AboutPage from './pages/about/AboutPage';
-import FanPageManager from './pages/social/FanPageManager';
+import { FanPageManager } from './pages/social/FanPageManager';
 
 import { VersionManager } from './components/VersionManager';
 

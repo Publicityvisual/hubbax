@@ -93,6 +93,8 @@ const POSTS_DEMO: Post[] = [
   }
 ];
 
+import ErrorBoundary from '../common/ErrorBoundary';
+
 export function Feed() {
   const { user: currentUser } = useFirebase();
   const [posts, setPosts] = useState<Post[]>(POSTS_DEMO);
@@ -150,14 +152,21 @@ export function Feed() {
 
   return (
     <div className="w-full max-w-[680px] mx-auto pb-8 bg-transparent px-2">
-      <Stories />
-      <CreatePost currentUser={currentUser} />
+      <ErrorBoundary name="Historias">
+        <Stories />
+      </ErrorBoundary>
+
+      <ErrorBoundary name="Creador de Post">
+        <CreatePost currentUser={currentUser} />
+      </ErrorBoundary>
       
       <div className="space-y-6 mt-6">
         {posts.map((post) => (
-          <div key={post.id} className="w-full">
-            <PostCard {...post} />
-          </div>
+          <ErrorBoundary key={post.id} name={`Post ${post.id}`}>
+            <div className="w-full">
+              <PostCard {...post} />
+            </div>
+          </ErrorBoundary>
         ))}
       </div>
 
