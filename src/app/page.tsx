@@ -6,10 +6,8 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "sonner"
-import { Lock, Mail, ChevronRight } from "lucide-react"
+import { Lock, Mail } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 
@@ -34,7 +32,7 @@ export default function HomePage() {
       toast.success("Acceso concedido")
       router.push("/dashboard")
     } catch (err: any) {
-      toast.error("Credenciales incorrectas")
+      toast.error("El correo o la contraseña son incorrectos")
     } finally {
       setLoading(false)
     }
@@ -42,17 +40,17 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4 py-10 font-sans">
-      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         
-        {/* Brand Side - Facebook style messaging */}
-        <div className="text-center lg:text-left space-y-6">
+        {/* Brand Side - Exact Facebook Copy Logic */}
+        <div className="text-center lg:text-left space-y-4">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center justify-center lg:justify-start gap-3 mb-8"
+            className="flex items-center justify-center lg:justify-start gap-3 mb-4"
           >
             <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center text-white font-black text-3xl shadow-lg">H</div>
-            <span className="text-5xl font-black tracking-tighter text-black uppercase italic">
+            <span className="text-6xl font-black tracking-tighter text-black uppercase italic">
               Hubbax <span className="text-red-600">Inc</span>
             </span>
           </motion.div>
@@ -61,81 +59,65 @@ export default function HomePage() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-5xl md:text-6xl font-black text-black leading-tight tracking-tight"
+            className="text-4xl md:text-6xl font-black text-black leading-tight tracking-tight"
           >
-            Conecta con la <span className="text-red-600">élite</span> profesional.
+            Hubbax te ayuda a <span className="text-red-600">conectar</span> y mantener el contacto con los líderes y visionarios que impulsan el mundo.
           </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-xl text-slate-500 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium"
-          >
-            Súmate a la infraestructura digital diseñada por <span className="text-black font-bold">Publicity Visual</span> para líderes y visionarios.
-          </motion.p>
         </div>
 
-        {/* Login Card - High Fidelity Professional */}
+        {/* Login Card - Exact Facebook UX */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
-          className="w-full max-w-[420px] mx-auto"
+          className="w-full max-w-[400px] mx-auto"
         >
-          <Card className="fb-shadow border-none rounded-[1rem] bg-white overflow-hidden">
-            <CardContent className="p-6 space-y-6">
-              <form onSubmit={handleLogin} className="space-y-4">
-                <div className="space-y-2">
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                    <Input 
-                      type="email" 
-                      placeholder="Correo electrónico o teléfono" 
-                      className="pl-10 h-12 bg-slate-50 border-slate-200 focus:ring-red-600 rounded-md transition-all" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required 
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                    <Input 
-                      type="password" 
-                      placeholder="Contraseña" 
-                      className="pl-10 h-12 bg-slate-50 border-slate-200 focus:ring-red-600 rounded-md transition-all" 
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required 
-                    />
-                  </div>
-                </div>
-                <Button 
-                  disabled={loading} 
-                  className="w-full h-12 font-bold text-lg bg-red-600 hover:bg-red-700 text-white shadow-md transition-all rounded-md"
-                >
-                  {loading ? "Validando..." : "Iniciar sesión"}
-                </Button>
-                <div className="text-center py-2">
-                  <Link href="/forgot" className="text-red-600 text-sm font-medium hover:underline">¿Olvidaste tu contraseña?</Link>
-                </div>
-              </form>
-              
-              <div className="border-t border-slate-200 pt-6 flex justify-center">
+          <div className="bg-white fb-shadow border border-slate-200 rounded-lg p-4 space-y-4">
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <Input 
+                  type="email" 
+                  placeholder="Correo electrónico o teléfono" 
+                  className="pl-10 h-12 bg-white border-slate-300 focus:ring-red-600 rounded-md transition-all" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required 
+                />
+              </div>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <Input 
+                  type="password" 
+                  placeholder="Contraseña" 
+                  className="pl-10 h-12 bg-white border-slate-300 focus:ring-red-600 rounded-md transition-all" 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required 
+                />
+              </div>
+              <Button 
+                disabled={loading} 
+                className="w-full h-12 font-bold text-xl bg-red-600 hover:bg-red-700 text-white shadow-md transition-all rounded-md"
+              >
+                {loading ? "Cargando..." : "Iniciar sesión"}
+              </Button>
+              <div className="text-center py-2">
+                <Link href="/forgot" className="text-red-600 text-sm font-medium hover:underline">¿Olvidaste tu contraseña?</Link>
+              </div>
+              <div className="border-t border-slate-200 pt-6 text-center">
                 <Link 
                   href="/register" 
-                  className="bg-black text-white px-6 py-3 rounded-md font-bold text-sm hover:bg-slate-800 transition-all shadow-sm"
+                  className="bg-black text-white px-4 py-3 rounded-md font-bold text-sm hover:bg-slate-800 transition-all"
                 >
                   Crear cuenta nueva
                 </Link>
               </div>
-            </CardContent>
-          </Card>
+            </form>
+          </div>
           
-          <p className="text-center text-slate-500 text-sm mt-8 font-medium">
-            <strong>Súmate a Hubbax</strong>, la red profesional más exclusiva del mundo.
+          <p className="text-center text-slate-500 text-sm mt-6 font-medium">
+            <strong className="text-black">Súmate a Hubbax</strong>, la red profesional más exclusiva del mundo.
           </p>
         </motion.div>
       </div>
