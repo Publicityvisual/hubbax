@@ -72,7 +72,7 @@ const EnergyBackground = () => {
 };
 
 export default function LoginPage() {
-  const { isAuthenticated } = useFirebase();
+  const { isAuthenticated, login } = useFirebase();
   const [isLoading, setIsLoading] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const navigate = useNavigate();
@@ -131,14 +131,16 @@ export default function LoginPage() {
       } else {
         localStorage.removeItem('hubbax_remembered_email');
       }
-    } catch {
-      // Ignore storage errors
-    }
-
-    setTimeout(() => {
+      
+      // REAL AUTHENTICATION
+      await login(data.email, data.password);
+      
+    } catch (error: any) {
+      console.error('Login error:', error);
+      alert(error.message || 'Error al iniciar sesión. Verifica tus credenciales.');
+    } finally {
       setIsLoading(false);
-      navigate('/feed');
-    }, 2000);
+    }
   };
 
   // GSAP Entrance & Pulse
