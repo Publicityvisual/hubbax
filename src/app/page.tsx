@@ -24,7 +24,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="px-6 pt-24 pb-32 max-w-7xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-xs font-bold mb-8 animate-fade-in">
-          <Zap size={14} fill="currentColor" /> <span>EL FUTURO DEL NETWORKING PROFESIONAL</span>
+          <Zap size={14} fill="currentColor" /> <span>SISTEMA HUBBAX V2.0 - ACTIVADO</span>
         </div>
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-slate-900 mb-8 leading-[1.1]">
           Lidera tu carrera en <br />
