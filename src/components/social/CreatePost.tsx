@@ -6,12 +6,18 @@ import { db, storage } from '../../lib/firebase';
 import { useFirebase } from '../../contexts/FirebaseContext';
 
 export function CreatePost({ currentUser: propsUser }: { currentUser?: any }) {
-  const { user, profile } = useFirebase();
-  const user = propsUser || profile || { 
+  const { profile } = useFirebase();
+  
+  // Prioritize profile over propsUser (Firebase User) or fallbacks
+  const user = profile || (propsUser ? {
+    fullName: propsUser.displayName || 'Admin',
+    avatar: propsUser.photoURL || 'https://ui-avatars.com/api/?name=Admin',
+    username: propsUser.email?.split('@')[0] || 'admin'
+  } : { 
     fullName: 'Admin', 
     avatar: 'https://ui-avatars.com/api/?name=Admin', 
     username: 'admin' 
-  };
+  });
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [text, setText] = useState('');

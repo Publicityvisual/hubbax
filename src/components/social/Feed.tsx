@@ -100,16 +100,17 @@ export function Feed() {
 
   // 🧠 CARGA POSTS PROFESSIONAL ANTI-ERROR
   useEffect(() => {
+    let active = true;
+
     const loadPosts = async () => {
       let fallbackTimer: NodeJS.Timeout | null = null;
       
       try {
         setIsLoading(true);
-        // Removed setError - not needed for normal operation
 
-        // Fallback instantáneo a posts demo (no timeout molesto)
+        // Fallback instantáneo a posts demo
         fallbackTimer = setTimeout(() => {
-          if (posts.length === 0 && isLoading) {
+          if (active && posts.length === 0 && isLoading) {
             console.log('Fallback a posts demo - feed functional');
             setPosts(POSTS_DEMO);
             setIsLoading(false);
@@ -125,6 +126,7 @@ export function Feed() {
           unsubscribe = onSnapshot(
             postsQuery,
             (snapshot) => {
+              if (!active) return;
               clearTimeout(fallbackTimer!);
               
               try {
@@ -146,11 +148,14 @@ export function Feed() {
                       isHubbaxVerified: data.isHubbaxVerified || false
                     } as Post;
                   })
-                  .filter(post => post.authorId); // Solo posts válidos
+                  .filter(post => post.authorId);
 
                 if (postsData.length > 0) {
                   console.log(`✅ Posts reales cargados: ${postsData.length}`);
                   setPosts(postsData);
+                } else {
+                  // Si no hay posts reales, mostramos los demo
+                  setPosts(POSTS_DEMO);
                 }
                 
                 setIsLoading(false);
@@ -162,37 +167,36 @@ export function Feed() {
               }
             },
             (_error) => {
+              if (!active) return;
               console.log('Firebase no disponible - usando posts demo');
               setPosts(POSTS_DEMO);
               setIsLoading(false);
             }
           );
           
-          return () => {
-            clearTimeout(fallbackTimer!);
-            if (unsubscribe) unsubscribe();
-          };
-          
         } catch (firebaseError) {
-          console.log('Firebase no disponible - posts demo activos');
-          setPosts(POSTS_DEMO);
-          setIsLoading(false);
-          return () => {
-            if (fallbackTimer) clearTimeout(fallbackTimer);
-          };
+          if (active) {
+            console.log('Firebase no disponible - posts demo activos');
+            setPosts(POSTS_DEMO);
+            setIsLoading(false);
+          }
         }
         
       } catch (criticalError) {
-        console.error('Error crítico en feed:', criticalError);
-        clearTimeout(fallbackTimer!);
-        setPosts(POSTS_DEMO);
-        setIsLoading(false);
+        if (active) {
+          console.error('Error crítico en feed:', criticalError);
+          setPosts(POSTS_DEMO);
+          setIsLoading(false);
+        }
       }
     };
 
     loadPosts();
     
-  }, []); // Sin dependencias para performance máxima
+    return () => {
+      active = false;
+    };
+  }, []);
 
   // 🎪 RENDER VISIBLE Y FUNCIONAL
   
