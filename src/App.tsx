@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { FirebaseProvider } from './contexts/FirebaseContext';
@@ -14,6 +13,7 @@ import { FanPageManager } from './pages/social/FanPageManager';
 
 import { VersionManager } from './components/VersionManager';
 import GlobalErrorBoundary from './components/common/GlobalErrorBoundary';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
 
 import RecoveryPage from './pages/auth/RecoveryPage';
 
@@ -27,16 +27,48 @@ function App() {
             <Routes>
               <Route path="/" element={<LoginPage />} />
               
-              <Route path="/feed" element={<HomePage />} />
-              <Route path="/profile/:username" element={<ProfilePage />} />
-              <Route path="/me" element={<ProfilePage />} />
+              {/* Rutas Protegidas - Nadie entra sin login */}
+              <Route path="/feed" element={
+                <ProtectedRoute>
+                  <HomePage />
+                </ProtectedRoute>
+              } />
+              <Route path="/profile/:username" element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              } />
+              <Route path="/me" element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              } />
               
-              {/* New Pages */}
-              <Route path="/friends" element={<FriendsPage />} />
-              <Route path="/notifications" element={<NotificationsPage />} />
-              <Route path="/settings" element={<SettingsPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/fanpages" element={<FanPageManager />} />
+              <Route path="/friends" element={
+                <ProtectedRoute>
+                  <FriendsPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/notifications" element={
+                <ProtectedRoute>
+                  <NotificationsPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/settings" element={
+                <ProtectedRoute>
+                  <SettingsPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/about" element={
+                <ProtectedRoute>
+                  <AboutPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/fanpages" element={
+                <ProtectedRoute>
+                  <FanPageManager />
+                </ProtectedRoute>
+              } />
               
               {/* Auth Pages */}
               <Route path="/supreme-admin" element={<SupremeAdminLogin onSupremeLogin={() => console.log('Supreme admin login attempted')} />} />
