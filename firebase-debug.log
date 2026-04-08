@@ -1,0 +1,78 @@
+[debug] [2026-04-08T17:40:49.492Z] ----------------------------------------------------------------------
+[debug] [2026-04-08T17:40:49.495Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\djkov\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-04-08T17:40:49.495Z] CLI Version:   15.13.0
+[debug] [2026-04-08T17:40:49.495Z] Platform:      win32
+[debug] [2026-04-08T17:40:49.495Z] Node Version:  v25.2.1
+[debug] [2026-04-08T17:40:49.495Z] Time:          Wed Apr 08 2026 11:40:49 GMT-0600 (hora estándar central)
+[debug] [2026-04-08T17:40:49.495Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-04-08T17:40:50.907Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-08T17:40:50.907Z] > authorizing via signed-in user (publicityvisualofficial@gmail.com)
+[debug] [2026-04-08T17:40:50.907Z] [iam] checking project hubbax-711a1 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-04-08T17:40:50.908Z] Checked if tokens are valid: true, expires at: 1775673399917
+[debug] [2026-04-08T17:40:50.908Z] Checked if tokens are valid: true, expires at: 1775673399917
+[debug] [2026-04-08T17:40:50.909Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/hubbax-711a1:testIamPermissions [none]
+[debug] [2026-04-08T17:40:50.909Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/hubbax-711a1:testIamPermissions  x-goog-user-project=hubbax-711a1
+[debug] [2026-04-08T17:40:50.909Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/hubbax-711a1:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-04-08T17:40:51.259Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/hubbax-711a1:testIamPermissions 200
+[debug] [2026-04-08T17:40:51.259Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/hubbax-711a1:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-04-08T17:40:51.259Z] Checked if tokens are valid: true, expires at: 1775673399917
+[debug] [2026-04-08T17:40:51.260Z] Checked if tokens are valid: true, expires at: 1775673399917
+[debug] [2026-04-08T17:40:51.260Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/hubbax-711a1 [none]
+[debug] [2026-04-08T17:40:51.462Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/hubbax-711a1 200
+[debug] [2026-04-08T17:40:51.463Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/hubbax-711a1 {"projectId":"hubbax-711a1","projectNumber":"911317119851","displayName":"HubbaX","name":"projects/hubbax-711a1","resources":{"hostingSite":"hubbax-711a1"},"state":"ACTIVE","etag":"1_32077ee5-5b97-450a-8711-cd956b59c567"}
+[debug] [2026-04-08T17:40:53.788Z] Checked if tokens are valid: true, expires at: 1775673399917
+[debug] [2026-04-08T17:40:53.788Z] Checked if tokens are valid: true, expires at: 1775673399917
+[debug] [2026-04-08T17:40:53.788Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/hubbax-711a1/sites pageToken=&pageSize=10
+[debug] [2026-04-08T17:40:54.429Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/hubbax-711a1/sites 200
+[debug] [2026-04-08T17:40:54.429Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/hubbax-711a1/sites {"sites":[{"name":"projects/hubbax-711a1/sites/hubbax-711a1","defaultUrl":"https://hubbax-711a1.web.app","appId":"1:911317119851:web:67d7f581872c6f886e122e","type":"DEFAULT_SITE"}]}
+[debug] [2026-04-08T17:40:54.430Z] Checked if tokens are valid: true, expires at: 1775673399917
+[debug] [2026-04-08T17:40:54.430Z] Checked if tokens are valid: true, expires at: 1775673399917
+[debug] [2026-04-08T17:40:54.430Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:911317119851:web:67d7f581872c6f886e122e/config [none]
+[debug] [2026-04-08T17:40:54.825Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:911317119851:web:67d7f581872c6f886e122e/config 200
+[debug] [2026-04-08T17:40:54.826Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:911317119851:web:67d7f581872c6f886e122e/config {"projectId":"hubbax-711a1","appId":"1:911317119851:web:67d7f581872c6f886e122e","storageBucket":"hubbax-711a1.firebasestorage.app","apiKey":"AIzaSyBGXQF3k09v8lJa2udwRD-rXtdaa03X05g","authDomain":"hubbax-711a1.firebaseapp.com","messagingSenderId":"911317119851","measurementId":"G-QGLCQLFS4Z","projectNumber":"911317119851","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2026-04-08T17:40:59.602Z] Checked if tokens are valid: true, expires at: 1775673399917
+[debug] [2026-04-08T17:40:59.602Z] Checked if tokens are valid: true, expires at: 1775673399917
+[debug] [2026-04-08T17:40:59.602Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/hubbax-711a1/sites/hubbax-711a1 [none]
+[debug] [2026-04-08T17:41:00.168Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/hubbax-711a1/sites/hubbax-711a1 200
+[debug] [2026-04-08T17:41:00.168Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/hubbax-711a1/sites/hubbax-711a1 {"name":"projects/hubbax-711a1/sites/hubbax-711a1","defaultUrl":"https://hubbax-711a1.web.app","appId":"1:911317119851:web:67d7f581872c6f886e122e","type":"DEFAULT_SITE"}
+[info] ▲ Next.js 16.2.2 (Turbopack)
+
+[info] 
+
+[info]   Creating an optimized production build ...
+
+[info] ✓ Compiled successfully in 3.3s
+
+[info]   Running TypeScript ...
+
+[info] Failed to type check.
+
+
+[info] ./src/app/dashboard/page.tsx:211:21
+Type error: JSX element class does not support attributes because it does not have a 'props' property.
+
+  209 |                 <div className="w-20 h-28 rounded-2xl border-2 border-red-600 p-1 relativ...
+  210 |                   <div className="w-full h-full rounded-xl bg-slate-100 overflow-hidden r...
+> 211 |                     <Image src={`https://i.pravatar.cc/150?u=story${i}`} alt="User" width...
+      |                     ^
+  212 |                     <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-whi...
+  213 |                   </div>
+  214 |                 </div>
+
+[info] Next.js build worker exited with code: 1 and signal: null
+
+[debug] [2026-04-08T17:41:07.937Z] Error: ENOENT: no such file or directory, open 'C:\Users\djkov\hubbax\.next\export-marker.json'
+[error] 
+[error] Error: An unexpected error has occurred.

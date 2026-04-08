@@ -17,6 +17,7 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 
 export default function Dashboard() {
   const router = useRouter()
@@ -26,6 +27,7 @@ export default function Dashboard() {
   const [newPost, setNewPost] = useState("")
   const [loading, setLoading] = useState(true)
   const [reactingPost, setReactingPost] = useState<string | null>(null)
+  const [floatingReactions, setFloatingReactions] = useState<{id: number, x: number, y: number, icon: React.ReactNode}[]>([])
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -69,7 +71,7 @@ export default function Dashboard() {
         headline: profile?.headline || "Member",
         createdAt: serverTimestamp(),
         likes: 0,
-        reactions: {},
+        reactions: [],
         comments: 0
       })
       setNewPost("")
@@ -79,12 +81,23 @@ export default function Dashboard() {
     }
   }
 
-  const handleReaction = async (postId: string, type: string) => {
+  const spawnFloatingReaction = (icon: React.ReactNode) => {
+    const id = Date.now()
+    const x = window.innerWidth / 2 + (Math.random() * 200 - 100)
+    const y = window.innerHeight / 2
+    setFloatingReactions(prev => [...prev, { id, x, y, icon }])
+    setTimeout(() => {
+      setFloatingReactions(prev => prev.filter(r => r.id !== id))
+    }, 2000)
+  }
+
+  const handleReaction = async (postId: string, type: string, icon: React.ReactNode) => {
     try {
       const postRef = doc(db, "posts", postId)
       await updateDoc(postRef, {
         reactions: arrayUnion({ uid: user.uid, type })
       })
+      spawnFloatingReaction(icon)
       toast.success(`Reacción ${type} enviada`)
       setReactingPost(null)
     } catch (err) {
@@ -107,7 +120,23 @@ export default function Dashboard() {
   )
 
   return (
-    <div className="min-h-screen bg-[#f0f2f5] text-[#1c1e21] font-sans">
+    <div className="min-h-screen bg-[#f0f2f5] text-[#1c1e21] font-sans relative">
+      {/* FLOATING REACTIONS EFFECT */}
+      <AnimatePresence>
+        {floatingReactions.map(r => (
+          <motion.div 
+            key={r.id}
+            initial={{ opacity: 0, y: r.y, x: r.x, scale: 0.5 }}
+            animate={{ opacity: [0, 1, 0], y: r.y - 300, x: r.x + (Math.random() * 100 - 50), scale: [0.5, 1.5, 1] }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2, ease: "easeOut" }}
+            className="fixed z-[100] pointer-events-none text-4xl"
+          >
+            {r.icon}
+          </motion.div>
+        ))}
+      </AnimatePresence>
+
       {/* TOP NAV */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-slate-200 h-14 flex items-center justify-between px-4">
         <div className="flex items-center gap-4">
@@ -191,12 +220,12 @@ export default function Dashboard() {
 
         {/* CENTER FEED */}
         <main className="lg:col-span-6 space-y-6 pb-12">
-          {/* STORIES BAR - Facebook Style */}
+          {/* STORIES BAR */}
           <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
             <div className="flex-shrink-0 cursor-pointer group relative">
               <div className="w-20 h-28 rounded-2xl border-2 border-red-600 p-1 relative overflow-hidden">
                 <div className="w-full h-full rounded-xl bg-slate-100 overflow-hidden relative">
-                   <AvatarImage src={profile?.avatar || `https://i.pravatar.cc/150?u=${user?.uid}`} className="w-full h-full object-cover" />
+                   <Image src={profile?.avatar || `https://i.pravatar.cc/150?u=${user?.uid}`} alt="Me" width={80} height={112} className="w-full h-full object-cover" />
                    <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-white text-[10px] p-1 text-center font-bold">Añadir Story</div>
                 </div>
               </div>
@@ -228,7 +257,7 @@ export default function Dashboard() {
                   <Input 
                     value={newPost}
                     onChange={(e) => setNewPost(e.target.value)}
-                    placeholder={`¿Qué hay de nuevo, ${profile?.fullName.split(" ")[0] || "Elite"}?`} 
+                    placeholder={`¿Qué hay de nuevo, ${profile?.fullName?.split(" ")[0] || "Elite"}?`} 
                     className="border-none bg-slate-100 rounded-full h-10 pl-4 focus:ring-2 focus:ring-red-600 text-sm" 
                   />
                   <div className="flex items-center justify-between pt-1">
@@ -306,14 +335,14 @@ export default function Dashboard() {
                                 {reactingPost === post.id && (
                                   <motion.div 
                                     initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                                    animate={{ opacity: 1, y: -40, scale: 1 }}
+                                    animate={{ opacity: 1, y: -45, scale: 1 }}
                                     exit={{ opacity: 0, y: 10, scale: 0.8 }}
-                                    className="absolute bottom-full left-0 bg-white shadow-xl border border-slate-100 rounded-full p-2 flex gap-2 z-50"
+                                    className="absolute bottom-full left-0 bg-white shadow-2xl border border-slate-100 rounded-full p-2 flex gap-2 z-50 ring-1 ring-black/5"
                                   >
-                                    <ReactionBtn icon={<Heart className="text-red-500" size={16}/>} label="Súper" onClick={() => handleReaction(post.id, 'heart')} />
-                                    <ReactionBtn icon={<Flame className="text-orange-500" size={16}/>} label="Fuego" onClick={() => handleReaction(post.id, 'fire')} />
-                                    <ReactionBtn icon={<Lightbulb className="text-yellow-500" size={16}/>} label="Brillante" onClick={() => handleReaction(post.id, 'idea')} />
-                                    <ReactionBtn icon={<Rocket className="text-blue-500" size={16}/>} label="Boost" onClick={() => handleReaction(post.id, 'boost')} />
+                                    <ReactionBtn icon={<Heart className="text-red-500" size={18}/>} label="Súper" onClick={() => handleReaction(post.id, 'heart', <Heart className="text-red-500" size={32}/>)} />
+                                    <ReactionBtn icon={<Flame className="text-orange-500" size={18}/>} label="Fuego" onClick={() => handleReaction(post.id, 'fire', <Flame className="text-orange-500" size={32}/>)} />
+                                    <ReactionBtn icon={<Lightbulb className="text-yellow-500" size={18}/>} label="Brillante" onClick={() => handleReaction(post.id, 'idea', <Lightbulb className="text-yellow-500" size={32}/>)} />
+                                    <ReactionBtn icon={<Rocket className="text-blue-500" size={18}/>} label="Boost" onClick={() => handleReaction(post.id, 'boost', <Rocket className="text-blue-500" size={32}/>)} />
                                   </motion.div>
                                 )}
                               </AnimatePresence>
@@ -415,16 +444,18 @@ function ModuleItem({ icon, label }: { icon: React.ReactNode, label: string }) {
 
 function ReactionBtn({ icon, label, onClick }: { icon: React.ReactNode, label: string, onClick: () => void }) {
   return (
-    <div 
+    <motion.div 
+      whileHover={{ scale: 1.3 }}
+      whileTap={{ scale: 0.9 }}
       onClick={onClick}
       className="flex flex-col items-center justify-center p-2 rounded-full cursor-pointer hover:bg-slate-100 transition-all group relative"
     >
-      <div className="transform group-hover:scale-125 transition-transform">
+      <div className="transform group-hover:scale-110 transition-transform">
         {icon}
       </div>
-      <span className="absolute -bottom-6 text-[8px] font-bold text-slate-400 group-hover:text-black opacity-0 group-hover:opacity-100 transition-opacity">
+      <span className="absolute -bottom-6 text-[8px] font-bold text-slate-400 group-hover:text-black opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
         {label}
       </span>
-    </div>
+    </motion.div>
   )
 }
